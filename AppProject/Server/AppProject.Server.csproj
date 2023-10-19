@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\AppProject.Client.csproj" />
-    <ProjectReference Include="..\SecondClient\AppProject.SecondClient.csproj" />
+    <ProjectReference Include="..\SecondClient\AppProject.AdminClient.csproj" />
     <ProjectReference Include="..\Shared\AppProject.Shared.csproj" />
   </ItemGroup>
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject.Client", "AppProject\Client\AppProject.Client.csproj", "{E805D934-2FD0-4CA8-954A-AF361E2E862C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject.SecondClient", "AppProject\SecondClient\AppProject.SecondClient.csproj", "{63C1F79E-E19B-4FA5-A026-585B2DEA3C52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject.AdminClient", "AppProject\SecondClient\AppProject.AdminClient.csproj", "{63C1F79E-E19B-4FA5-A026-585B2DEA3C52}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject.Server", "AppProject\Server\AppProject.Server.csproj", "{2CE70A4B-71FF-44D1-B5A9-655E98FB3595}"
 EndProject

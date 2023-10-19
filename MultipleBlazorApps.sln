@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleBlazorApps.Server", "MultipleBlazorApps\Server\MultipleBlazorApps.Server.csproj", "{69CC62A1-86ED-4766-9B72-0E6773CD22A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleBlazorApps.Client", "MultipleBlazorApps\Client\MultipleBlazorApps.Client.csproj", "{EE9DCD7F-758F-4BC5-93A9-B29BCAF2D442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleBlazorApps.Shared", "MultipleBlazorApps\Shared\MultipleBlazorApps.Shared.csproj", "{3E020F28-A310-4C81-A3A5-D49F78EB25DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SecondClient", "SecondClient", "{F75D383E-76C0-45FF-AABB-22DDAC81C152}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleBlazorApps.SecondClient", "MultipleBlazorApps.SecondClient\MultipleBlazorApps.SecondClient.csproj", "{625F101A-E105-4FD9-A72C-738B230686E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69CC62A1-86ED-4766-9B72-0E6773CD22A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69CC62A1-86ED-4766-9B72-0E6773CD22A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69CC62A1-86ED-4766-9B72-0E6773CD22A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69CC62A1-86ED-4766-9B72-0E6773CD22A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE9DCD7F-758F-4BC5-93A9-B29BCAF2D442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE9DCD7F-758F-4BC5-93A9-B29BCAF2D442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE9DCD7F-758F-4BC5-93A9-B29BCAF2D442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE9DCD7F-758F-4BC5-93A9-B29BCAF2D442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E020F28-A310-4C81-A3A5-D49F78EB25DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E020F28-A310-4C81-A3A5-D49F78EB25DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E020F28-A310-4C81-A3A5-D49F78EB25DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E020F28-A310-4C81-A3A5-D49F78EB25DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{625F101A-E105-4FD9-A72C-738B230686E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{625F101A-E105-4FD9-A72C-738B230686E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{625F101A-E105-4FD9-A72C-738B230686E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{625F101A-E105-4FD9-A72C-738B230686E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{625F101A-E105-4FD9-A72C-738B230686E5} = {F75D383E-76C0-45FF-AABB-22DDAC81C152}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACC252F0-CC46-4B73-ABBE-65EE5528A805}
+	EndGlobalSection
+EndGlobal

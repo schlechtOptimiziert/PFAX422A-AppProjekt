@@ -1,9 +1,16 @@
+using AppProject.Server.EntityModel;
+using ÂppProject.Server.EntityModel.Repositories;
+using Server.EntityModel.Repositories.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSqlServer<AppProjectDbContext>(""); //ConnectionString
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 var app = builder.Build();
 

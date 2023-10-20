@@ -1,11 +1,9 @@
 ﻿using System.Linq.Expressions;
-using AppProject.Server.EntityModel;
 using AppProject.Server.EntityModel.Database;
 using Microsoft.EntityFrameworkCore;
 using Server.EntityModel.Repositories.Interfaces;
-using Shared = AppProject.Shared;
 
-namespace ÂppProject.Server.EntityModel.Repositories;
+namespace AppProject.Server.EntityModel.Repositories;
 
 public class ItemRepository : IItemRepository
 {

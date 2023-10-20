@@ -1,6 +1,4 @@
-﻿using Shared = AppProject.Shared;
-
-namespace Server.EntityModel.Repositories.Interfaces;
+﻿namespace AppProject.Server.EntityModel.Repositories.Interfaces;
 
 public interface IItemRepository
 {

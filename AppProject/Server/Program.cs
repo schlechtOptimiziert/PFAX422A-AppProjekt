@@ -1,6 +1,6 @@
 using AppProject.Server.EntityModel;
-using ÂppProject.Server.EntityModel.Repositories;
-using Server.EntityModel.Repositories.Interfaces;
+using AppProject.Server.EntityModel.Repositories;
+using AppProject.Server.EntityModel.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using AppProject.Server.EntityModel.Database;
+using AppProject.Server.EntityModel.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Server.EntityModel.Repositories.Interfaces;
 
 namespace AppProject.Server.EntityModel.Repositories;
 

@@ -1,8 +1,12 @@
-﻿using AppProject.Client.Helpers;
-using AppProject.Client.Interfaces;
+﻿using AppProject.ServerDataProvider.Helpers;
+using AppProject.ServerDataProvider.Interfaces;
 using AppProject.Shared;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace AppProject.Client;
+namespace AppProject.ServerDataProvider;
 
 public partial class Service : IItemService
 {
@@ -17,14 +21,14 @@ public partial class Service : IItemService
 
     public async Task<Item> GetItemAsync(long itemId, CancellationToken cancellationToken)
     {
-        var response = await httpClient.PostAsync($"{itemRequestUri}/{itemId}", null, cancellationToken).ConfigureAwait(false);
+        var response = await httpClient.GetAsync($"{itemRequestUri}/{itemId}", cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
         return await response.ReadAsAsync<Item>(cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<IEnumerable<Item>> GetItemsAsync(long campaignId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Item>> GetItemsAsync(CancellationToken cancellationToken)
     {
-        var response = await httpClient.PostAsync($"{itemRequestUri}?campaignId={campaignId}", null, cancellationToken).ConfigureAwait(false);
+        var response = await httpClient.GetAsync($"{itemRequestUri}", cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
         return await response.ReadAsAsync<IEnumerable<Item>>(cancellationToken).ConfigureAwait(false);
     }

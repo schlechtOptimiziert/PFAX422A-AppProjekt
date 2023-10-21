@@ -1,4 +1,6 @@
-﻿namespace AppProject.Client.Interfaces;
+﻿using System.Net.Http;
+
+namespace AppProject.ServerDataProvider.Interfaces;
 
 public interface IService :
     IItemService

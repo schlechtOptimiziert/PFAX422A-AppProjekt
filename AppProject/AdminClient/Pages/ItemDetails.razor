@@ -1,0 +1,20 @@
+﻿@page "/items/{Id:long}"
+@page "/items/create"
+
+@inject IDialogService DialogService
+@inherits BasePage
+
+@if (item != null)
+{
+    <MudPaper Class="pa-4">
+        <MudForm @ref="form" FieldChanged="FieldChanged">
+            <MudNumericField Label="Id" Value="@item.Id" Disabled="true" />
+            <MudTextField @bind-Value="@item.Name" Label="Name" Required="true" />
+            <MudCardActions>
+                <MudBadge Class="ml-auto" Origin="Origin.TopRight" Color="@badgeColor" Overlap="true" Bordered="true" Icon="@badgeIcon" Visible="!IsCreate">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveItem">Save</MudButton>
+                </MudBadge>
+            </MudCardActions>
+        </MudForm>
+    </MudPaper>
+}

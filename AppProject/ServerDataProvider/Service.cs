@@ -1,6 +1,8 @@
-﻿using AppProject.Client.Interfaces;
+﻿using AppProject.ServerDataProvider.Interfaces;
+using System;
+using System.Net.Http;
 
-namespace AppProject.Client;
+namespace AppProject.ServerDataProvider;
 
 public partial class Service : IService
 {

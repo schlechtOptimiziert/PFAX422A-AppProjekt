@@ -1,14 +1,23 @@
 using AppProject.Server.EntityModel;
 using AppProject.Server.EntityModel.Repositories;
 using AppProject.Server.EntityModel.Repositories.Interfaces;
+using AppProject.Server.Settings;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var baseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "AppProject");
+builder.Configuration.AddJsonFile(Path.Combine(baseFolder, "appsettings.json"));
+builder.Configuration.AddEnvironmentVariables();
+
+var serviceConfig = builder.Configuration.Get<ServiceConfiguration>();
+builder.Services.AddSingleton(serviceConfig);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddSqlServer<AppProjectDbContext>(""); //ConnectionString
+builder.Services.AddSqlServer<AppProjectDbContext>(serviceConfig.ConnectionStrings.Db);
 
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 

@@ -1,15 +1,10 @@
 ﻿using AppProject.Shared;
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 
 namespace AppProject.AdminClient.Pages;
 
 partial class Items : BasePage
 {
-    MudForm form;
-    Color badgeColor = Color.Success;
-    string badgeIcon = Icons.Material.Outlined.Lock;
-
     private IEnumerable<Item> items = Enumerable.Empty<Item>();
 
     [Parameter]

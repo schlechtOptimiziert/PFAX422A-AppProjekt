@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider />
 <MudDialogProvider />
@@ -6,17 +7,17 @@
 
 
 <div class="page">
-   <div class="sidebar">
-      <NavMenu />
-   </div>
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
 
-   <main>
-      <div class="top-row px-4">
-         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-      </div>
-
-      <article class="content px-4">
-         @Body
-      </article>
-   </main>
+    <div style="justify-content: flex-end">
+        <MudTabs Outlined="true" Centered="true" Position="Position.Bottom" MinimumTabWidth="33vw">
+            <MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
+            <MudTabPanel Icon="@Icons.Material.Filled.Calculate" OnClick="@(() => NavigationManager.NavigateTo("/counter"))" />
+            <MudTabPanel Icon="@Icons.Material.Filled.AutoGraph" OnClick="@(() => NavigationManager.NavigateTo("/fetchdata"))" />
+        </MudTabs>
+    </div>
 </div>

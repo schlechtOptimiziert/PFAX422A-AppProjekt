@@ -12,7 +12,7 @@
 
 2. Befuellen der DB
 >1. Konsole in .\PFAX422A-AppProjekt\AppProject\Server oeffnen
->2. Updaten der DB mit gegebenen migraionen<br/>
+>2. Updaten der DB mit gegebenen Migrationen<br/>
 >"dotnet ef database update"
 
 3. Freuen

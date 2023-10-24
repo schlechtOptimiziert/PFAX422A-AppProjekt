@@ -6,18 +6,17 @@
 <MudSnackbarProvider />
 
 
-<div class="page">
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-
-    <div style="justify-content: flex-end">
-        <MudTabs Outlined="true" Centered="true" Position="Position.Bottom" MinimumTabWidth="33vw">
+<MudPaper>
+    <MudStack Justify="Justify.FlexEnd">
+        <main>
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+        <MudTabs Outlined="true" Centered="true" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)">
             <MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
             <MudTabPanel Icon="@Icons.Material.Filled.Calculate" OnClick="@(() => NavigationManager.NavigateTo("/counter"))" />
             <MudTabPanel Icon="@Icons.Material.Filled.AutoGraph" OnClick="@(() => NavigationManager.NavigateTo("/fetchdata"))" />
         </MudTabs>
-    </div>
-</div>
+    </MudStack>
+</MudPaper>

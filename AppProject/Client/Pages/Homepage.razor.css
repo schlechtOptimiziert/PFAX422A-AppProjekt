@@ -1,0 +1,16 @@
+﻿*{
+   padding: 0px;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.MudTabs{
+
+   margin-top: 900%;
+   position: relative;
+   display: flex;
+}
+
+/*
+.mainLayout{
+   display: grid;
+} */

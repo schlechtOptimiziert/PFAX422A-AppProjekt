@@ -6,7 +6,7 @@ namespace AppProject.Server.Controllers
     [ApiController]
     [Route("FirstApp/[controller]")]
     [Route("SecondApp/[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {

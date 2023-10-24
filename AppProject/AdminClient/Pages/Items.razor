@@ -1,0 +1,20 @@
+﻿@page "/items"
+
+@inherits BasePage
+
+<MudText Typo="Typo.h3">Items</MudText>
+<MudFab StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Href="@($"Items/create")" Size="Size.Small" />
+<MudTable Items="@items" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@IsLoading" LoadingProgressColor="Color.Primary" FixedHeader="true">
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh />
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd Style="text-align:right">
+            <MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => GoToDetails(context.Id))">&rArr;</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>

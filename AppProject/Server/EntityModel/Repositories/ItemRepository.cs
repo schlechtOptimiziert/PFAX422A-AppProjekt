@@ -64,21 +64,8 @@ public static class ItemMappings
     }
 
     public static readonly Expression<Func<Item, Shared.Item>> MapItem = (item)
-        => Map(item);
-
-    public static IEnumerable<Shared.Item> Map(IEnumerable<Item> from)
-        => from.Select(Map);
-
-    public static Shared.Item Map(Item from)
-        => Map(from, null);
-
-    public static Shared.Item Map(Item from, Shared.Item to)
-    {
-        to ??= new();
-
-        to.Id = from.Id;
-        to.Name = from.Name;
-
-        return to;
-    }
+        => new Shared.Item {
+            Id = item.Id,
+            Name = item.Name,
+        };
 }

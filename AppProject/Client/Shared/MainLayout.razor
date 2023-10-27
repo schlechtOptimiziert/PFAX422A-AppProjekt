@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
-<AppProject.Client.Pages.Homepage></AppProject.Client.Pages.Homepage>
-<MudThemeProvider Theme="_currentTheme" DefaultScrollbar="true" />
+@inject NavigationManager NavigationManager
+
+<MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -8,53 +9,16 @@
    <MudAppBar Dense="true" Elevation="1" Color="Color.Primary">
       <MudImage Src="..\Assets\LogoTemp.png" Style="Height:3rem;"></MudImage>
    </MudAppBar>
-
-   <MudMainContent>
-      @*      Es braucht noch eine rückverlinkung wenn der link ungültig ist auf /home*@
-      @Body
-   </MudMainContent>
-
-   <MudAppBar Elevation="1" Style="top: auto; bottom: 0" Color="Color.Transparent">
-      <MudTabs Rounded="true"
-               Border="false"
-               Outlined="true"
-               >
-
-         <MudTabPanel Icon="@Icons.Material.Filled.Menu"></MudTabPanel >
-         <MudTabPanel Icon="@Icons.Material.Filled.ShoppingBag"></MudTabPanel>
-         <MudTabPanel Icon="@Icons.Material.Filled.Person"></MudTabPanel>
-      </MudTabs>
-   </MudAppBar>
-
 </MudLayout>
-
-@code {
-
-   private MudTheme _currentTheme = new MudTheme()
-      {
-         Palette = new Palette
-         {
-            Dark = "072D44",
-            Tertiary = "064469",
-            Primary = "#5790AB", //hautpfarbton
-            Secondary = "9CCDDB",
-            BackgroundGrey = "FFFFFF", //fuer cards etc
-            Surface = "FFFFFF",
-            GrayDefault = "D0D7E1",
-
-            Background = "#FFFFFF",
-            //AppbarBackground = "#064469",
-
-            /*
-             * Color Palette from Dark blue tu light to grey-ish
-             * #072D44
-             * #064469
-             * #5790AB
-             * #9CCDDB
-             * #D0D7E1
-             * 
-             * E6E6E6
-             */
-         },
-      };
-}
+<MudStack Justify="Justify.FlexEnd" Style="height: 100vh">
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+    <MudTabs Outlined="true" Centered="true" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)">
+        <MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
+        <MudTabPanel Icon="@Icons.Material.Filled.Calculate" OnClick="@(() => NavigationManager.NavigateTo("/counter"))" />
+        <MudTabPanel Icon="@Icons.Material.Filled.AutoGraph" OnClick="@(() => NavigationManager.NavigateTo("/fetchdata"))" />
+    </MudTabs>
+</MudStack>

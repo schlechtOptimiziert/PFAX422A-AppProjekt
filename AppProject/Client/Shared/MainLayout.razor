@@ -4,25 +4,29 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
+<MudLayout>
+   <MudAppBar Dense="true" Elevation="1" Color="Color.Primary">
+      <MudImage Src="..\Shared\Assets\LogoTemp.png"></MudImage>
+   </MudAppBar>
 
-@*
-<div class="page">
-   <div class="sidebar">
-      <NavMenu />
-   </div>
+   <MudMainContent>
+      @*      Es braucht noch eine rückverlinkung wenn der link ungültig ist auf /home*@
+      @Body
+   </MudMainContent>
 
-   <main>
-      <div class="top-row px-4">
-         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-      </div>
+   <MudAppBar Elevation="1" Style="top: auto; bottom: 0" Color="Color.Transparent">
+      <MudTabs Rounded="true"
+               Border="false"
+               Outlined="true"
+               >
 
-      <article class="content px-4">
-         @Body
-      </article>
-   </main>
-</div>
-*@
+         <MudTabPanel Icon="@Icons.Material.Filled.Menu"></MudTabPanel >
+         <MudTabPanel Icon="@Icons.Material.Filled.ShoppingBag"></MudTabPanel>
+         <MudTabPanel Icon="@Icons.Material.Filled.Person"></MudTabPanel>
+      </MudTabs>
+   </MudAppBar>
 
+</MudLayout>
 
 @code {
 
@@ -37,7 +41,6 @@
             BackgroundGrey = "FFFFFF", //fuer cards etc
             Surface = "FFFFFF",
             GrayDefault = "D0D7E1",
-           
 
             Background = "#FFFFFF",
             //AppbarBackground = "#064469",

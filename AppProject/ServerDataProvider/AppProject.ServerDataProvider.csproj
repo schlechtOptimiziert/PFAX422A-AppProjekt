@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\TransferModel\TransferModel.csproj" />
+        <ProjectReference Include="..\Shared\AppProject.Shared.csproj" />
     </ItemGroup>
 
 </Project>

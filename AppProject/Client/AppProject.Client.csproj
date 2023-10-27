@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,6 +9,10 @@
     <PropertyGroup>
         <StaticWebAssetBasePath>FirstApp</StaticWebAssetBasePath>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\Assets\LogoTemp.png" />
+    </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.21" />

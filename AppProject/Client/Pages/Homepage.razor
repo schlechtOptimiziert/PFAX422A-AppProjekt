@@ -2,10 +2,20 @@
 @using AppProject.Client.Pages.Components;
 @using AppProject.Client.Shared;
 
-<PageTitle>Games</PageTitle>
-
-Hello World
-
-@code {
-
-}
+<div style="display:flex; justify-content:space-evenly; margin-top:1rem;">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+        <img style="height:3rem; width:2rem;" src="../icons/computer-monitor.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+        <img style="height:3rem; width:2rem;" src="../icons/playstation.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+        <img style="height:3rem; width:2rem;" src="../icons/xbox.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+        <img style="height:3rem; width:2rem;" src="../icons/nintendo-switch.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+        <div style="height:3rem; width:2rem; padding-top:40%; font-weight:700;">All</div>
+    </MudButton>
+</div>

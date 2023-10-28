@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inherits BasePage
 @using AppProject.Client.Pages.Components;
 @using AppProject.Client.Shared;
 
@@ -19,3 +20,6 @@
         <div style="height:3rem; width:2rem; padding-top:40%; font-weight:700;">All</div>
     </MudButton>
 </div>
+
+<HorizontalProductScroller Title="Popular Games" Items="items"></HorizontalProductScroller>
+<HorizontalProductScroller Title="Recommended Games" Items="items"></HorizontalProductScroller>

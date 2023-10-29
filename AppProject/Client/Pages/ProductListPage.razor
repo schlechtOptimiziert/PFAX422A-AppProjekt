@@ -1,19 +1,11 @@
-﻿@page "/list/{PlatformInt:int}"
+﻿@page "/list/{PlatformString}"
+@page "/list/{PlatformString}/{SearchText}"
+@using AppProject.Shared;
 @inherits BasePage
 
-@if(platform != null)
+@foreach (Item item in items)
 {
-    @platform
+    <div class="item p-2 mt-3">
+        @item.Name
+    </div>
 }
-
-<MudTable Items="@items" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@IsLoading" LoadingProgressColor="Color.Primary" FixedHeader="true">
-    <HeaderContent>
-        <MudTh>Id</MudTh>
-        <MudTh>Name</MudTh>
-        <MudTh />
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Name">@context.Name</MudTd>
-    </RowTemplate>
-</MudTable>

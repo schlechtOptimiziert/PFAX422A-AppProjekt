@@ -5,6 +5,7 @@ namespace AppProject.Client.Pages
 {
     public partial class Homepage : BasePage
     {
+        private string? searchText;
         private IEnumerable<Item> items = Enumerable.Empty<Item>();
 
         protected override async Task OnInitializedAsync()
@@ -16,7 +17,12 @@ namespace AppProject.Client.Pages
 
         private void NavigateToList(Platform platform)
         {
-            NavigationManager.NavigateTo($"/list/{(int)platform}");
+            NavigationManager.NavigateTo($"/list/{platform}");
+        }
+        private void NavigateToList(Platform platform, string? searchText)
+        {
+            if (!string.IsNullOrEmpty(searchText))
+                NavigationManager.NavigateTo($"/list/{platform}/{searchText}");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AppProject.Shared;
+﻿using AppProject.Client.Pages.Components;
+using AppProject.Shared;
 
 namespace AppProject.Client.Pages
 {
@@ -12,5 +13,10 @@ namespace AppProject.Client.Pages
         }
         private async Task LoadItemsAsync()
             => items = await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
+
+        private void NavigateToList(Platform platform)
+        {
+            NavigationManager.NavigateTo($"/list/{(int)platform}");
+        }
     }
 }

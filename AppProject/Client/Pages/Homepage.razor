@@ -4,19 +4,19 @@
 @using AppProject.Client.Shared;
 
 <div style="display:flex; justify-content:space-evenly; margin-top:1rem;">
-    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.PC)">
         <img style="height:3rem; width:2rem;" src="../icons/computer-monitor.svg" />
     </MudButton>
-    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.Playstation)">
         <img style="height:3rem; width:2rem;" src="../icons/playstation.svg" />
     </MudButton>
-    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.Xbox)">
         <img style="height:3rem; width:2rem;" src="../icons/xbox.svg" />
     </MudButton>
-    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.Switch)">
         <img style="height:3rem; width:2rem;" src="../icons/nintendo-switch.svg" />
     </MudButton>
-    <MudButton Variant="Variant.Filled" Class="rounded-circle">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.All)">
         <div style="height:3rem; width:2rem; padding-top:40%; font-weight:700;">All</div>
     </MudButton>
 </div>

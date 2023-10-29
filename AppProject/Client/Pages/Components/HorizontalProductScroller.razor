@@ -1,10 +1,12 @@
 ﻿@using AppProject.Shared;
-<div style="margin-top: 1rem; margin-left:1rem">
-    @Title >
-    <div class="hideScrollbar" style="overflow-x:scroll; display:flex; margin-top: 1rem">
+<div class="@Class" style="@Style">
+    <MudButton Variant="Variant.Text" Class="mt-3 ml-1">
+        <p class="h3 my-auto">@Title ></p>
+    </MudButton>    
+    <div class="itemContainer hideScrollbar">
         @foreach(Item item in Items)
         {
-            <div style="display:flex; margin-right: 2rem; height: 10rem; min-width:12rem; background-color:lightgray; border-radius:1rem;">
+            <div class="item p-2">
                 @item.Name
             </div>
         }

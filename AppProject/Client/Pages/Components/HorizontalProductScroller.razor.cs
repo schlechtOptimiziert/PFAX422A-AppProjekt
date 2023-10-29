@@ -6,6 +6,11 @@ namespace AppProject.Client.Pages.Components
     public partial class HorizontalProductScroller
     {
         [Parameter]
+        public string Class { get; set; } = default!;
+        [Parameter]
+        public string Style { get; set; } = default!;
+
+        [Parameter]
         public string Title { get; set; } = default!;
 
         [Parameter]

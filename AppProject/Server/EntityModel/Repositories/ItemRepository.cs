@@ -59,13 +59,18 @@ public static class ItemMappings
         to ??= new();
 
         to.Name = from.Name;
+        to.Description = from.Description;
+        to.Price = from.Price;
 
         return to;
     }
 
     public static readonly Expression<Func<Item, Shared.Item>> MapItem = (item)
-        => new Shared.Item {
+        => new Shared.Item
+        {
             Id = item.Id,
             Name = item.Name,
+            Description = item.Description,
+            Price = item.Price,
         };
 }

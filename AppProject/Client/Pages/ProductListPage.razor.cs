@@ -1,4 +1,4 @@
-using AppProject.Client.Pages.Components;
+using AppProject.Client.Components;
 using AppProject.Shared;
 using Microsoft.AspNetCore.Components;
 

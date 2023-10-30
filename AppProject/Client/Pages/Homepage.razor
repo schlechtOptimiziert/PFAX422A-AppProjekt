@@ -1,12 +1,7 @@
 ﻿@page "/"
 @inherits BasePage
-@using AppProject.Client.Pages.Components;
+@using AppProject.Client.Components;
 @using AppProject.Client.Shared;
-
-<div class="d-flex w-90 mx-auto mt-5">
-    <MudTextField @bind-Value="searchText" Label="Search" Variant="Variant.Outlined" Clearable="true" Adornment="Adornment.End" AdornmentIcon="" Margin="Margin.Dense" />
-    <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="() => NavigateToList(Platform.All, searchText)" />
-</div>
 
 <div style="display:flex; justify-content:space-evenly; margin-top:1rem;">
     <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.PC)">

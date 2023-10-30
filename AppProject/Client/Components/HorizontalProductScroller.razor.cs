@@ -1,7 +1,7 @@
 using AppProject.Shared;
 using Microsoft.AspNetCore.Components;
 
-namespace AppProject.Client.Pages.Components
+namespace AppProject.Client.Components
 {
     public partial class HorizontalProductScroller
     {

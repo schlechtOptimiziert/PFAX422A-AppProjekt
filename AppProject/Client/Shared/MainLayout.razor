@@ -1,6 +1,8 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
+@using AppProject.Client.Components
+
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -8,11 +10,12 @@
 <MudLayout>
 	<div style="position: sticky;
 				background-color: lightblue;
-				height: 2rem;
 				width: 100%;
 				top: 0;
-				z-index: 3;">
-		<MudImage Src="..\Assets\LogoTemp.png" Style="Height:90%;"></MudImage>
+				z-index: 3;
+				padding-top: 0.5rem;">
+		<MudImage Src="..\Assets\LogoTemp.png" Class="d-flex mx-auto mb-1" Style="Height:1rem;"></MudImage>
+		<SearchBar Style="border-radius:1rem; padding-left:0.2rem; padding-right:0.2rem; background-color:white;"></SearchBar>
 	</div>
 	<div style="margin-bottom:4rem;">
 		@Body

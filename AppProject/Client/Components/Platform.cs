@@ -1,4 +1,4 @@
-﻿namespace AppProject.Client.Pages.Components
+﻿namespace AppProject.Client.Components
 {
     public enum Platform
     {

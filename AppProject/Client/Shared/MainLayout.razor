@@ -6,12 +6,17 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-	<MudAppBar Dense="true">
+	<div style="position: sticky;
+				background-color: lightblue;
+				height: 2rem;
+				width: 100%;
+				top: 0;
+				z-index: 3;">
 		<MudImage Src="..\Assets\LogoTemp.png" Style="Height:90%;"></MudImage>
-	</MudAppBar>
-	<MudMainContent>
+	</div>
+	<div style="margin-bottom:4rem;">
 		@Body
-	</MudMainContent>
+	</div>
 	<MudTabs Outlined="true" Centered="true" Style="position:fixed; bottom:0;" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)">
 		<MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
 		<MudTabPanel Icon="@Icons.Material.Filled.Calculate" OnClick="@(() => NavigationManager.NavigateTo("/cart"))" />

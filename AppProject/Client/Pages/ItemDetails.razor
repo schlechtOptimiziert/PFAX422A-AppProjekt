@@ -4,29 +4,15 @@
 
 @if (item != null)
 {
-    <MudCard>
-        <MudCardContent>
-            <MudText Typo="Typo.h5">@item.Name</MudText>
-            <MudText Typo="Typo.body2">@item.Description</MudText>
-            <MudText Typo="Typo.body2">@item.Price €</MudText>
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Text" Color="Color.Primary">Add to cart</MudButton>
-        </MudCardActions>
-    </MudCard>
+    <MudText Typo="Typo.h5">@item.Name</MudText>
+    <MudText Typo="Typo.body2">@item.Description</MudText>
+    <MudText Typo="Typo.body2">@item.Price €</MudText>
+    <MudButton Variant="Variant.Text" Color="Color.Primary">Add to cart</MudButton>
 }
 else
 {
-    <MudCard>
-        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="200px" />
-        <MudCardContent>
-            <MudSkeleton Width="30%" Height="42px;" />
-            <MudSkeleton Width="80%" />
-            <MudSkeleton Width="100%" />
-        </MudCardContent>
-        <MudCardActions>
-            <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
-            <MudSkeleton Width="105px" Height="40px" Class="ml-3" />
-        </MudCardActions>
-    </MudCard>
+    <MudSkeleton Width="30%" Height="42px;" />
+    <MudSkeleton Width="100%" />
+    <MudSkeleton Width="100%" />
+    <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
 }

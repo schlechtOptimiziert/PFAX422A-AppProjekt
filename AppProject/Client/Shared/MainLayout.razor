@@ -1,24 +1,43 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
-<MudThemeProvider />
+<MudThemeProvider  Theme="@_currentTheme"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-   <MudAppBar Dense="true" Elevation="1" Color="Color.Primary">
-      <MudImage Src="..\Assets\LogoTemp.png" Style="Height:3rem;"></MudImage>
+   <MudAppBar Style="align-items: center" Dense="true" Elevation="1" Color="Color.Primary" >
+         <MudImage Src="..\Assets\LogoTemp.png" Style="Height:3rem;"></MudImage>
    </MudAppBar>
 </MudLayout>
+
 <MudStack Justify="Justify.FlexEnd" Style="height: 100vh">
     <main>
         <article class="content px-4">
             @Body
         </article>
     </main>
-    <MudTabs Outlined="true" Centered="true" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)">
-        <MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
-        <MudTabPanel Icon="@Icons.Material.Filled.Calculate" OnClick="@(() => NavigationManager.NavigateTo("/counter"))" />
-        <MudTabPanel Icon="@Icons.Material.Filled.AutoGraph" OnClick="@(() => NavigationManager.NavigateTo("/fetchdata"))" />
+    <MudTabs Outlined="true" Centered="true" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)" Color="Color.Surface">
+         <MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/home"))" />
+         <MudTabPanel Icon="@Icons.Material.Filled.ShoppingBag" OnClick="@(() => NavigationManager.NavigateTo("/warenkorb"))" />
+         <MudTabPanel Icon="@Icons.Material.Filled.Person" OnClick="@(() => NavigationManager.NavigateTo("/profil"))" />
     </MudTabs>
 </MudStack>
+
+@code {
+
+   private MudTheme _currentTheme = new MudTheme()
+      {
+         Palette = new Palette
+         {
+            Dark = "072D44",
+            Tertiary = "064469",
+            Primary = "#5790AB", //hautpfarbton
+            Secondary = "9CCDDB",
+            BackgroundGrey = "FFFFFF", //fuer cards etc
+            Surface = "FFFFFF",
+            GrayDefault = "D0D7E1",
+            Background = "#FFFFFF",
+         },
+      };
+}

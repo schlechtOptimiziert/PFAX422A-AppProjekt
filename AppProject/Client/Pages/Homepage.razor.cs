@@ -14,9 +14,14 @@ namespace AppProject.Client.Pages
         private async Task LoadItemsAsync()
             => items = await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
 
+        private void NavigateToList()
+        {
+            NavigationManager.NavigateTo($"/items");
+        }
+
         private void NavigateToList(Platform platform)
         {
-            NavigationManager.NavigateTo($"/list/{platform}");
+            NavigationManager.NavigateTo($"/items?platform={platform}");
         }
     }
 }

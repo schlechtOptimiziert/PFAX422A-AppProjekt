@@ -10,7 +10,7 @@ public partial class Homepage : BasePage
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(false);
-        await GetItemsAsync().ConfigureAwait(false);
+        items = await GetItemsAsync().ConfigureAwait(false);
     }
     private async Task<IEnumerable<Item>> GetItemsAsync()
         => await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();

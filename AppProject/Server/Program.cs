@@ -18,6 +18,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddSqlServer<AppProjectDbContext>(serviceConfig.ConnectionStrings.Db);
 
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IItemPictureRepository, ItemPictureRepository>();
 
 builder.Services.AddSwaggerGen();
 

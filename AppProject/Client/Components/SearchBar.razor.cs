@@ -25,7 +25,11 @@ public partial class SearchBar : BaseComponent
     private void NavigateToList(string? searchText)
     {
         platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
-        if (!string.IsNullOrEmpty(searchText))
+        if (string.IsNullOrEmpty(searchText))
+        {
+            NavigationManager.NavigateTo($"/items");
+        }
+        else
         {
             if (platform == null)
                 NavigationManager.NavigateTo($"/items?searchText={searchText}");

@@ -1,18 +1,26 @@
 ﻿@page "/Items/{Id:long}"
+@using AppProject.Client.Components
 
 @inherits BasePage
 
-@if (item != null)
-{
-    <MudText Typo="Typo.h5">@item.Name</MudText>
-    <MudText Typo="Typo.body2">@item.Description</MudText>
-    <MudText Typo="Typo.body2">@item.Price €</MudText>
-    <MudButton Variant="Variant.Text" Color="Color.Primary">Add to cart</MudButton>
-}
-else
-{
-    <MudSkeleton Width="30%" Height="42px;" />
-    <MudSkeleton Width="100%" />
-    <MudSkeleton Width="100%" />
-    <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
-}
+<ConditionComponent Condition="!IsLoading">
+    <Match>
+        <ConditionComponent Condition="item != null">
+            <Match>
+                <MudText Typo="Typo.h5">@item.Name</MudText>
+                <MudText Typo="Typo.body2">@item.Description</MudText>
+                <MudText Typo="Typo.body2">@item.Price €</MudText>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Add to cart</MudButton>
+            </Match>
+            <NotMatch>
+                <MudAlert Severity="Severity.Error">There is no item with the id @Id</MudAlert>
+            </NotMatch>
+        </ConditionComponent>
+    </Match>
+    <NotMatch>
+        <MudSkeleton Width="30%" Height="42px;" />
+        <MudSkeleton Width="100%" />
+        <MudSkeleton Width="100%" />
+        <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
+    </NotMatch>
+</ConditionComponent>

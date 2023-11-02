@@ -1,11 +1,10 @@
 ﻿using AppProject.ServerDataProvider.Interfaces;
 using Microsoft.AspNetCore.Components;
 
-namespace AppProject.Client;
+namespace AppProject.Client.Components;
 
-public class BasePage : ComponentBase
+public class BaseComponent : ComponentBase
 {
-
     private readonly CancellationTokenSource cancellationTokenSource = new();
     protected CancellationToken CancellationToken { get; }
 
@@ -17,5 +16,5 @@ public class BasePage : ComponentBase
     public bool IsLoading { get; set; }
     public bool IsCreate { get; set; }
 
-    protected BasePage() => CancellationToken = cancellationTokenSource.Token;
+    protected BaseComponent() => CancellationToken = cancellationTokenSource.Token;
 }

@@ -14,12 +14,14 @@ partial class ItemDetails : BasePage
     {
         IsLoading = true;
         await base.OnInitializedAsync().ConfigureAwait(false);
-        await LoadItemAsync().ConfigureAwait(false);
+        item = await GetItemAsync().ConfigureAwait(false);
         IsLoading = false;
     }
-    private async Task LoadItemAsync()
+
+    private async Task<Item> GetItemAsync()
     {
         if (Id.HasValue)
-            item = await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? throw new ArgumentException($"Could not find item with id '{Id}'");
+            return await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? null;
+        return null;
     }
 }

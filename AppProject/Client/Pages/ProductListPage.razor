@@ -2,7 +2,7 @@
 @using AppProject.Shared;
 @inherits BasePage
 
-@foreach (Item item in items)
+@foreach (Item item in filteredItems)
 {
     <div class="item p-2 mt-3">
         @item.Name

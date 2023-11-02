@@ -13,7 +13,7 @@ public partial class ProductListPage : BasePage
 
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitializedAsync();
+        await base.OnInitializedAsync().ConfigureAwait(false);
         items = await GetItemsAsync().ConfigureAwait(false);
         filteredItems = items;
         GetFiltersFromQuery();
@@ -33,10 +33,8 @@ public partial class ProductListPage : BasePage
         ApplyFilters();
     }
 
-    private async Task<IEnumerable<Item>> GetItemsAsync()
-    {
-        return await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
-    }
+    private async Task<IEnumerable<Item>> GetItemsAsync() =>
+        await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
 
     private void ApplyFilters()
     {

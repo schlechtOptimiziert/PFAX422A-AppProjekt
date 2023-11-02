@@ -26,9 +26,11 @@ public partial class SearchBar : BaseComponent
     {
         platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
         if (!string.IsNullOrEmpty(searchText))
+        {
             if (platform == null)
                 NavigationManager.NavigateTo($"/items?searchText={searchText}");
             else
                 NavigationManager.NavigateTo($"/items?platform={platform}&searchText={searchText}");
+        }
     }
 }

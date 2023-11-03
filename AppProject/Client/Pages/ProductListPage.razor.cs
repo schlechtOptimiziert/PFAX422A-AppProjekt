@@ -33,8 +33,8 @@ public partial class ProductListPage : BasePage
         ApplyFilters();
     }
 
-    private async Task<IEnumerable<Item>> GetItemsAsync() =>
-        await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
+    private async Task<IEnumerable<Item>> GetItemsAsync()
+        => await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
 
     private void ApplyFilters()
     {
@@ -44,8 +44,8 @@ public partial class ProductListPage : BasePage
             filteredItems = items;
     }
 
-    private void NavigateToList(long id) =>
-        NavigationManager.NavigateTo($"/items/{id}");
+    private void NavigateToList(long id)
+        => NavigationManager.NavigateTo($"/items/{id}");
 
     public void Dispose() => NavigationManager.LocationChanged -= HandleLocationChanged;
 }

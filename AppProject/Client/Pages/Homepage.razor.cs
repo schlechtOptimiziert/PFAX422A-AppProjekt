@@ -15,9 +15,9 @@ public partial class Homepage : BasePage
     private async Task<IEnumerable<Item>> GetItemsAsync()
         => await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
 
-    private void NavigateToList() =>
-        NavigationManager.NavigateTo($"/items");
+    private void NavigateToList()
+        => NavigationManager.NavigateTo($"/items");
 
-    private void NavigateToList(Platform platform) =>
-        NavigationManager.NavigateTo($"/items?platform={platform}");
+    private void NavigateToList(Platform platform)
+        => NavigationManager.NavigateTo($"/items?platform={platform}");
 }

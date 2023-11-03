@@ -1,4 +1,5 @@
-﻿using AppProject.ServerDataProvider.Interfaces;
+﻿using AppProject.AdminClient.Toast;
+using AppProject.ServerDataProvider.Interfaces;
 using Microsoft.AspNetCore.Components;
 
 namespace AppProject.AdminClient;
@@ -12,6 +13,8 @@ public abstract class BasePage : ComponentBase
     public IService Service { get; set; }
     [Inject]
     public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    public ToastService ToastService { get; set; }
 
     public bool IsLoading { get; set; }
     public bool IsCreate { get; set; }

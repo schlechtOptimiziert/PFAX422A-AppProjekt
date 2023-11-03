@@ -28,7 +28,8 @@ partial class ItemDetails : BasePage
 
         if (!IsCreate)
         {
-            await LoadItemAsync().ConfigureAwait(false);
+            item = await GetItemAsync().ConfigureAwait(false);
+            pictures = await GetItemPicturesAsync().ConfigureAwait(false);
         }
 
         IsLoading = false;
@@ -52,8 +53,7 @@ partial class ItemDetails : BasePage
             await UpdateItem().ConfigureAwait(false);
         }
 
-        await LoadItemAsync().ConfigureAwait(false);
-        pictures = await GetItemPicturesAsync().ConfigureAwait(false);
+        item = await GetItemAsync().ConfigureAwait(false);
         badgeColor = Color.Success;
         badgeIcon = Icons.Material.Outlined.Lock;
         IsLoading = false;
@@ -64,10 +64,11 @@ partial class ItemDetails : BasePage
     private async Task<long> AddItemAsync()
         => await Service.AddItemAsync(item, CancellationToken).ConfigureAwait(false);
 
-    private async Task LoadItemAsync()
+    private async Task<Item> GetItemAsync()
     {
         if (Id.HasValue)
-            item = await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? throw new ArgumentException($"Could not find item with id '{Id}'");
+            return await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? throw new ArgumentException($"Could not find item with id '{Id}'");
+        return null;
     }
 
     private async Task<IEnumerable<ItemPicture>> GetItemPicturesAsync()

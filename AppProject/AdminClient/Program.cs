@@ -1,6 +1,8 @@
 using AppProject.AdminClient;
+using AppProject.AdminClient.Toast;
 using AppProject.ServerDataProvider;
 using AppProject.ServerDataProvider.Interfaces;
+using Blazored.Toast;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -10,6 +12,9 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddMudServices();
+builder.Services.AddBlazoredToast();
+
+builder.Services.AddScoped<ToastService>();
 
 builder.Services.AddHttpClient<IService, Service>(
     "AdminClient",

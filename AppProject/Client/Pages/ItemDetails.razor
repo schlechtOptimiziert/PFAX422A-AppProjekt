@@ -7,6 +7,13 @@
     <Match>
         <ConditionComponent Condition="item != null">
             <Match>
+                <MudCarousel Class="mud-width-full" ItemsSource="@pictures" Style="height:200px;" ShowArrows="true" ShowBullets="true" AutoCycle="false">
+                    <ItemTemplate>
+                        <div class="d-flex" style="height:100%">
+                            <MudImage Src="@context" Class="mx-auto my-auto" Style="height: 100%" />
+                        </div>
+                    </ItemTemplate>
+                </MudCarousel>
                 <MudText Typo="Typo.h5">@item.Name</MudText>
                 <MudText Typo="Typo.body2">@item.Description</MudText>
                 <MudText Typo="Typo.body2">@item.Price €</MudText>

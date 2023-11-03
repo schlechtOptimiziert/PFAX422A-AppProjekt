@@ -7,6 +7,8 @@ partial class ItemDetails : BasePage
 {
     private Item item;
 
+    private IEnumerable<string> pictures = Enumerable.Empty<string>();
+
     [Parameter]
     public long? Id { get; set; }
 
@@ -15,6 +17,7 @@ partial class ItemDetails : BasePage
         IsLoading = true;
         await base.OnInitializedAsync().ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
+        pictures = (await GetItemPicturesAsync().ConfigureAwait(false))?.Select(Helper.ItemPictureToUri);
         IsLoading = false;
     }
 
@@ -23,5 +26,12 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             return await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? null;
         return null;
+    }
+
+    private async Task<IEnumerable<ItemPicture>> GetItemPicturesAsync()
+    {
+        if (Id.HasValue)
+            return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
+        return Enumerable.Empty<ItemPicture>();
     }
 }

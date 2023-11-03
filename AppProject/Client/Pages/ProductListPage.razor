@@ -1,0 +1,10 @@
+﻿@page "/items"
+@using AppProject.Shared;
+@inherits BasePage
+
+@foreach (Item item in filteredItems)
+{
+    <button class="item d-flex p-2 mt-3" @onclick="() => NavigateToList(item.Id)">
+        @item.Name
+    </button>
+}

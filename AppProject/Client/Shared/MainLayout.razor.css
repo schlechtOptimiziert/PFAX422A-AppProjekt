@@ -36,3 +36,13 @@ main {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+.headerContainer {
+    position: sticky;
+    background-color: var(--primary);
+    width: 100%;
+    top: 0;
+    z-index: 3;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}

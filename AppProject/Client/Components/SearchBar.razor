@@ -1,0 +1,6 @@
+﻿@inherits BaseComponent
+
+<div class="d-flex w-90 mx-auto @Class" style="@Style">
+    <MudTextField @bind-Value="searchText" Immediate="true" Label="Search" Variant="Variant.Outlined" Clearable="true" Adornment="Adornment.End" Margin="Margin.Dense" OnKeyDown="@KeyPressed" />
+    <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="() => NavigateToList(searchText)" />
+</div>

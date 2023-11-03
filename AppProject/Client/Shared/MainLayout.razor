@@ -1,20 +1,23 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
+@using AppProject.Client.Components
+
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-
-<MudStack Justify="Justify.FlexEnd" Style="height: 100vh">
-    <main>
-        <article class="content px-4 h-100">
-            @Body
-        </article>
-    </main>
-    <MudTabs Outlined="true" Centered="true" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)">
-        <MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
-        <MudTabPanel Icon="@Icons.Material.Filled.Calculate" OnClick="@(() => NavigationManager.NavigateTo("/counter"))" />
-        <MudTabPanel Icon="@Icons.Material.Filled.AutoGraph" OnClick="@(() => NavigationManager.NavigateTo("/fetchdata"))" />
-    </MudTabs>
-</MudStack>
+<MudLayout>
+	<div class="headerContainer">
+		<MudImage Src="..\Assets\LogoTemp.png" Class="d-flex mx-auto mb-1" Style="Height:1rem;"></MudImage>
+		<SearchBar Style="border-radius:0.5rem; padding-left:0.2rem; padding-right:0.2rem; background-color:white;"></SearchBar>
+	</div>
+	<div style="margin-bottom:4rem;">
+		@Body
+	</div>
+	<MudTabs Outlined="true" Centered="true" Style="position:fixed; bottom:0;" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)">
+		<MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
+		<MudTabPanel Icon="@Icons.Material.Filled.ShoppingBag" OnClick="@(() => NavigationManager.NavigateTo("/cart"))" />
+		<MudTabPanel Icon="@Icons.Material.Filled.Person" OnClick="@(() => NavigationManager.NavigateTo("/profile"))" />
+	</MudTabs>
+</MudLayout>

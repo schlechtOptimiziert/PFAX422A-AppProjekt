@@ -1,8 +1,6 @@
 ﻿using AppProject.Client.Components;
-using AppProject.ServerDataProvider.Interfaces;
-using Microsoft.AspNetCore.Components;
 
-namespace AppProject.Client.Pages;
+namespace AppProject.Client;
 
-public class BasePage : BaseComponent
+public abstract class BasePage : BaseComponent
 { }

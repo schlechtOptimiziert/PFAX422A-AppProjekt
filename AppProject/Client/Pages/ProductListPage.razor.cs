@@ -44,5 +44,8 @@ public partial class ProductListPage : BasePage
             filteredItems = items;
     }
 
+    private void NavigateToList(long id) =>
+        NavigationManager.NavigateTo($"/items/{id}");
+
     public void Dispose() => NavigationManager.LocationChanged -= HandleLocationChanged;
 }

@@ -4,7 +4,7 @@
 
 @foreach (Item item in filteredItems)
 {
-    <div class="item p-2 mt-3">
+    <button class="item d-flex p-2 mt-3" @onclick="() => NavigateToList(item.Id)">
         @item.Name
-    </div>
+    </button>
 }

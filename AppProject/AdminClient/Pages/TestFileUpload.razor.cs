@@ -9,6 +9,6 @@ public partial class TestFileUpload : BasePage
     string imageUri = string.Empty;
     private async Task UploadFiles(IBrowserFile file)
     {
-        imageUri = Helper.ItemPictureToUri(await Helper.BrowserFileToItemPictureAsync(file, 0, CancellationToken).ConfigureAwait(false));
+        imageUri = PictureConverter.ItemPictureToUri(await PictureConverter.BrowserFileToItemPictureAsync(file, 0, CancellationToken).ConfigureAwait(false));
     }
 }

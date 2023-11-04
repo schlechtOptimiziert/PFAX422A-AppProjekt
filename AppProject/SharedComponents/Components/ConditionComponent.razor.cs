@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace AppProject.Client.Components;
+namespace AppProject.SharedClientComponents.Components;
 
 public partial class ConditionComponent : BaseComponent
 {

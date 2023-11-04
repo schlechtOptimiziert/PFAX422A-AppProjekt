@@ -17,7 +17,7 @@ partial class ItemDetails : BasePage
         IsLoading = true;
         await base.OnInitializedAsync().ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
-        pictures = (await GetItemPicturesAsync().ConfigureAwait(false))?.Select(PictureConverter.ItemPictureToUri);
+        pictures = (await GetItemPicturesAsync().ConfigureAwait(false))?.Select(ItemPicture.ItemPictureToUri);
         IsLoading = false;
     }
 

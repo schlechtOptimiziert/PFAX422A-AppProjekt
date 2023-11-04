@@ -88,7 +88,7 @@ partial class ItemDetails : BasePage
     {
         if (Id.HasValue)
         {
-            var itemPicture = await PictureConverter.BrowserFileToItemPictureAsync(file, Id.Value, CancellationToken).ConfigureAwait(false);
+            var itemPicture = await ItemPicture.BrowserFileToItemPictureAsync(file, Id.Value, CancellationToken).ConfigureAwait(false);
             await Service.AddItemPictureAsync(itemPicture, Id.Value, CancellationToken).ConfigureAwait(false);
         }
         pictures = await GetItemPicturesAsync().ConfigureAwait(false);

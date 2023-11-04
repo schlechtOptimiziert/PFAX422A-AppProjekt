@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServerDataProvider\AppProject.ServerDataProvider.csproj" />
+    <ProjectReference Include="..\SharedComponents\AppProject.SharedClientComponents.csproj" />
     <ProjectReference Include="..\Shared\AppProject.Shared.csproj" />
   </ItemGroup>
 

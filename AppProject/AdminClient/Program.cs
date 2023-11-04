@@ -1,7 +1,7 @@
 using AppProject.AdminClient;
-using AppProject.AdminClient.Toast;
 using AppProject.ServerDataProvider;
 using AppProject.ServerDataProvider.Interfaces;
+using AppProject.SharedClientComponents.Toast;
 using Blazored.Toast;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

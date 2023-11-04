@@ -1,7 +1,7 @@
 ﻿using Blazored.Toast.Configuration;
 using Blazored.Toast.Services;
 
-namespace AppProject.AdminClient.Toast;
+namespace AppProject.SharedClientComponents.Toast;
 
 public sealed class ToastService
 {

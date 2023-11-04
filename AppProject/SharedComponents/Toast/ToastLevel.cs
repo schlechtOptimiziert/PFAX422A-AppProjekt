@@ -1,4 +1,4 @@
-﻿namespace AppProject.AdminClient.Toast;
+﻿namespace AppProject.SharedClientComponents.Toast;
 
 public enum ToastLevel
 {

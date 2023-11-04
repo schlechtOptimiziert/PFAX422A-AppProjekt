@@ -22,8 +22,5 @@ public class ItemPicturesController : ControllerBase
 
     [HttpGet("{itemId}/Pictures")]
     public Task<IEnumerable<Shared.ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken)
-    {
-        Console.WriteLine("Test");
-        return itemPictureRepository.GetItemPicturesAsync(itemId, cancellationToken);
-    }
+        => itemPictureRepository.GetItemPicturesAsync(itemId, cancellationToken);
 }

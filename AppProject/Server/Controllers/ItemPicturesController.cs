@@ -23,4 +23,8 @@ public class ItemPicturesController : ControllerBase
     [HttpGet("{itemId}/Pictures")]
     public Task<IEnumerable<Shared.ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken)
         => itemPictureRepository.GetItemPicturesAsync(itemId, cancellationToken);
+
+    [HttpDelete("{itemId}/Pictures/{id}")]
+    public Task DeleteItemAsync(long id, CancellationToken cancellationToken)
+        => itemPictureRepository.DeleteItemPictureAsync(id, cancellationToken);
 }

@@ -29,7 +29,15 @@ public class ItemPictureRepository : IItemPictureRepository
         => await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
             .Where(x => x.ItemId == itemId)
             .ToArrayAsync(cancellationToken)
-            .ConfigureAwait(false); 
+            .ConfigureAwait(false);
+
+    public async Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken)
+    {
+        var dbItemPicture = await dbContext.ItemPictures.SingleAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
+            throw new BadHttpRequestException($"Item picture with Id '{id}' does not exist.");
+        dbContext.ItemPictures.Remove(dbItemPicture);
+        await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
 
 public static class ItemPictureMappings

@@ -93,4 +93,10 @@ partial class ItemDetails : BasePage
         }
         pictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }
+
+    private async Task DeleteItemPicture(ItemPicture itemPicture)
+    {
+        await Service.DeleteItemPictureAsync(itemPicture.ItemId, itemPicture.Id, CancellationToken).ConfigureAwait(false);
+        pictures = await GetItemPicturesAsync().ConfigureAwait(false);
+    }
 }

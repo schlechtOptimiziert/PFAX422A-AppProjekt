@@ -26,4 +26,10 @@ public partial class Service : IItemPictureService
         response.EnsureSuccessStatusCode();
         return await response.ReadAsAsync<IEnumerable<ItemPicture>>(cancellationToken).ConfigureAwait(false);
     }
+
+    public async Task DeleteItemPictureAsync(long itemId, long id, CancellationToken cancellationToken)
+    {
+        var response = await httpClient.DeleteAsync($"{itemRequestUri}/{itemId}/Pictures/{id}", cancellationToken).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+    }
 }

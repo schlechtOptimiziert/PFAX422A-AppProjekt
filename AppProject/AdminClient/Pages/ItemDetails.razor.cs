@@ -1,5 +1,6 @@
 ﻿using AppProject.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 
 namespace AppProject.AdminClient.Pages;
@@ -11,6 +12,7 @@ partial class ItemDetails : BasePage
     string badgeIcon = Icons.Material.Outlined.Lock;
 
     private Item item = new();
+    private IEnumerable<ItemPicture> pictures = Enumerable.Empty<ItemPicture>();
 
 
     [Parameter]
@@ -26,7 +28,8 @@ partial class ItemDetails : BasePage
 
         if (!IsCreate)
         {
-            await LoadItemAsync().ConfigureAwait(false);
+            item = await GetItemAsync().ConfigureAwait(false);
+            pictures = await GetItemPicturesAsync().ConfigureAwait(false);
         }
 
         IsLoading = false;
@@ -50,7 +53,7 @@ partial class ItemDetails : BasePage
             await UpdateItem().ConfigureAwait(false);
         }
 
-        await LoadItemAsync().ConfigureAwait(false);
+        item = await GetItemAsync().ConfigureAwait(false);
         badgeColor = Color.Success;
         badgeIcon = Icons.Material.Outlined.Lock;
         IsLoading = false;
@@ -61,15 +64,39 @@ partial class ItemDetails : BasePage
     private async Task<long> AddItemAsync()
         => await Service.AddItemAsync(item, CancellationToken).ConfigureAwait(false);
 
-    private async Task LoadItemAsync()
+    private async Task<Item> GetItemAsync()
     {
         if (Id.HasValue)
-            item = await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? throw new ArgumentException($"Could not find item with id '{Id}'");
+            return await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? throw new ArgumentException($"Could not find item with id '{Id}'");
+        return null;
+    }
+
+    private async Task<IEnumerable<ItemPicture>> GetItemPicturesAsync()
+    {
+        if (Id.HasValue)
+            return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
+        return Enumerable.Empty<ItemPicture>();
     }
 
     private void FieldChanged()
     {
         badgeColor = Color.Error;
         badgeIcon = Icons.Material.Filled.LockOpen;
+    }
+
+    private async Task UploadPicture(IBrowserFile file)
+    {
+        if (Id.HasValue)
+        {
+            var itemPicture = await ItemPicture.BrowserFileToItemPictureAsync(file, Id.Value, CancellationToken).ConfigureAwait(false);
+            await Service.AddItemPictureAsync(itemPicture, Id.Value, CancellationToken).ConfigureAwait(false);
+        }
+        pictures = await GetItemPicturesAsync().ConfigureAwait(false);
+    }
+
+    private async Task DeleteItemPicture(ItemPicture itemPicture)
+    {
+        await Service.DeleteItemPictureAsync(itemPicture.ItemId, itemPicture.Id, CancellationToken).ConfigureAwait(false);
+        pictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }
 }

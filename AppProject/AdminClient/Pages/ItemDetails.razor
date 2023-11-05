@@ -4,19 +4,40 @@
 @inject IDialogService DialogService
 @inherits BasePage
 
-@if (item != null)
-{
-    <MudPaper Class="pa-4">
-        <MudForm @ref="form" FieldChanged="FieldChanged">
-            <MudNumericField Label="Id" Value="@item.Id" Disabled="true" />
-            <MudTextField @bind-Value="@item.Name" Label="Name" Required="true" />
-            <MudTextField @bind-Value="@item.Description" Label="Description" Required="true" />
-            <MudNumericField @bind-Value="@item.Price" Label="Price" Required="true" T="decimal" />
-            <MudCardActions>
-                <MudBadge Class="ml-auto" Origin="Origin.TopRight" Color="@badgeColor" Overlap="true" Bordered="true" Icon="@badgeIcon" Visible="!IsCreate">
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveItem">Save</MudButton>
-                </MudBadge>
-            </MudCardActions>
-        </MudForm>
-    </MudPaper>
-}
+<ConditionComponent Condition="item != null">
+    <Match>
+        <MudPaper Class="pa-4">
+            <MudForm @ref="form" FieldChanged="FieldChanged">
+                <MudNumericField Label="Id" Value="@item.Id" Disabled="true" />
+                <MudTextField @bind-Value="@item.Name" Label="Name" Required="true" />
+                <MudTextField @bind-Value="@item.Description" Label="Description" Required="true" />
+                <MudNumericField @bind-Value="@item.Price" Label="Price" Required="true" T="decimal" />
+                <MudCardActions>
+                    <MudBadge Class="ml-auto" Origin="Origin.TopRight" Color="@badgeColor" Overlap="true" Bordered="true" Icon="@badgeIcon" Visible="!IsCreate">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveItem">Save</MudButton>
+                    </MudBadge>
+                </MudCardActions>
+            </MudForm>
+        </MudPaper>
+    </Match>
+</ConditionComponent>
+<ConditionComponent Condition="Id != null">
+    <Match>
+        <MudFileUpload T="IBrowserFile" FilesChanged="UploadPicture">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload"
+                           for="@context">
+                    Upload Files
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+        @foreach (var picture in pictures)
+        {
+            <MudImage Src="@ItemPicture.ItemPictureToUri(picture)" Width="200" Height="150" Elevation="25" Class="rounded-lg ma-4" />
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteItemPicture(picture)" />
+        }
+    </Match>
+</ConditionComponent>

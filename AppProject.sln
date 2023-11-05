@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject.AdminClient", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject.ServerDataProvider", "AppProject\ServerDataProvider\AppProject.ServerDataProvider.csproj", "{9465DD79-DF40-4DD7-A3C4-737ECF4D74FB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject.SharedClientComponents", "AppProject\SharedComponents\AppProject.SharedClientComponents.csproj", "{5437BF76-7F68-495C-88C7-8BD673D943EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9465DD79-DF40-4DD7-A3C4-737ECF4D74FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9465DD79-DF40-4DD7-A3C4-737ECF4D74FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9465DD79-DF40-4DD7-A3C4-737ECF4D74FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5437BF76-7F68-495C-88C7-8BD673D943EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5437BF76-7F68-495C-88C7-8BD673D943EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5437BF76-7F68-495C-88C7-8BD673D943EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5437BF76-7F68-495C-88C7-8BD673D943EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

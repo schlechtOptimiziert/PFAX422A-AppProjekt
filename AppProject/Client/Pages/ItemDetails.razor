@@ -7,7 +7,7 @@
     <Match>
         <ConditionComponent Condition="item != null">
             <Match>
-                <MudCarousel Class="mud-width-full" ItemsSource="@pictures" Style="height:200px;" ShowArrows="true" ShowBullets="true" AutoCycle="false">
+                <MudCarousel Class="mud-width-full" ItemsSource="@pictures" Style="height:200px;" ShowArrows="@(pictures.Count() > 1)" ShowBullets="@(pictures.Count() > 1)" AutoCycle="false">
                     <ItemTemplate>
                         <div class="d-flex h-100">
                             <MudImage Src="@context" Class="mx-auto my-auto h-100" />

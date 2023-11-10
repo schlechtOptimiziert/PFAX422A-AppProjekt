@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\DatabaseDefintion\DatabaseDefintion.csproj" />
+    <ProjectReference Include="..\..\Shared\TransferModel\TransferModel.csproj" />
+    <ProjectReference Include="..\Client\MobileClient.Client.csproj" />
+  </ItemGroup>
+
+
+</Project>

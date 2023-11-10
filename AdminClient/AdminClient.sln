@@ -11,9 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDefintion", "..\Sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferModel", "..\Shared\TransferModel\TransferModel.csproj", "{C5D55050-5EFE-491A-B881-963227659B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerDataProvider", "..\Shared\ServerDataProvider\ServerDataProvider.csproj", "{EB8D3513-0413-459F-A5B0-20BC75B7C245}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerDataProvider", "..\Shared\ServerDataProvider\ServerDataProvider.csproj", "{EB8D3513-0413-459F-A5B0-20BC75B7C245}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientComponents", "..\Shared\ClientComponents\ClientComponents.csproj", "{7024FC70-37F6-4488-8ECC-10EAD5DD864B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientComponents", "..\Shared\ClientComponents\ClientComponents.csproj", "{7024FC70-37F6-4488-8ECC-10EAD5DD864B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminClient", "AdminClient", "{B32CF306-7021-40A2-A8AD-4160907551E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{9104957E-D455-43F0-9D07-1C71BE248078}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CAF99C4D-EB52-4AED-B632-C49CF4D05025} = {B32CF306-7021-40A2-A8AD-4160907551E2}
+		{59977CA6-D8F0-4B7A-978A-0D7A3A8D01B3} = {B32CF306-7021-40A2-A8AD-4160907551E2}
+		{5B8F9A4D-2A37-474F-A4BE-B39B181ECFF7} = {9104957E-D455-43F0-9D07-1C71BE248078}
+		{C5D55050-5EFE-491A-B881-963227659B76} = {9104957E-D455-43F0-9D07-1C71BE248078}
+		{EB8D3513-0413-459F-A5B0-20BC75B7C245} = {9104957E-D455-43F0-9D07-1C71BE248078}
+		{7024FC70-37F6-4488-8ECC-10EAD5DD864B} = {9104957E-D455-43F0-9D07-1C71BE248078}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {398BFF44-FA49-49CE-A541-A25561E1A034}

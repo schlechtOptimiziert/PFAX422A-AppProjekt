@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared.DatabaseDefinition.EntityModel.Database;
+﻿using DatabaseDefinition.EntityModel.Database;
+using Microsoft.EntityFrameworkCore;
 
-namespace Shared.DatabaseDefinition.EntityModel;
+namespace DatabaseDefinition.EntityModel;
 
 public class AppProjectDbContext : DbContext
 {

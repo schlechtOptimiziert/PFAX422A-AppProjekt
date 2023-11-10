@@ -1,4 +1,11 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
+using TM = TransferModel;
 
 namespace MobileClient
 {
@@ -9,6 +16,14 @@ namespace MobileClient
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var baseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "AppProject");
+            builder.Configuration.AddJsonFile(Path.Combine(baseFolder, "appsettings.json"));
+            builder.Configuration.AddEnvironmentVariables();
+
+            var serviceConfig = builder.Configuration.Get<TM.ServiceConfiguration>() ?? throw new NullReferenceException("appsettings.json does not exist.");
+            builder.Services.AddSingleton(serviceConfig);
+
+            builder.Services.AddDatabase(serviceConfig.ConnectionStrings.Db);
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();

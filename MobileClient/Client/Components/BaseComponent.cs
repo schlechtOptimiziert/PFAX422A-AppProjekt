@@ -1,17 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shared.ServerDataProvider.Interfaces;
+using ServerDataProvider.Interfaces;
+using System.Threading;
 
-namespace Shared.SharedClientComponents.Components;
+namespace MobileClient.Client.Components;
 
-public class BaseComponent : ComponentBase
+public abstract class BaseComponent : ComponentBase
 {
     private readonly CancellationTokenSource cancellationTokenSource = new();
     protected CancellationToken CancellationToken { get; }
 
     [Inject]
-    public IService Service { get; set; }
+    public IService Service { get; set; } = default!;
+
     [Inject]
-    public NavigationManager NavigationManager { get; set; }
+    public NavigationManager NavigationManager { get; set; } = default!;
 
     public bool IsLoading { get; set; }
     public bool IsCreate { get; set; }

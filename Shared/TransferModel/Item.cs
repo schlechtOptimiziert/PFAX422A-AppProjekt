@@ -1,4 +1,4 @@
-﻿namespace Shared.TransferModel;
+﻿namespace TransferModel;
 
 public class Item
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Shared.DatabaseDefinition.EntityModel.Database;
+namespace DatabaseDefinition.EntityModel.Database;
 
 [PrimaryKey("Id")]
 public class Item

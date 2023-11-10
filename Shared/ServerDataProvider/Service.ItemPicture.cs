@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using ServerDataProvider.Helpers;
+using ServerDataProvider.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Shared.ServerDataProvider.Helpers;
-using Shared.ServerDataProvider.Interfaces;
-using Shared.TransferModel;
+using TransferModel;
 
-namespace Shared.ServerDataProvider;
+namespace ServerDataProvider;
 
 public partial class Service : IItemPictureService
 {

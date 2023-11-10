@@ -1,0 +1,26 @@
+﻿.itemContainer {
+    overflow-x: scroll;
+    display: flex;
+    margin-top: 0.5rem;
+}
+
+.item {
+    display: flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    height: 8rem;
+    min-width: 8rem;
+    background-color: lightgray;
+    border-radius: 1rem;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hideScrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hideScrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

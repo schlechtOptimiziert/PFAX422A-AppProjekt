@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Shared.TransferModel;
+using TransferModel;
 
-namespace Shared.ServerDataProvider.Interfaces;
+namespace ServerDataProvider.Interfaces;
 
 
 public interface IItemService

@@ -1,0 +1,24 @@
+﻿@page "/"
+
+@inherits BasePage
+
+<div class="platformSelectorContainer">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.PC)">
+        <img class="platformImage" src="../icons/computer-monitor.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.Playstation)">
+        <img class="platformImage" src="../icons/playstation.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.Xbox)">
+        <img class="platformImage" src="../icons/xbox.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.Switch)">
+        <img class="platformImage" src="../icons/nintendo-switch.svg" />
+    </MudButton>
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList()">
+        <div class="platformText">All</div>
+    </MudButton>
+</div>
+
+<HorizontalProductScroller Class="mt-5" Title="Popular Games" Items="items"></HorizontalProductScroller>
+<HorizontalProductScroller Class="mt-5" Title="Recommended Games" Items="items"></HorizontalProductScroller>

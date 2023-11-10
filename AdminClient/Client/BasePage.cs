@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shared.ServerDataProvider.Interfaces;
-using Shared.SharedClientComponents.Toast;
+using ServerDataProvider.Interfaces;
+using ClientComponents.Toast;
+using System.Threading;
 
 namespace AdminClient;
 

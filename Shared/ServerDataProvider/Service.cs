@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ServerDataProvider.Interfaces;
+using System;
 using System.Net.Http;
-using Shared.ServerDataProvider.Interfaces;
 
-namespace Shared.ServerDataProvider;
+namespace ServerDataProvider;
 
 public partial class Service : IService
 {

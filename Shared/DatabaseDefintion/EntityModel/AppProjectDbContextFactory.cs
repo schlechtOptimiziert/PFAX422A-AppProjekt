@@ -3,8 +3,8 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Newtonsoft.Json;
-using Shared.DatabaseDefinition.EntityModel;
-using TM = Shared.TransferModel;
+using DatabaseDefinition.EntityModel;
+using TM = TransferModel;
 
 namespace DatabaseDefintion.EntityModel;
 

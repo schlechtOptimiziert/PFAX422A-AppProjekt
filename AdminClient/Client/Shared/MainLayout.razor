@@ -1,7 +1,5 @@
 ﻿@inherits LayoutComponentBase
 
-@namespace AdminClient.Shared
-
 <MudThemeProvider @bind-IsDarkMode="@Darkmode" />
 <MudDialogProvider FullWidth="true"
                    MaxWidth="MaxWidth.ExtraSmall"
@@ -24,7 +22,3 @@
         @Body
     </MudMainContent>
 </MudLayout>
-
-@code {
-    public bool Darkmode { get; set; } = true;
-}

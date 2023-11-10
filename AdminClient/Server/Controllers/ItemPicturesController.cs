@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shared.DatabaseDefinition.EntityModel.Repositories.Interfaces;
-using TM = Shared.TransferModel;
+using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using TM = TransferModel;
 
 namespace AdminClient.Server.Controllers;
 

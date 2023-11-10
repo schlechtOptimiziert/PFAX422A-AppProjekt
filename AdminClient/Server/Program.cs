@@ -1,4 +1,4 @@
-using TM = Shared.TransferModel;
+using TM = TransferModel;
 
 namespace AdminClient;
 

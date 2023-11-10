@@ -1,6 +1,6 @@
-﻿using Shared.DatabaseDefinition.EntityModel;
-using Shared.DatabaseDefinition.EntityModel.Repositories;
-using Shared.DatabaseDefinition.EntityModel.Repositories.Interfaces;
+﻿using DatabaseDefinition.EntityModel;
+using DatabaseDefinition.EntityModel.Repositories;
+using DatabaseDefinition.EntityModel.Repositories.Interfaces;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

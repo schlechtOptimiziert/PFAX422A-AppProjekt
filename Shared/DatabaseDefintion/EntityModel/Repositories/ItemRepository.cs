@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shared.DatabaseDefinition.EntityModel.Database;
-using Shared.DatabaseDefinition.EntityModel.Repositories.Interfaces;
-using TM = Shared.TransferModel;
+using DatabaseDefinition.EntityModel.Database;
+using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using TM = TransferModel;
 
-namespace Shared.DatabaseDefinition.EntityModel.Repositories;
+namespace DatabaseDefinition.EntityModel.Repositories;
 
 public class ItemRepository : IItemRepository
 {

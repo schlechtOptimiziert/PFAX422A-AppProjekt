@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shared.ServerDataProvider.Helpers;
+namespace ServerDataProvider.Helpers;
 
 public static class ServiceExtension
 {

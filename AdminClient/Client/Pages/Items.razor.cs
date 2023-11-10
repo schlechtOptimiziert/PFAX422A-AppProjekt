@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shared.TransferModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TransferModel;
 
-namespace AdminClient.Pages;
+namespace AdminClient.Client.Pages;
 
 partial class Items : BasePage
 {

@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Shared.TransferModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
+using TransferModel;
 
 namespace AdminClient.Client.Pages;
 
-public partial class ItemsDetails : BasePage
+partial class ItemDetails : BasePage
 {
     MudForm form;
     Color badgeColor = Color.Success;

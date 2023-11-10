@@ -1,7 +1,12 @@
 ﻿using Blazored.Toast.Configuration;
 using Blazored.Toast.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Shared.SharedClientComponents.Toast;
+namespace ClientComponents.Toast;
 
 public sealed class ToastService
 {

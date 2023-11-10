@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using TM = Shared.TransferModel;
+using TM = TransferModel;
 
-namespace Shared.DatabaseDefinition.EntityModel.Repositories.Interfaces;
+namespace DatabaseDefinition.EntityModel.Repositories.Interfaces;
 
 public interface IItemRepository
 {

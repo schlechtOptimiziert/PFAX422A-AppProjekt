@@ -6,13 +6,17 @@
     <Match>
         <ConditionComponent Condition="item != null">
             <Match>
-                <MudCarousel Class="mud-width-full" ItemsSource="@pictures" Style="height:200px;" ShowArrows="@(pictures.Count() > 1)" ShowBullets="@(pictures.Count() > 1)" AutoCycle="false">
-                    <ItemTemplate>
-                        <div class="d-flex h-100">
-                            <MudImage Src="@context" Class="mx-auto my-auto h-100" />
-                        </div>
-                    </ItemTemplate>
-                </MudCarousel>
+                <ConditionComponent Condition="pictures.Count() > 0">
+                    <Match>
+                        <MudCarousel Class="mud-width-full" ItemsSource="@pictures" Style="height:200px;" ShowArrows="@(pictures.Count() > 1)" ShowBullets="@(pictures.Count() > 1)" AutoCycle="false">
+                            <ItemTemplate>
+                                <div class="d-flex h-100">
+                                    <MudImage Src="@context" Class="mx-auto my-auto h-100" />
+                                </div>
+                            </ItemTemplate>
+                        </MudCarousel>
+                    </Match>
+                </ConditionComponent>
                 <MudText Typo="Typo.h5">@item.Name</MudText>
                 <MudText Typo="Typo.body2">@item.Description</MudText>
                 <MudText Typo="Typo.body2">@item.Price €</MudText>

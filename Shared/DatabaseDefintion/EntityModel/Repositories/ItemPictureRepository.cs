@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using DatabaseDefinition.EntityModel.Database;
 using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using TM = TransferModel;
 
 namespace DatabaseDefinition.EntityModel.Repositories;
@@ -36,7 +36,7 @@ public class ItemPictureRepository : IItemPictureRepository
 
     public async Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken)
     {
-        var dbItemPicture = await dbContext.ItemPictures.SingleAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
+        var dbItemPicture = await dbContext.ItemPictures.FirstOrDefaultAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
             throw new ArgumentException($"Item picture with Id '{id}' does not exist.");
         dbContext.ItemPictures.Remove(dbItemPicture);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

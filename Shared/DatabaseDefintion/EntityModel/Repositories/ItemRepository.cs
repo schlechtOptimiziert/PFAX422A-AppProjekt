@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using DatabaseDefinition.EntityModel.Database;
 using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using TM = TransferModel;
 
 namespace DatabaseDefinition.EntityModel.Repositories;
@@ -36,11 +36,12 @@ public class ItemRepository : IItemRepository
     public async Task<TM.Item> GetItemAsync(long itemId, CancellationToken cancellationToken)
         => await dbContext.Items.Select(ItemMappings.MapItem)
                                 .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
-                                .ConfigureAwait(false);
+                                .ConfigureAwait(false) ??
+                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
 
     public async Task UpdateItemAsync(TM.Item item, CancellationToken cancellationToken)
     {
-        var dbItem = await dbContext.Items.SingleAsync(x => x.Id == item.Id, cancellationToken).ConfigureAwait(false) ??
+        var dbItem = await dbContext.Items.FirstOrDefaultAsync(x => x.Id == item.Id, cancellationToken).ConfigureAwait(false) ??
             throw new ArgumentException($"Item with id '{item.Id}' does not exist.");
         ItemMappings.MapToDbModel(item, dbItem);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -48,7 +49,7 @@ public class ItemRepository : IItemRepository
 
     public async Task DeleteItemAsync(long id, CancellationToken cancellationToken)
     {
-        var dbItem = await dbContext.Items.SingleAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
+        var dbItem = await dbContext.Items.FirstOrDefaultAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
             throw new ArgumentException($"Item with Id '{id}' does not exist.");
         dbContext.Items.Remove(dbItem);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

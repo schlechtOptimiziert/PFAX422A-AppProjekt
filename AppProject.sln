@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerDataProvider", "Share
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferModel", "Shared\TransferModel\TransferModel.csproj", "{3DE34F51-40A1-472E-93A5-F98EC5F470D8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{CB3EED55-3EA7-4267-AEC4-0747551EEE79}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDefinition.Test", "Test\DatabaseDefinition.Test\DatabaseDefinition.Test.csproj", "{AFE78B8F-89DC-4B41-A2B3-F694036AA008}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,10 @@ Global
 		{3DE34F51-40A1-472E-93A5-F98EC5F470D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DE34F51-40A1-472E-93A5-F98EC5F470D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DE34F51-40A1-472E-93A5-F98EC5F470D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE78B8F-89DC-4B41-A2B3-F694036AA008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE78B8F-89DC-4B41-A2B3-F694036AA008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE78B8F-89DC-4B41-A2B3-F694036AA008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE78B8F-89DC-4B41-A2B3-F694036AA008}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +84,7 @@ Global
 		{D6DE4BA9-AE85-4F6F-908A-995CFD53FC20} = {9CB57E0D-86BE-48E4-83C9-6D0CBD045C7E}
 		{0CD14F1D-5CC5-4453-AC45-5BE42841FB9C} = {9CB57E0D-86BE-48E4-83C9-6D0CBD045C7E}
 		{3DE34F51-40A1-472E-93A5-F98EC5F470D8} = {9CB57E0D-86BE-48E4-83C9-6D0CBD045C7E}
+		{AFE78B8F-89DC-4B41-A2B3-F694036AA008} = {CB3EED55-3EA7-4267-AEC4-0747551EEE79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {535A4E75-332A-4DC3-83FF-4F96F50D3825}

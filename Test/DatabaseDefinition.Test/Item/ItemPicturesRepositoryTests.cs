@@ -1,6 +1,6 @@
 ﻿using DatabaseDefinition.EntityModel.Repositories.Interfaces;
-using TransferModel;
 using Xunit;
+using TM = TransferModel;
 
 namespace DatabaseDefintion.Test.Item;
 
@@ -29,7 +29,7 @@ public class ItemPicturesRepositoryTests : DatabaseDefinitionTestBase
     {
         var testItem0 = CreateRandomItem();
         var ids = await AddItemsAsync(testItem0).ConfigureAwait(false);
-        List<ItemPicture> testItemPictures = new();
+        List<TM.ItemPicture> testItemPictures = new();
         for (int i = 0; i < 3; i++)
             testItemPictures.Add(CreateRandomItemPictureForExistingItem(ids.First()));
         _ = await AddItemPicturesAsync(testItemPictures.ToArray()).ConfigureAwait(false);
@@ -45,7 +45,7 @@ public class ItemPicturesRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task GetItemPicturesByItemIdTest()
     {
-        List<ItemPicture> testItemPictures = new();
+        List<TM.ItemPicture> testItemPictures = new();
         for (int i = 0; i < 3; i++)
             testItemPictures.Add(await CreateRandomItemPictureForNewItemAsync().ConfigureAwait(false));
         _ = await AddItemPicturesAsync(testItemPictures.ToArray()).ConfigureAwait(false);
@@ -68,7 +68,7 @@ public class ItemPicturesRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task DeleteItemPictureTest()
     {
-        List<ItemPicture> testItemPictures = new();
+        List<TM.ItemPicture> testItemPictures = new();
         for (int i = 0; i < 3; i++)
             testItemPictures.Add(await CreateRandomItemPictureForNewItemAsync().ConfigureAwait(false));
         var ids = await AddItemPicturesAsync(testItemPictures.ToArray()).ConfigureAwait(false);
@@ -80,7 +80,7 @@ public class ItemPicturesRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task DeleteItemThrowsForUnknownTest()
     {
-        List<ItemPicture> testItemPictures = new();
+        List<TM.ItemPicture> testItemPictures = new();
         for (int i = 0; i < 3; i++)
             testItemPictures.Add(await CreateRandomItemPictureForNewItemAsync().ConfigureAwait(false));
         _ = await AddItemPicturesAsync(testItemPictures.ToArray()).ConfigureAwait(false);

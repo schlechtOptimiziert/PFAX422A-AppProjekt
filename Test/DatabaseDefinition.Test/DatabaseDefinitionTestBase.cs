@@ -71,6 +71,7 @@ public class DatabaseDefinitionTestBase
             ids.Add(await ItemPictureRepository.AddItemPictureAsync(itemPicture, CancellationToken).ConfigureAwait(false));
         return ids;
     }
+
     public static bool ItemPictureEqualsItemPicture(TM.ItemPicture itemPicture1, TM.ItemPicture itemPicture2)
     {
         return itemPicture1.ItemId == itemPicture2.ItemId

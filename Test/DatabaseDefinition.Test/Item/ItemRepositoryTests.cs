@@ -1,5 +1,6 @@
 ﻿using DatabaseDefinition.EntityModel.Repositories.Interfaces;
 using Xunit;
+using TM = TransferModel;
 
 namespace DatabaseDefintion.Test.Item;
 
@@ -25,40 +26,39 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task GetItemsTest()
     {
-        var testItem0 = CreateRandomItem();
-        var testItem1 = CreateRandomItem();
-        var testItem2 = CreateRandomItem();
-        _ = await AddItemsAsync(testItem0, testItem1, testItem2).ConfigureAwait(false);
+        List<TM.Item> testItems = new();
+        for (int i = 0; i < 3; i++)
+            testItems.Add(CreateRandomItem());
+        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
         var items = await itemRepository.GetItemsAsync(CancellationToken).ConfigureAwait(false);
         Assert.NotNull(items);
-        Assert.NotNull(items.ElementAt(0));
-        Assert.True(ItemEqualsItem(testItem0, items.ElementAt(0)));
-        Assert.NotNull(items.ElementAt(1));
-        Assert.True(ItemEqualsItem(testItem1, items.ElementAt(1)));
-        Assert.NotNull(items.ElementAt(2));
-        Assert.True(ItemEqualsItem(testItem2, items.ElementAt(2)));
+        for (int i = 0; i < 3; i++)
+        {
+            Assert.NotNull(items.ElementAt(i));
+            Assert.True(ItemEqualsItem(testItems[i], items.ElementAt(i)));
+        }
     }
 
     [Fact]
     public async Task GetItemTest()
     {
-        var testItem0 = CreateRandomItem();
-        var testItem1 = CreateRandomItem();
-        var testItem2 = CreateRandomItem();
-        var ids = await AddItemsAsync(testItem0, testItem1, testItem2).ConfigureAwait(false);
+        List<TM.Item> testItems = new();
+        for (int i = 0; i < 3; i++)
+            testItems.Add(CreateRandomItem());
+        var ids = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
         var item = await itemRepository.GetItemAsync(ids.ElementAt(0), CancellationToken).ConfigureAwait(false);
         Assert.NotNull(item);
         Assert.Equal(ids.ElementAt(0), item.Id);
-        Assert.True(ItemEqualsItem(testItem0, item));
+        Assert.True(ItemEqualsItem(testItems[0], item));
     }
 
     [Fact]
     public async Task GetItemThrowsForUnknownTest()
     {
-        var testItem0 = CreateRandomItem();
-        var testItem1 = CreateRandomItem();
-        var testItem2 = CreateRandomItem();
-        _ = await AddItemsAsync(testItem0, testItem1, testItem2).ConfigureAwait(false);
+        List<TM.Item> testItems = new();
+        for (int i = 0; i < 3; i++)
+            testItems.Add(CreateRandomItem());
+        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
         await Assert.ThrowsAsync<ArgumentException>(async () =>
             await itemRepository.GetItemAsync(50, CancellationToken).ConfigureAwait(false)
             ).ConfigureAwait(false);
@@ -67,10 +67,10 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task UpdateItemTest()
     {
-        var testItem0 = CreateRandomItem();
-        var testItem1 = CreateRandomItem();
-        var testItem2 = CreateRandomItem();
-        var ids = await AddItemsAsync(testItem0, testItem1, testItem2).ConfigureAwait(false);
+        List<TM.Item> testItems = new();
+        for (int i = 0; i < 3; i++)
+            testItems.Add(CreateRandomItem());
+        var ids = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
         var updateItem = CreateRandomItem();
         updateItem.Id = ids.ElementAt(2);
         await itemRepository.UpdateItemAsync(updateItem, CancellationToken).ConfigureAwait(false);
@@ -83,11 +83,10 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task UpdateItemThrowsForUnknownTest()
     {
-
-        var testItem0 = CreateRandomItem();
-        var testItem1 = CreateRandomItem();
-        var testItem2 = CreateRandomItem();
-        _ = await AddItemsAsync(testItem0, testItem1, testItem2).ConfigureAwait(false);
+        List<TM.Item> testItems = new();
+        for (int i = 0; i < 3; i++)
+            testItems.Add(CreateRandomItem());
+        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
         var updateItem = CreateRandomItem();
         updateItem.Id = 50;
         await Assert.ThrowsAsync<ArgumentException>(async () =>
@@ -98,10 +97,10 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task DeleteItemTest()
     {
-        var testItem0 = CreateRandomItem();
-        var testItem1 = CreateRandomItem();
-        var testItem2 = CreateRandomItem();
-        var ids = await AddItemsAsync(testItem0, testItem1, testItem2).ConfigureAwait(false);
+        List<TM.Item> testItems = new();
+        for (int i = 0; i < 3; i++)
+            testItems.Add(CreateRandomItem());
+        var ids = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
         await itemRepository.DeleteItemAsync(ids.ElementAt(1), CancellationToken).ConfigureAwait(false);
         await Assert.ThrowsAsync<ArgumentException>(async () =>
             await itemRepository.GetItemAsync(ids.ElementAt(1), CancellationToken).ConfigureAwait(false)
@@ -111,13 +110,12 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
     [Fact]
     public async Task DeleteItemThrowsForUnknownTest()
     {
-        var testItem0 = CreateRandomItem();
-        var testItem1 = CreateRandomItem();
-        var testItem2 = CreateRandomItem();
-        _ = await AddItemsAsync(testItem0, testItem1, testItem2).ConfigureAwait(false);
+        List<TM.Item> testItems = new();
+        for (int i = 0; i < 3; i++)
+            testItems.Add(CreateRandomItem());
+        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
         await Assert.ThrowsAsync<ArgumentException>(async () =>
             await itemRepository.DeleteItemAsync(50, CancellationToken).ConfigureAwait(false)
             ).ConfigureAwait(false);
     }
-
 }

@@ -36,7 +36,8 @@ public class ItemRepository : IItemRepository
     public async Task<TM.Item> GetItemAsync(long itemId, CancellationToken cancellationToken)
         => await dbContext.Items.Select(ItemMappings.MapItem)
                                 .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
-                                .ConfigureAwait(false);
+                                .ConfigureAwait(false) ??
+                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
 
     public async Task UpdateItemAsync(TM.Item item, CancellationToken cancellationToken)
     {

@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\DatabaseDefintion\DatabaseDefintion.csproj" />
+    <ProjectReference Include="..\..\Shared\DatabaseDefintion\DatabaseDefintion.csproj" />
   </ItemGroup>
 
 </Project>

@@ -29,10 +29,16 @@ public class ItemPictureRepository : IItemPictureRepository
     }
 
     public async Task<IEnumerable<TM.ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken)
-        => await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
+    {
+        _ = await dbContext.Items.Select(ItemMappings.MapItem)
+                                .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
+                                .ConfigureAwait(false) ??
+                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
+        return await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
             .Where(x => x.ItemId == itemId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
+    }
 
     public async Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken)
     {

@@ -30,12 +30,12 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
         _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
-        var items = await itemRepository.GetItemsAsync(CancellationToken).ConfigureAwait(false);
+        var items = (await itemRepository.GetItemsAsync(CancellationToken).ConfigureAwait(false)).ToList();
         Assert.NotNull(items);
         for (int i = 0; i < 3; i++)
         {
-            Assert.NotNull(items.ElementAt(i));
-            Assert.True(ItemEqualsItem(testItems[i], items.ElementAt(i)));
+            Assert.NotNull(items[i]);
+            Assert.True(ItemEqualsItem(testItems[i], items[i]));
         }
     }
 
@@ -45,10 +45,10 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
         List<TM.Item> testItems = new();
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
-        var ids = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
-        var item = await itemRepository.GetItemAsync(ids.ElementAt(0), CancellationToken).ConfigureAwait(false);
+        var ids = (await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false)).ToList();
+        var item = await itemRepository.GetItemAsync(ids[0], CancellationToken).ConfigureAwait(false);
         Assert.NotNull(item);
-        Assert.Equal(ids.ElementAt(0), item.Id);
+        Assert.Equal(ids[0], item.Id);
         Assert.True(ItemEqualsItem(testItems[0], item));
     }
 
@@ -70,13 +70,13 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
         List<TM.Item> testItems = new();
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
-        var ids = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
+        var ids = (await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false)).ToList();
         var updateItem = CreateRandomItem();
-        updateItem.Id = ids.ElementAt(2);
+        updateItem.Id = ids[2];
         await itemRepository.UpdateItemAsync(updateItem, CancellationToken).ConfigureAwait(false);
-        var item = await itemRepository.GetItemAsync(ids.ElementAt(2), CancellationToken).ConfigureAwait(false);
+        var item = await itemRepository.GetItemAsync(ids[2], CancellationToken).ConfigureAwait(false);
         Assert.NotNull(item);
-        Assert.Equal(ids.ElementAt(2), item.Id);
+        Assert.Equal(ids[2], item.Id);
         Assert.True(ItemEqualsItem(updateItem, item));
     }
 
@@ -100,10 +100,10 @@ public class ItemRepositoryTests : DatabaseDefinitionTestBase
         List<TM.Item> testItems = new();
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
-        var ids = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
-        await itemRepository.DeleteItemAsync(ids.ElementAt(1), CancellationToken).ConfigureAwait(false);
+        var ids = (await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false)).ToList();
+        await itemRepository.DeleteItemAsync(ids[1], CancellationToken).ConfigureAwait(false);
         await Assert.ThrowsAsync<ArgumentException>(async () =>
-            await itemRepository.GetItemAsync(ids.ElementAt(1), CancellationToken).ConfigureAwait(false)
+            await itemRepository.GetItemAsync(ids[1], CancellationToken).ConfigureAwait(false)
             ).ConfigureAwait(false);
     }
 

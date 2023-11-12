@@ -33,12 +33,12 @@ public class ItemPicturesRepositoryTests : DatabaseDefinitionTestBase
         for (int i = 0; i < 3; i++)
             testItemPictures.Add(CreateRandomItemPictureForExistingItem(ids.First()));
         _ = await AddItemPicturesAsync(testItemPictures.ToArray()).ConfigureAwait(false);
-        var itemPictures = await itemPictureRepository.GetItemPicturesAsync(ids.First(), CancellationToken).ConfigureAwait(false);
+        var itemPictures = (await itemPictureRepository.GetItemPicturesAsync(testItemPictures[0].ItemId, CancellationToken).ConfigureAwait(false)).ToList();
         Assert.NotNull(itemPictures);
         for (int i = 0; i < 3; i++)
         {
-            Assert.NotNull(itemPictures.ElementAt(i));
-            Assert.True(ItemPictureEqualsItemPicture(testItemPictures[i], itemPictures.ElementAt(i)));
+            Assert.NotNull(itemPictures[i]);
+            Assert.True(ItemPictureEqualsItemPicture(testItemPictures[i], itemPictures[i]));
         }
     }
 
@@ -49,28 +49,10 @@ public class ItemPicturesRepositoryTests : DatabaseDefinitionTestBase
         for (int i = 0; i < 3; i++)
             testItemPictures.Add(await CreateRandomItemPictureForNewItemAsync().ConfigureAwait(false));
         _ = await AddItemPicturesAsync(testItemPictures.ToArray()).ConfigureAwait(false);
-        var itemPictures = await itemPictureRepository.GetItemPicturesAsync(testItemPictures[0].ItemId, CancellationToken).ConfigureAwait(false);
+        var itemPictures = (await itemPictureRepository.GetItemPicturesAsync(testItemPictures[0].ItemId, CancellationToken).ConfigureAwait(false)).ToList();
         Assert.NotNull(itemPictures);
-        Assert.NotNull(itemPictures.First());
-        Assert.True(ItemPictureEqualsItemPicture(testItemPictures[0], itemPictures.First()));
-    }
-
-    [Fact]
-    public async Task GetMultipleItemPicturesByItemIdTest()
-    {
-        var testItem0 = CreateRandomItem();
-        var ids = await AddItemsAsync(testItem0).ConfigureAwait(false);
-        List<ItemPicture> testItemPictures = new();
-        for (int i = 0; i < 3; i++)
-            testItemPictures.Add(CreateRandomItemPictureForExistingItem(ids.First()));
-        _ = await AddItemPicturesAsync(testItemPictures.ToArray()).ConfigureAwait(false);
-        var itemPictures = await itemPictureRepository.GetItemPicturesAsync(ids.First(), CancellationToken).ConfigureAwait(false);
-        Assert.NotNull(itemPictures);
-        for (int i = 0; i < 3; i++)
-        {
-            Assert.NotNull(itemPictures.ElementAt(i));
-            Assert.True(ItemPictureEqualsItemPicture(testItemPictures[i], itemPictures.ElementAt(i)));
-        }
+        Assert.NotNull(itemPictures[0]);
+        Assert.True(ItemPictureEqualsItemPicture(testItemPictures[0], itemPictures[0]));
     }
 
     [Fact]

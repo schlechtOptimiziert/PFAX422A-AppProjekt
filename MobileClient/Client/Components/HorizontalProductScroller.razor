@@ -1,4 +1,5 @@
-﻿<div class="@Class" style="@Style">
+﻿@using TransferModel;
+ <div class="@Class" style="@Style">
     <MudButton Variant="Variant.Text" Class="mt-3 ml-1">
         <p class="h3 my-auto">@Title ></p>
     </MudButton>
@@ -7,6 +8,14 @@
         {
             <div class="item p-2">
                 @item.Name
+            @if (item.CoverPic != null)
+            {
+               <MudImage Src="@ItemPicture.ItemPictureToUri(item.CoverPic)" 
+                         Width="100" 
+                         Height="100"
+                         Elevation="25" 
+                         Class="rounded-lg ma-4" />
+            }
             </div>
         }
     </div>

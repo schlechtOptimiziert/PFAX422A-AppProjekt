@@ -14,11 +14,23 @@ public partial class Homepage : BasePage
     {
         await base.OnInitializedAsync().ConfigureAwait(false);
         items = await GetItemsAsync().ConfigureAwait(false);
-    }
+
+        foreach (var item in items)
+        {
+            item.Pictures = await GetItemPicturesAsync(item.Id).ConfigureAwait(false);
+            item.CoverPic = item.Pictures.FirstOrDefault();
+        }
+   }
     private async Task<IEnumerable<Item>> GetItemsAsync()
         => await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
 
-    private void NavigateToList()
+   private async Task<IEnumerable<ItemPicture>> GetItemPicturesAsync(long Id)
+   {
+         return await Service.GetItemPicturesAsync(Id, CancellationToken).
+             ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
+   }
+
+   private void NavigateToList()
         => NavigationManager.NavigateTo($"/items");
 
     private void NavigateToList(Platform platform)

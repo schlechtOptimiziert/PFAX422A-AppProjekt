@@ -23,6 +23,13 @@ public class Program
         builder.Services.AddMudServices();
 
         builder.Services.AddHttpClient<IService, Service>(
+            "MobileClient",
+            client =>
+            {
+                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+            });
+
+        builder.Services.AddHttpClient(
             "MobileClient.ServerAPI",
             client =>
             {

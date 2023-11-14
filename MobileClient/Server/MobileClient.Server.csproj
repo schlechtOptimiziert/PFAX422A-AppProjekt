@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>MobileClient.Server-7a385364-bd75-4286-8f22-0c81c1b8ee97</UserSecretsId>
   </PropertyGroup>
 

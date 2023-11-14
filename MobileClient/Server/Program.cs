@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.IO;
+using Microsoft.EntityFrameworkCore;
+using MobileClient.Server.Data;
+using MobileClient.Server.Models;
 using TM = TransferModel;
 
 namespace MobileClient
@@ -33,6 +31,7 @@ namespace MobileClient
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseMigrationsEndPoint();
                 app.UseWebAssemblyDebugging();
             }
             else
@@ -48,6 +47,9 @@ namespace MobileClient
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseIdentityServer();
+            app.UseAuthorization();
 
 
             app.MapRazorPages();

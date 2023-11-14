@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using MobileClient.Server.Data;
-using MobileClient.Server.Models;
 using TM = TransferModel;
 
 namespace MobileClient

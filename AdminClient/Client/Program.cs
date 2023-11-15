@@ -1,14 +1,16 @@
+using AdminClient.Client;
+using Blazored.Toast;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using ServerDataProvider.Interfaces;
 using ServerDataProvider;
+using Blazored.Toast.Services;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
-using ClientComponents.Toast;
-using Blazored.Toast;
 
 namespace AdminClient.Client;
 
@@ -23,6 +25,7 @@ public class Program
         builder.Services.AddMudServices();
         builder.Services.AddBlazoredToast();
 
+
         builder.Services.AddScoped<ToastService>();
 
         builder.Services.AddHttpClient<IService, Service>(
@@ -31,6 +34,18 @@ public class Program
             {
                 client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
             });
+
+        builder.Services.AddHttpClient(
+            "AdminClient.ServerAPI",
+            client =>
+            {
+                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+            }).AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+
+        // Supply HttpClient instances that include access tokens when making requests to the server project
+        builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AdminClient.ServerAPI"));
+
+        builder.Services.AddApiAuthorization();
 
         await builder.Build().RunAsync();
     }

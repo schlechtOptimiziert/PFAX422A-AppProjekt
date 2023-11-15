@@ -55,7 +55,6 @@ public class Program
         app.UseIdentityServer();
         app.UseAuthorization();
 
-
         app.MapRazorPages();
         app.MapControllers();
         app.MapFallbackToFile("index.html");

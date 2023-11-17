@@ -1,3 +1,12 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
 using TM = TransferModel;
 
 namespace AdminClient;
@@ -26,6 +35,7 @@ public class Program
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
+            app.UseMigrationsEndPoint();
             app.UseWebAssemblyDebugging();
         }
         else
@@ -42,6 +52,8 @@ public class Program
 
         app.UseRouting();
 
+        app.UseIdentityServer();
+        app.UseAuthorization();
 
         app.MapRazorPages();
         app.MapControllers();

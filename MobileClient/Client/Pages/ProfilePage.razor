@@ -1,4 +1,10 @@
 ﻿@page "/profile"
 @inherits BasePage
 
+<AuthorizeView>
+    <NotAuthorized>
+        <RedirectToLogin/>
+    </NotAuthorized>
+</AuthorizeView>
+
 <h3>Here you will see your profile</h3>

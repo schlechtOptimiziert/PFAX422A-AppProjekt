@@ -1,4 +1,10 @@
 ﻿@page "/cart"
 @inherits BasePage
 
+<AuthorizeView>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+
 <h3>This is your cart</h3>

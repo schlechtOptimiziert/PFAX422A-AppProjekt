@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using ClientComponents.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace MobileClient.Client.Components;
 
 public partial class SearchBar : BaseComponent
 {
-    private string? searchText;
+    private string searchText;
     private Platform? platform;
 
     [Parameter]
-    public string? Class { get; set; } = default!;
+    public string Class { get; set; } = default!;
 
     [Parameter]
-    public string? Style { get; set; } = default!;
+    public string Style { get; set; } = default!;
 
     public void KeyPressed(KeyboardEventArgs e)
     {
@@ -22,7 +23,7 @@ public partial class SearchBar : BaseComponent
         }
     }
 
-    private void NavigateToList(string? searchText)
+    private void NavigateToList(string searchText)
     {
         platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
         if (string.IsNullOrEmpty(searchText))

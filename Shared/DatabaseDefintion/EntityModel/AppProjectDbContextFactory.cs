@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Design;
 using Newtonsoft.Json;
 using DatabaseDefinition.EntityModel;
 using TM = TransferModel;
+using Duende.IdentityServer.EntityFramework.Options;
+using Microsoft.Extensions.Options;
 
 namespace DatabaseDefintion.EntityModel;
 
@@ -17,6 +19,18 @@ public class AppProjectDbContextFactory : IDesignTimeDbContextFactory<AppProject
 
         var builder = new DbContextOptionsBuilder<AppProjectDbContext>();
         builder.UseSqlServer(serviceConfiguration.ConnectionStrings.Db);
-        return new AppProjectDbContext(builder.Options);
+        return new AppProjectDbContext(builder.Options, new OperationalStoreOptionsMigrations());
     }
+}
+
+class OperationalStoreOptionsMigrations : IOptions<OperationalStoreOptions>
+{
+    public OperationalStoreOptions Value => new OperationalStoreOptions()
+    {
+        DeviceFlowCodes = new TableConfiguration("DeviceCodes"),
+        EnableTokenCleanup = false,
+        PersistedGrants = new TableConfiguration("PersistedGrants"),
+        TokenCleanupBatchSize = 100,
+        TokenCleanupInterval = 3600,
+    };
 }

@@ -16,3 +16,4 @@ public partial class HorizontalProductScroller
     [Parameter]
     public IEnumerable<Item> Items { get; set; } = default!;
 }
+

@@ -1,18 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <UserSecretsId>MobileClient.Server-7a385364-bd75-4286-8f22-0c81c1b8ee97</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.13" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.14" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared\DatabaseDefintion\DatabaseDefintion.csproj" />
-    <ProjectReference Include="..\..\Shared\TransferModel\TransferModel.csproj" />
-    <ProjectReference Include="..\Client\MobileClient.Client.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Shared\DatabaseDefintion\DatabaseDefintion.csproj" />
+        <ProjectReference Include="..\..\Shared\TransferModel\TransferModel.csproj" />
+        <ProjectReference Include="..\Client\MobileClient.Client.csproj" />
+    </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.12" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.12" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.12" />
+        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.12" />
+    </ItemGroup>
 
 </Project>

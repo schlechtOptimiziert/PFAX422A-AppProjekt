@@ -1,0 +1,7 @@
+﻿.addButton {
+    position: sticky;
+    background-color: var(--primary);
+    width: 90%;
+    bottom: 4rem;
+    z-index: 3;
+}

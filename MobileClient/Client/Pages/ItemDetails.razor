@@ -18,14 +18,31 @@
                     </Match>
                 </ConditionComponent>
                 <MudText Typo="Typo.h5">@item.Name</MudText>
+                <h5 Style="text-align:right">@item.Price €</h5>
+                <MudText Typo="Typo.h5">Description</MudText>
                 <MudText Typo="Typo.body2">@item.Description</MudText>
-                <MudText Typo="Typo.body2">@item.Price €</MudText>
                 <AuthorizeView>
                     <Authorized>
-                        <MudButton Variant="Variant.Text" Color="Color.Primary">Add to cart</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Style="position: fixed;
+    background-color: var(--primary);
+    border-radius:1rem;
+    padding: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    bottom: 4rem;
+    z-index: 3;">Add to cart</MudButton>
                     </Authorized>
                     <NotAuthorized>
-                        <MudText>Login to be able to add to cart</MudText>
+                        <MudText Style="position: fixed;
+    background-color: var(--primary);
+    border-radius:1rem;
+    padding: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    bottom: 4rem;
+    z-index: 3;">Login to be able to add to cart</MudText>
                     </NotAuthorized>
                 </AuthorizeView>
             </Match>

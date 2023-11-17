@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
 using ServerDataProvider.Interfaces;
-using ClientComponents.Toast;
 using System.Threading;
 
-namespace AdminClient;
+namespace AdminClient.Client.Pages;
 
 public abstract class BasePage : ComponentBase
 {

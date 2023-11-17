@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
+using DatabaseDefinition.EntityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Newtonsoft.Json;
-using DatabaseDefinition.EntityModel;
 using TM = TransferModel;
 
 namespace DatabaseDefintion.EntityModel;
@@ -17,6 +17,6 @@ public class AppProjectDbContextFactory : IDesignTimeDbContextFactory<AppProject
 
         var builder = new DbContextOptionsBuilder<AppProjectDbContext>();
         builder.UseSqlServer(serviceConfiguration.ConnectionStrings.Db);
-        return new AppProjectDbContext(builder.Options);
+        return new AppProjectDbContext(builder.Options, new OperationalStoreOptionsMigrations());
     }
 }

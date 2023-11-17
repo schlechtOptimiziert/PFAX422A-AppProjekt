@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using DatabaseDefinition.EntityModel.Database;
 using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using TM = TransferModel;
 
 namespace DatabaseDefinition.EntityModel.Repositories;
@@ -29,21 +29,27 @@ public class ItemPictureRepository : IItemPictureRepository
     }
 
     public async Task<IEnumerable<TM.ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken)
-        => await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
+    {
+        _ = await dbContext.Items.Select(ItemMappings.MapItem)
+                                .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
+                                .ConfigureAwait(false) ??
+                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
+        return await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
             .Where(x => x.ItemId == itemId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
-   
-   public async Task<TM.ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken)
-        => await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
-            .FirstOrDefaultAsync(x => x.ItemId == itemId, cancellationToken)
-            .ConfigureAwait(false);
+    }
+
+    public async Task<TM.ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken)
+         => await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
+             .FirstOrDefaultAsync(x => x.ItemId == itemId, cancellationToken)
+             .ConfigureAwait(false);
 
 
 
-   public async Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken)
+    public async Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken)
     {
-        var dbItemPicture = await dbContext.ItemPictures.SingleAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
+        var dbItemPicture = await dbContext.ItemPictures.FirstOrDefaultAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
             throw new ArgumentException($"Item picture with Id '{id}' does not exist.");
         dbContext.ItemPictures.Remove(dbItemPicture);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

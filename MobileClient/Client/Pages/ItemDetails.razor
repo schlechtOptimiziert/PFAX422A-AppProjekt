@@ -20,7 +20,14 @@
                 <MudText Typo="Typo.h5">@item.Name</MudText>
                 <MudText Typo="Typo.body2">@item.Description</MudText>
                 <MudText Typo="Typo.body2">@item.Price €</MudText>
-                <MudButton Variant="Variant.Text" Color="Color.Primary">Add to cart</MudButton>
+                <AuthorizeView>
+                    <Authorized>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary">Add to cart</MudButton>
+                    </Authorized>
+                    <NotAuthorized>
+                        <MudText>Login to be able to add to cart</MudText>
+                    </NotAuthorized>
+                </AuthorizeView>
             </Match>
             <NotMatch>
                 <MudAlert Severity="Severity.Error">There is no item with the id @Id</MudAlert>

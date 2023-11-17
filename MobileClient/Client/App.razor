@@ -3,14 +3,14 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <NotAuthorized>
-                    @if (context.User.Identity?.IsAuthenticated != true)
-                    {
-                        <RedirectToLogin />
-                    }
-                    else
-                    {
-                        <p role="alert">You are not authorized to access this resource.</p>
-                    }
+                    <ConditionComponent Condition="@(context.User.Identity?.IsAuthenticated != true)">
+                        <Match>
+                            <RedirectToLogin />
+                        </Match>
+                        <NotMatch>
+                            <p role="alert">You are not authorized to access this resource.</p>
+                        </NotMatch>
+                    </ConditionComponent>
                 </NotAuthorized>
             </AuthorizeRouteView>
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />

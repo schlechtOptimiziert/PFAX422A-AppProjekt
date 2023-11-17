@@ -1,16 +1,15 @@
-using AdminClient.Client;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Blazored.Toast;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MudBlazor.Services;
-using ServerDataProvider.Interfaces;
-using ServerDataProvider;
-using Blazored.Toast.Services;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http;
+using MudBlazor.Services;
+using ServerDataProvider;
+using ServerDataProvider.Interfaces;
 
 namespace AdminClient.Client;
 
@@ -24,7 +23,6 @@ public class Program
 
         builder.Services.AddMudServices();
         builder.Services.AddBlazoredToast();
-
 
         builder.Services.AddScoped<ToastService>();
 

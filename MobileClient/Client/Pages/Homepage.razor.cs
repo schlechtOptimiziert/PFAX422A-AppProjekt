@@ -30,13 +30,6 @@ public partial class Homepage : BasePage
              ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
    }
 
-   private async Task<ItemPicture> GetItemCoverPic(Item item)
-   {
-      if (item == null)
-         return await Service.GetItemCoverPic(item.Id, CancellationToken).ConfigureAwait(false);
-      return null;
-   }
-
    private void NavigateToList()
         => NavigationManager.NavigateTo($"/items");
 

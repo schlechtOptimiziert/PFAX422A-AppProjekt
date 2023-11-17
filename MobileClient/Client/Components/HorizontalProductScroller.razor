@@ -1,4 +1,6 @@
-﻿ <div class="@Class" style="@Style">
+﻿@inherits BaseComponent 
+
+<div class="@Class" style="@Style">
     <MudButton Variant="Variant.Text" Class="mt-3 ml-1">
         <p class="h3 my-auto">@Title ></p>
     </MudButton>
@@ -7,7 +9,7 @@
         {
             <div class="item p-2">
                 @item.Name
-                
+            <MudImage Src="@GetItemCoverPictureUri(item)"></MudImage>
             </div>
         }
     </div>

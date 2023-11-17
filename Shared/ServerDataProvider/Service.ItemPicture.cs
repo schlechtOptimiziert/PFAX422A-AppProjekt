@@ -27,7 +27,7 @@ public partial class Service : IItemPictureService
         return await response.ReadAsAsync<IEnumerable<ItemPicture>>(cancellationToken).ConfigureAwait(false);
     }
 
-   public async Task<ItemPicture> GetItemCoverPic(long itemId, CancellationToken cancellationToken)
+   public async Task<ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken)
    {
       var response = await httpClient.GetAsync($"{itemRequestUri}/{itemId}/Pictures/CoverPicture", cancellationToken).ConfigureAwait(false);
       response.EnsureSuccessStatusCode();

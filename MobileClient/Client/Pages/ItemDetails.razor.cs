@@ -37,4 +37,6 @@ partial class ItemDetails : BasePage
             return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
         return Enumerable.Empty<ItemPicture>();
     }
+
+
 }

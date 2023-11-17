@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using TransferModel;
+using MobileClient.Client.Pages;
 
 namespace MobileClient.Client.Components;
 
@@ -15,4 +16,8 @@ public partial class HorizontalProductScroller
 
     [Parameter]
     public IEnumerable<Item> Items { get; set; } = default!;
+
+
+
+
 }

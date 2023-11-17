@@ -33,8 +33,15 @@ public class ItemPictureRepository : IItemPictureRepository
             .Where(x => x.ItemId == itemId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
+   
+   public async Task<TM.ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken)
+        => await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
+            .FirstOrDefaultAsync(x => x.ItemId == itemId, cancellationToken)
+            .ConfigureAwait(false);
 
-    public async Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken)
+
+
+   public async Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken)
     {
         var dbItemPicture = await dbContext.ItemPictures.SingleAsync(x => x.Id == id, cancellationToken).ConfigureAwait(false) ??
             throw new ArgumentException($"Item picture with Id '{id}' does not exist.");

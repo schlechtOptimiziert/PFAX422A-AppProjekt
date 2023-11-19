@@ -39,10 +39,10 @@ main {
 
 .headerContainer {
     position: sticky;
-    background-color: var(--primary);
     width: 100%;
     top: 0;
     z-index: 3;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    background: linear-gradient(180deg, rgba(87,144,171,1) 0%, rgba(156,205,219,1) 37%, rgba(156,205,219,0) 100%);
 }

@@ -1,6 +1,7 @@
 ﻿using DatabaseDefinition.EntityModel;
 using DatabaseDefinition.EntityModel.Repositories;
 using DatabaseDefintion.EntityModel;
+using DatabaseDefintion.EntityModel.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -22,14 +23,17 @@ public class DatabaseDefinitionTestBase
 {
     protected ItemRepository ItemRepository { get; }
     protected ItemPictureRepository ItemPictureRepository { get; }
+    protected CartRepository CartRepository { get; }
     protected CancellationToken CancellationToken { get; } = CancellationToken.None;
     protected Random Random { get; }
+    protected AppProjectDbContext DbContext { get; }
 
     public DatabaseDefinitionTestBase()
     {
-        var dbContext = new AppProjectDbContext(CreateInMemoryDbContextOptions<AppProjectDbContext>(), new OperationalStoreOptionsMigrations());
-        ItemRepository = new(dbContext);
-        ItemPictureRepository = new(dbContext);
+        DbContext = new AppProjectDbContext(CreateInMemoryDbContextOptions<AppProjectDbContext>(), new OperationalStoreOptionsMigrations());
+        ItemRepository = new(DbContext);
+        ItemPictureRepository = new(DbContext);
+        CartRepository = new(DbContext);
         Random = new Random();
     }
 
@@ -80,6 +84,20 @@ public class DatabaseDefinitionTestBase
             && itemPicture1.Description == itemPicture2.Description
             && itemPicture1.FileExtension == itemPicture2.FileExtension
             && itemPicture1.Size == itemPicture2.Size;
+    }
+
+    public async Task AddItemsToCartAsync(string userId, params long[] itemsIds)
+    {
+        foreach (var itemId in itemsIds)
+            await CartRepository.AddItemToCart(userId, itemId, CancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<ApplicationUser> CreateUserAsync()
+    {
+        DbContext.Users.Add(new ApplicationUser());
+        await DbContext.SaveChangesAsync(CancellationToken).ConfigureAwait(false);
+        return DbContext.Users.FirstOrDefault() ??
+            throw new Exception("Couldn't find created User");
     }
 
     /// <summary>

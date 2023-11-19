@@ -1,8 +1,9 @@
 ﻿using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using DatabaseDefintion.Test;
 using Xunit;
 using TM = TransferModel;
 
-namespace DatabaseDefintion.Test.Item;
+namespace DatabaseDefinition.Test.Cart;
 
 public class CartRepositoryTests : DatabaseDefinitionTestBase
 {
@@ -11,6 +12,18 @@ public class CartRepositoryTests : DatabaseDefinitionTestBase
     public CartRepositoryTests()
     {
         cartRepository = CartRepository;
+    }
+
+    [Fact]
+    public async Task AddItemToCartTest()
+    {
+        var user = await CreateUserAsync().ConfigureAwait(false);
+        var testItem = CreateRandomItem();
+        var itemIds = await AddItemsAsync(testItem).ConfigureAwait(false);
+        await cartRepository.AddItemToCart(user.Id, itemIds.First(), CancellationToken).ConfigureAwait(false);
+
+        var itemLinks = await cartRepository.GetCartItemLinksAsync(user.Id, CancellationToken).ConfigureAwait(false);
+        Assert.NotEmpty(itemLinks);
     }
 
     [Fact]
@@ -30,18 +43,6 @@ public class CartRepositoryTests : DatabaseDefinitionTestBase
             Assert.NotNull(itemLinks[i]);
             Assert.Equal(itemLinks[i].ItemId, ids[i]);
         }
-    }
-
-    [Fact]
-    public async Task AddItemToCartTest()
-    {
-        var user = await CreateUserAsync().ConfigureAwait(false);
-        var testItem = CreateRandomItem();
-        var itemIds = await AddItemsAsync(testItem).ConfigureAwait(false);
-        await cartRepository.AddItemToCart(user.Id, itemIds.First(), CancellationToken).ConfigureAwait(false);
-
-        var itemLinks = await cartRepository.GetCartItemLinksAsync(user.Id, CancellationToken).ConfigureAwait(false);
-        Assert.NotEmpty(itemLinks);
     }
 
     [Fact]

@@ -1,0 +1,18 @@
+﻿.toPaymentContainer {
+    position: fixed;
+    background-color: var(--secondary);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    left: 50%;
+    transform: translate(-50%);
+    width: 90%;
+    bottom: 4rem;
+    font-size: large;
+    text-align: center;
+    z-index: 3;
+}
+
+.mainContent {
+    margin: 0.7rem;
+    margin-bottom: 10rem;
+}

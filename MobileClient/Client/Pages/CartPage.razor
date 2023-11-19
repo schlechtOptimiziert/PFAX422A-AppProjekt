@@ -1,22 +1,39 @@
 ﻿@page "/cart"
 @inherits BasePage
 
-<h3>This is your cart</h3>
 <AuthorizeView>
     <NotAuthorized>
         <RedirectToLogin />
     </NotAuthorized>
     <Authorized>
-        <ConditionComponent Condition="cartItems.Any()">
-            <NotMatch>
-                keine sachen im Warenkorb
-            </NotMatch>
-        </ConditionComponent>
-        @foreach (var cartItem in cartItems)
-        {
-            @cartItem.Item.Name
-            @cartItem.Item.Price
-            @cartItem.Amount
-        }
+    <div class="mainContent">
+            <MudText Typo="Typo.h4">My cart</MudText>
+            <ConditionComponent Condition="cartItems.Any()">
+                <NotMatch>
+                    The cart is empty
+                </NotMatch>
+            </ConditionComponent>
+            @foreach (var cartItem in cartItems)
+            {
+                <div style="display:flex; justify-content:space-between; width:100%; background-color: var(--grayDefault); border-radius:0.5rem; margin-left:auto; margin-right:auto; margin-top: 1rem; padding:0.5rem;">
+                    <div style="display:flex">
+                        <div style="background-image: url(@cartItem.Item.CoverPictureUri); background-size: cover;"/>
+                        @cartItem.Item.Name
+                    </div>
+                    <div style="display:flex; flex-direction:column;">
+                        <p>@cartItem.Item.Price €</p>
+                        <MudNumericField @bind-Value="cartItem.Amount" Label="Amount" Variant="Variant.Text" Min="1"/>
+                        <button> delete</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="toPaymentContainer">
+            <div style="display:flex; flex-direction:row; justify-content:space-between; padding:0.3rem;">
+                Total
+                <div> .. €</div>
+            </div>
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Text" Style="background-color:var(--lightGreen); width:90%;"> To payment</MudButton>
+        </div>
     </Authorized>
 </AuthorizeView>

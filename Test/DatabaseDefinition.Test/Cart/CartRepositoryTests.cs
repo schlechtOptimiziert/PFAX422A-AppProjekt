@@ -27,6 +27,20 @@ public class CartRepositoryTests : DatabaseDefinitionTestBase
     }
 
     [Fact]
+    public async Task AddItemToCartMultipleTimes_IncreasesAmountTest()
+    {
+        var user = await CreateUserAsync().ConfigureAwait(false);
+        var testItem = CreateRandomItem();
+        var itemIds = await AddItemsAsync(testItem).ConfigureAwait(false);
+        await AddItemsToCartAsync(user.Id, itemIds.First(), itemIds.First());
+
+        var itemLinks = await cartRepository.GetCartItemLinksAsync(user.Id, CancellationToken).ConfigureAwait(false);
+        Assert.NotEmpty(itemLinks);
+        Assert.NotNull(itemLinks.First());
+        Assert.Equal(2, itemLinks.First().Amount);
+    }
+
+    [Fact]
     public async Task GetCartItemLinksTest()
     {
         var user = await CreateUserAsync().ConfigureAwait(false);

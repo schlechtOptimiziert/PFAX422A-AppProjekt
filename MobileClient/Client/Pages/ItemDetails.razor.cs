@@ -25,7 +25,7 @@ partial class ItemDetails : BasePage
         IsLoading = true;
         await base.OnInitializedAsync().ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
-        //pictures = (await GetItemPicturesAsync().ConfigureAwait(false))?.Select(ItemPicture.ItemPictureToUri);
+        pictures = (await GetItemPicturesAsync().ConfigureAwait(false))?.Select(ItemPicture.ItemPictureToUri);
         var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         if (authenticationState != null)
         {

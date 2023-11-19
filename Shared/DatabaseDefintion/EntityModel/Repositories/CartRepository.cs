@@ -26,7 +26,12 @@ public class CartRepository : ICartRepository
                                 .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"Item with id '{itemId}' does not exist.");
-        await dbContext.CartItemLinks.AddAsync(new CartItemLink() { UserId = userId, ItemId = itemId, Amount = 1 });
+        var cartItemLink = await dbContext.CartItemLinks.SingleOrDefaultAsync(x => x.ItemId == itemId && x.UserId == userId, cancellationToken)
+                                                        .ConfigureAwait(false);
+        if (cartItemLink != null)
+            cartItemLink.Amount++;
+        else
+            await dbContext.CartItemLinks.AddAsync(new CartItemLink() { UserId = userId, ItemId = itemId, Amount = 1 });
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 

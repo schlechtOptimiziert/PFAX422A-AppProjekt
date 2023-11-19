@@ -26,6 +26,18 @@ namespace MobileClient.Client.Pages
             }
         }
 
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync().ConfigureAwait(false);
+
+            foreach (var cartItem in cartItems)
+            {
+                var coverPicture = await Service.GetItemCoverPictureAsync(cartItem.Item.Id, CancellationToken).ConfigureAwait(false);
+                cartItem.Item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+            }
+        }
+
         private async Task<IEnumerable<CartItemLink>> GetCartItemLinksAsync(string userId)
             => await Service.GetCartItemLinksAsync(userId, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<CartItemLink>();
     }

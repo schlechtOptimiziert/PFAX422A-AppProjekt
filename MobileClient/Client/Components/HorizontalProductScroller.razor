@@ -4,7 +4,7 @@
     <MudButton Variant="Variant.Text" Class="mt-3 ml-1">
         <p class="h3 my-auto">@Title ></p>
     </MudButton>
-    <button class="itemContainer hideScrollbar">
+    <div class="itemContainer hideScrollbar">
         @foreach (var item in Items)
         {
             <div class="p-2" @onclick="() => NavigateToList(item.Id)">
@@ -12,5 +12,5 @@
                 <div style="text-align: center;">@item.Name</div>
             </div>
         }
-    </button>
+    </div>
 </div>

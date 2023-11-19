@@ -4,13 +4,13 @@
     <MudButton Variant="Variant.Text" Class="mt-3 ml-1">
         <p class="h3 my-auto">@Title ></p>
     </MudButton>
-    <div class="itemContainer hideScrollbar">
+    <button class="itemContainer hideScrollbar">
         @foreach (var item in Items)
         {
-            <div class=" p-2">
-                <button class="item" style="background-image: url(@item.CoverPictureUri); background-size: cover;" @onclick="() => NavigateToList(item.Id)" />
+            <div class="p-2" @onclick="() => NavigateToList(item.Id)">
+                <div class="item" style="background-image: url(@item.CoverPictureUri); background-size: cover;" />
                 <div style="text-align: center;">@item.Name</div>
             </div>
         }
-    </div>
+    </button>
 </div>

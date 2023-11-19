@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using ClientComponents.Components;
+using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TransferModel;
 
 namespace MobileClient.Client.Components;
 
-public partial class HorizontalProductScroller
+public partial class HorizontalProductScroller : BaseComponent
 {
     [Parameter]
     public string Class { get; set; } = default!;
@@ -15,5 +18,19 @@ public partial class HorizontalProductScroller
 
     [Parameter]
     public IEnumerable<Item> Items { get; set; } = default!;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync().ConfigureAwait(false);
+
+        foreach (var item in Items)
+        {
+            var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
+            item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+        }
+    }
+
+    private void NavigateToList(long itemId)
+        => NavigationManager.NavigateTo($"/items/{itemId}");
 }
 

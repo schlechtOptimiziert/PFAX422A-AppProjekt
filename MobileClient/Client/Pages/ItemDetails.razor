@@ -17,32 +17,20 @@
                         </MudCarousel>
                     </Match>
                 </ConditionComponent>
-                <MudText Typo="Typo.h5">@item.Name</MudText>
-                <h5 Style="text-align:right">@item.Price €</h5>
-                <MudText Typo="Typo.h5">Description</MudText>
-                <MudText Typo="Typo.body2">@item.Description</MudText>
+                <div class="mainContent">
+                    <div class="d-flex justify-content-between">
+                        <MudText Typo="Typo.h5">@item.Name</MudText>
+                        <MudText Typo="Typo.h5">@item.Price €</MudText>
+                    </div>
+                    <MudText Typo="Typo.h5" Style="margin-top: 4rem;">Description</MudText>
+                    <MudText Typo="Typo.body2" Style="margin-top: 0.5rem;">@item.Description</MudText>
+                </div>
                 <AuthorizeView>
                     <Authorized>
-                        <MudButton Variant="Variant.Text" Color="Color.Primary" Style="position: fixed;
-    background-color: var(--primary);
-    border-radius:1rem;
-    padding: 0.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    bottom: 4rem;
-    z-index: 3;">Add to cart</MudButton>
+                        <button class="addButton">Add to cart</button>
                     </Authorized>
                     <NotAuthorized>
-                        <MudText Style="position: fixed;
-    background-color: var(--primary);
-    border-radius:1rem;
-    padding: 0.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    bottom: 4rem;
-    z-index: 3;">Login to be able to add to cart</MudText>
+                        <div class="addButton">Login to be able to add to cart</div>
                     </NotAuthorized>
                 </AuthorizeView>
             </Match>

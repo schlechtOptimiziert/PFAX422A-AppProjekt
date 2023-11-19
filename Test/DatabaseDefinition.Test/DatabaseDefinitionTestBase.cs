@@ -1,5 +1,6 @@
 ﻿using DatabaseDefinition.EntityModel;
 using DatabaseDefinition.EntityModel.Repositories;
+using DatabaseDefintion.EntityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -26,7 +27,7 @@ public class DatabaseDefinitionTestBase
 
     public DatabaseDefinitionTestBase()
     {
-        var dbContext = new AppProjectDbContext(CreateInMemoryDbContextOptions<AppProjectDbContext>());
+        var dbContext = new AppProjectDbContext(CreateInMemoryDbContextOptions<AppProjectDbContext>(), new OperationalStoreOptionsMigrations());
         ItemRepository = new(dbContext);
         ItemPictureRepository = new(dbContext);
         Random = new Random();

@@ -1,13 +1,15 @@
-﻿<div class="@Class" style="@Style">
+﻿@inherits BaseComponent
+
+<div class="@Class" style="@Style">
     <MudButton Variant="Variant.Text" Class="mt-3 ml-1">
         <p class="h3 my-auto">@Title ></p>
     </MudButton>
     <div class="itemContainer hideScrollbar">
         @foreach (var item in Items)
         {
-            <div class="item p-2">
+            <button class="item p-2" @onclick="() => NavigateToList(item.Id)">
                 @item.Name
-            </div>
+            </button>
         }
     </div>
 </div>

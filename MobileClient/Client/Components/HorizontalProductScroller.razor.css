@@ -1,13 +1,10 @@
 ﻿.itemContainer {
     overflow-x: scroll;
     display: flex;
-    margin-top: 0.5rem;
 }
 
 .item {
     display: flex;
-    margin-left: 1rem;
-    margin-right: 1rem;
     height: 8rem;
     min-width: 8rem;
     background-color: lightgray;

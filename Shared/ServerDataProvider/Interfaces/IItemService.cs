@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using TransferModel;
+﻿using TransferModel;
 
 namespace ServerDataProvider.Interfaces;
-
 
 public interface IItemService
 {

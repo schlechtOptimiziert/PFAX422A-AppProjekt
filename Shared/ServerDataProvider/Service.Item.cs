@@ -1,14 +1,10 @@
 ﻿using ServerDataProvider.Helpers;
 using ServerDataProvider.Interfaces;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using TransferModel;
 
 namespace ServerDataProvider;
 
-public partial class Service : IItemService
+public partial class Service : ICartService
 {
     private readonly string itemRequestUri = "api/Items";
 

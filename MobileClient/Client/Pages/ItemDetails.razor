@@ -27,7 +27,7 @@
                 </div>
                 <AuthorizeView>
                     <Authorized>
-                        <button class="addButton">Add to cart</button>
+                        <button class="addButton" @onclick="async () => await AddItemToCartAsync(userId, item.Id, CancellationToken)">Add to cart</button>
                     </Authorized>
                     <NotAuthorized>
                         <div class="addButton">Login to be able to add to cart</div>

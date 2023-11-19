@@ -35,10 +35,15 @@ public class CartRepository : ICartRepository
         _ = await dbContext.Users.SingleOrDefaultAsync(x => x.Id == userId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"User with id '{userId}' does not exist.");
-        return await dbContext.CartItemLinks.Select(CartItemLinkMappings.MapCartItemLink)
+        var cartItemLinks = await dbContext.CartItemLinks.Select(CartItemLinkMappings.MapCartItemLink)
             .Where(x => x.UserId == userId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
+        foreach (var cartItemLink in cartItemLinks)
+            cartItemLink.Item = await dbContext.Items.Select(ItemMappings.MapItem)
+                                                        .SingleOrDefaultAsync(x => x.Id == cartItemLink.ItemId, cancellationToken)
+                                                        .ConfigureAwait(false);
+        return cartItemLinks;
     }
 
     public async Task DeleteItemFromCart(string userId, long itemId, CancellationToken cancellationToken)

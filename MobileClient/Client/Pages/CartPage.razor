@@ -1,10 +1,22 @@
 ﻿@page "/cart"
 @inherits BasePage
 
+<h3>This is your cart</h3>
 <AuthorizeView>
     <NotAuthorized>
         <RedirectToLogin />
     </NotAuthorized>
+    <Authorized>
+        <ConditionComponent Condition="cartItems.Any()">
+            <NotMatch>
+                keine sachen im Warenkorb
+            </NotMatch>
+        </ConditionComponent>
+        @foreach (var cartItem in cartItems)
+        {
+            @cartItem.Item.Name
+            @cartItem.Item.Price
+            @cartItem.Amount
+        }
+    </Authorized>
 </AuthorizeView>
-
-<h3>This is your cart</h3>

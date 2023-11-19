@@ -42,6 +42,7 @@ public class CartRepositoryTests : DatabaseDefinitionTestBase
         {
             Assert.NotNull(itemLinks[i]);
             Assert.Equal(itemLinks[i].ItemId, ids[i]);
+            Assert.True(ItemEqualsItem(itemLinks[i].Item, testItems[i]));
         }
     }
 

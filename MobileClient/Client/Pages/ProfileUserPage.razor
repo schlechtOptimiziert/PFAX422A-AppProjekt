@@ -1,0 +1,11 @@
+﻿@page "/profile/user"
+@inherits BasePage
+
+<AuthorizeView>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+    <Authorized>
+        <h3>E-Mail: @context.User.Identity?.Name</h3>
+    </Authorized>
+</AuthorizeView>

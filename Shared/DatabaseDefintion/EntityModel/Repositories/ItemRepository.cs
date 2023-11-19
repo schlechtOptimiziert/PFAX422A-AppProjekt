@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using DatabaseDefinition.EntityModel.Database;
 using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using DatabaseDefintion.EntityModel.Database;
+using DatabaseDefintion.EntityModel.Repositories;
 using Microsoft.EntityFrameworkCore;
 using TM = TransferModel;
 
@@ -28,6 +30,17 @@ public class ItemRepository : IItemRepository
         return dbItem.Id;
     }
 
+    public async Task AddPlatformToItemAsync(long itemId, long platformId, CancellationToken cancellationToken)
+    {
+        var dbItemPlatformLink = new ItemPlatformLink()
+        {
+            ItemId = itemId,
+            PlatformId = platformId,
+        };
+        await dbContext.ItemPlatformLinks.AddAsync(dbItemPlatformLink, cancellationToken).ConfigureAwait(false);
+        await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
     public async Task<IEnumerable<TM.Item>> GetItemsAsync(CancellationToken cancellationToken)
         => await dbContext.Items.Select(ItemMappings.MapItem)
                                 .ToArrayAsync(cancellationToken)
@@ -38,6 +51,22 @@ public class ItemRepository : IItemRepository
                                 .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"Item with id '{itemId}' does not exist.");
+
+
+    public async Task<IEnumerable<TM.Item>> GetPlatformFilteredItemsAsync(long platformId, CancellationToken cancellationToken)
+    {
+        _ = await dbContext.Platforms.Select(PlatformMappings.MapPlatform)
+                        .SingleOrDefaultAsync(x => x.Id == platformId, cancellationToken)
+                        .ConfigureAwait(false) ??
+                            throw new ArgumentException($"Platform with id '{platformId}' does not exist.");
+        return await dbContext.ItemPlatformLinks
+                    .Include(x => x.Item)
+                    .Where(x => x.PlatformId == platformId)
+                    .Select(x => x.Item)
+                    .Select(ItemMappings.MapItem)
+                    .ToArrayAsync(cancellationToken)
+                    .ConfigureAwait(false);
+    }
 
     public async Task UpdateItemAsync(TM.Item item, CancellationToken cancellationToken)
     {

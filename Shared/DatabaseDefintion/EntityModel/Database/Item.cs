@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using DatabaseDefintion.EntityModel.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseDefinition.EntityModel.Database;
@@ -12,4 +14,7 @@ public class Item
     public string Description { get; set; }
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Price { get; set; }
+
+    [ForeignKey("PlatformId")]
+    public IEnumerable<ItemPlatformLink> ItemPlatformLinks { get; set; }
 }

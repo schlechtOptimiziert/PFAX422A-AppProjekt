@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Threading;
+using Microsoft.AspNetCore.Components;
 using ServerDataProvider.Interfaces;
-using System.Threading;
 
 namespace ClientComponents.Components;
 

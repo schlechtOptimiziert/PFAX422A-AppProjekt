@@ -8,7 +8,7 @@
         @foreach (var item in Items)
         {
             <div class="p-2" @onclick="() => NavigateToList(item.Id)">
-                <div class="item" style="background-image: url(@item.CoverPictureUri); background-size: cover;" />
+            <div class="item" style="background-image: url(@item.CoverPictureUri); background-size: cover; border-color: var(--secondary); border-style:solid; border-width: 2px;" />
                 <div style="text-align: center;">@item.Name</div>
             </div>
         }

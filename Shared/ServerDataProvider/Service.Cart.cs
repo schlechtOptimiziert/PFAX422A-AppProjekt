@@ -27,7 +27,7 @@ public partial class Service : IItemService
         response.EnsureSuccessStatusCode();
     }
 
-    public async Task DeleteItemAsync(string userId, long itemId, CancellationToken cancellationToken)
+    public async Task DeleteItemFromCartAsync(string userId, long itemId, CancellationToken cancellationToken)
     {
         var response = await httpClient.DeleteAsync($"{cartRequestUri}/{userId}/{itemId}", cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();

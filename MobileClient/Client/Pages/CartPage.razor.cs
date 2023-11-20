@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -9,7 +10,7 @@ namespace MobileClient.Client.Pages
 {
     public partial class CartPage : BasePage
     {
-        private IEnumerable<CartItemLink> cartItems = Enumerable.Empty<CartItemLink>();
+        private ICollection<CartItemLink> cartItems = new List<CartItemLink>();
 
         [Inject]
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
@@ -22,7 +23,7 @@ namespace MobileClient.Client.Pages
             {
                 var user = authenticationState.User;
                 var userId = user.Claims.SingleOrDefault(c => c.Type == "sub")?.Value;
-                cartItems = await GetCartItemLinksAsync(userId).ConfigureAwait(false);
+                cartItems = (await GetCartItemLinksAsync(userId, CancellationToken).ConfigureAwait(false)).ToList();
             }
         }
 
@@ -38,7 +39,17 @@ namespace MobileClient.Client.Pages
             }
         }
 
-        private async Task<IEnumerable<CartItemLink>> GetCartItemLinksAsync(string userId)
-            => await Service.GetCartItemLinksAsync(userId, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<CartItemLink>();
+        private async Task<IEnumerable<CartItemLink>> GetCartItemLinksAsync(string userId, CancellationToken cancellationToken)
+            => await Service.GetCartItemLinksAsync(userId, cancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<CartItemLink>();
+
+        private decimal GetTotal()
+            => cartItems.Sum(x => x.Amount * x.Item.Price);
+
+        private async Task DeleteCartItemAsync(CartItemLink cartItem, CancellationToken cancellationToken)
+        {
+            await Service.DeleteItemFromCartAsync(cartItem.UserId, cartItem.ItemId, cancellationToken).ConfigureAwait(false);
+            cartItems.Remove(cartItem);
+            StateHasChanged();
+        }
     }
 }

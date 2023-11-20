@@ -6,13 +6,37 @@
     left: 50%;
     transform: translate(-50%);
     width: 90%;
-    bottom: 4rem;
+    bottom: 3.7rem;
     font-size: large;
     text-align: center;
+    border-color: #4695c5;
+    border-width: 0.1rem;
     z-index: 3;
 }
 
 .mainContent {
     margin: 0.7rem;
     margin-bottom: 10rem;
+}
+
+.coverPicture {
+    margin-right: 0;
+    background-size: cover;
+    border-radius: 0.5rem 0 0 0.5rem;
+    background-color: var(--secondary);
+    height: 100%;
+    width: 6rem;
+}
+
+.cartItem {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--grayDefault);
+    border-radius: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    border-color: #c3c3c3;
+    border-width: 0.1rem;
 }

@@ -23,7 +23,7 @@
                     <div style="display:flex; flex-direction:column; padding:0.5rem;">
                         <p class="h6 text-end">@cartItem.Item.Price €</p>
                         <div style="display:flex;">
-                            <MudNumericField @bind-Value="cartItem.Amount" Label="Amount" Variant="Variant.Text" Min="1" Style="width:2.5rem;"/>
+                            <MudNumericField Value="cartItem.Amount" Label="Amount" Variant="Variant.Text" Min="1" Style="width:2.5rem;" ValueChanged="async (int value) => await UpdateCartItemAmountAsync(value, cartItem, CancellationToken)" />
                             <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="async () => await DeleteCartItemAsync(cartItem, CancellationToken)"> delete</MudIconButton>
                         </div>
                     </div>

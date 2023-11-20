@@ -21,9 +21,9 @@ public partial class Service : IItemService
         return await response.ReadAsAsync<IEnumerable<CartItemLink>>(cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task UpdateItemCartAmountAsync(string userId, CartItemLink cartItemLink, CancellationToken cancellationToken)
+    public async Task UpdateItemCartAmountAsync(CartItemLink cartItemLink, CancellationToken cancellationToken)
     {
-        var response = await httpClient.PutAsJsonAsync($"{cartRequestUri}/{userId}", cartItemLink, cancellationToken).ConfigureAwait(false);
+        var response = await httpClient.PutAsJsonAsync($"{cartRequestUri}/{cartItemLink.UserId}", cartItemLink, cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
     }
 

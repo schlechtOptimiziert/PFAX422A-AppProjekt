@@ -51,5 +51,11 @@ namespace MobileClient.Client.Pages
             cartItems.Remove(cartItem);
             StateHasChanged();
         }
+
+        private async Task UpdateCartItemAmountAsync(int newAmount, CartItemLink cartItem, CancellationToken cancellationToken)
+        {
+            cartItem.Amount = newAmount;
+            await Service.UpdateItemCartAmountAsync(cartItem, cancellationToken);
+        }
     }
 }

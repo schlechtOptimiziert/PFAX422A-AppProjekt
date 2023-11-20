@@ -1,8 +1,7 @@
-﻿using ClientComponents.Components;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ClientComponents.Components;
+using Microsoft.AspNetCore.Components;
 using TransferModel;
 
 namespace MobileClient.Client.Components;
@@ -26,7 +25,9 @@ public partial class HorizontalProductScroller : BaseComponent
         foreach (var item in Items)
         {
             var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
-            item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+
+            if (coverPicture != null)
+                item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
         }
     }
 

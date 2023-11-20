@@ -104,6 +104,10 @@ a, .btn-link {
     width: 90%;
 }
 
+.mw-50 {
+    max-width: 50%;
+}
+
 :root {
     --dark: #072D44;
     --tertiary: #064469;

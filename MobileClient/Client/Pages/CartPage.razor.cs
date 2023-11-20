@@ -32,10 +32,10 @@ namespace MobileClient.Client.Pages
         {
             await base.OnParametersSetAsync().ConfigureAwait(false);
 
-            foreach (var cartItem in cartItems)
+            foreach (var item in cartItems.Select(c => c.Item))
             {
-                var coverPicture = await Service.GetItemCoverPictureAsync(cartItem.Item.Id, CancellationToken).ConfigureAwait(false);
-                cartItem.Item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+                var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
+                item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
             }
         }
 

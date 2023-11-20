@@ -89,7 +89,7 @@ public class DatabaseDefinitionTestBase
     public async Task AddItemsToCartAsync(string userId, params long[] itemsIds)
     {
         foreach (var itemId in itemsIds)
-            await CartRepository.AddItemToCart(userId, itemId, CancellationToken).ConfigureAwait(false);
+            await CartRepository.AddItemToCartAsync(userId, itemId, CancellationToken).ConfigureAwait(false);
     }
 
     public async Task<ApplicationUser> CreateUserAsync()

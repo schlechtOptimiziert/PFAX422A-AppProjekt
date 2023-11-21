@@ -13,8 +13,6 @@ public class CartItemLink
     public long ItemId { get; set; }
     public int Amount { get; set; }
 
-    //[DeleteBehavior(DeleteBehavior.NoAction)]
     public ApplicationUser User { get; set; }
-    //[DeleteBehavior(DeleteBehavior.NoAction)]
     public Item Item { get; set; }
 }

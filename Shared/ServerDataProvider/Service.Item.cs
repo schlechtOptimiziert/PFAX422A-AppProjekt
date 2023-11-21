@@ -4,7 +4,7 @@ using TransferModel;
 
 namespace ServerDataProvider;
 
-public partial class Service : ICartService
+public partial class Service : IItemService
 {
     private readonly string itemRequestUri = "api/Items";
 

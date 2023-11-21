@@ -434,7 +434,7 @@ namespace DatabaseDefintion.Migrations
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.ItemPicture", b =>
                 {
                     b.HasOne("DatabaseDefinition.EntityModel.Database.Item", "Item")
-                        .WithMany()
+                        .WithMany("ItemPictures")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -515,6 +515,8 @@ namespace DatabaseDefintion.Migrations
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Item", b =>
                 {
                     b.Navigation("CartItemLinks");
+
+                    b.Navigation("ItemPictures");
                 });
 
             modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ApplicationUser", b =>

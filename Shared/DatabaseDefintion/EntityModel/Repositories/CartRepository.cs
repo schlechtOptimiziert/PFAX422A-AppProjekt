@@ -22,10 +22,7 @@ public class CartRepository : ICartRepository
 
     public async Task AddItemToCartAsync(string userId, long itemId, CancellationToken cancellationToken)
     {
-        _ = await dbContext.Items.Select(ItemMappings.MapItem)
-                                .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
-                                .ConfigureAwait(false) ??
-                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
+        await ItemHelper.ThrowIfItemDoesNotExistAsync(dbContext, itemId, cancellationToken).ConfigureAwait(false);
         _ = await dbContext.Users.SingleOrDefaultAsync(x => x.Id == userId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"User with id '{userId}' does not exist.");
@@ -43,12 +40,12 @@ public class CartRepository : ICartRepository
         _ = await dbContext.Users.SingleOrDefaultAsync(x => x.Id == userId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"User with id '{userId}' does not exist.");
-        var cartItemLinks = await dbContext.CartItemLinks.Select(CartItemLinkMappings.MapCartItemLink)
+        var cartItemLinks = await dbContext.CartItemLinks.Select(CartItemLinkHelper.MapCartItemLink)
             .Where(x => x.UserId == userId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
         foreach (var cartItemLink in cartItemLinks)
-            cartItemLink.Item = await dbContext.Items.Select(ItemMappings.MapItem)
+            cartItemLink.Item = await dbContext.Items.Select(ItemHelper.MapItem)
                                                         .SingleOrDefaultAsync(x => x.Id == cartItemLink.ItemId, cancellationToken)
                                                         .ConfigureAwait(false);
         return cartItemLinks;
@@ -56,10 +53,7 @@ public class CartRepository : ICartRepository
 
     public async Task DeleteItemFromCartAsync(string userId, long itemId, CancellationToken cancellationToken)
     {
-        _ = await dbContext.Items.Select(ItemMappings.MapItem)
-                                .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
-                                .ConfigureAwait(false) ??
-                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
+        await ItemHelper.ThrowIfItemDoesNotExistAsync(dbContext, itemId, cancellationToken).ConfigureAwait(false);
         _ = await dbContext.Users.SingleOrDefaultAsync(x => x.Id == userId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"User with id '{userId}' does not exist.");
@@ -72,10 +66,7 @@ public class CartRepository : ICartRepository
 
     public async Task UpdateItemAmountAsync(string userId, long itemId, int amount, CancellationToken cancellationToken)
     {
-        _ = await dbContext.Items.Select(ItemMappings.MapItem)
-                                .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
-                                .ConfigureAwait(false) ??
-                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
+        await ItemHelper.ThrowIfItemDoesNotExistAsync(dbContext, itemId, cancellationToken).ConfigureAwait(false);
         _ = await dbContext.Users.SingleOrDefaultAsync(x => x.Id == userId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"User with id '{userId}' does not exist.");
@@ -87,7 +78,7 @@ public class CartRepository : ICartRepository
     }
 }
 
-public static class CartItemLinkMappings
+public static class CartItemLinkHelper
 {
     public static CartItemLink MapToDbModel(TM.CartItemLink from)
         => MapToDbModel(from, null);

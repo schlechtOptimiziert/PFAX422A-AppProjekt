@@ -54,7 +54,7 @@ namespace MobileClient.Client.Pages
         private async Task UpdateCartItemAmountAsync(int newAmount, CartItemLink cartItem, CancellationToken cancellationToken)
         {
             cartItem.Amount = newAmount;
-            await Service.UpdateItemCartAmountAsync(cartItem, cancellationToken);
+            await Service.UpdateItemCartAmountAsync(cartItem, cancellationToken).ConfigureAwait(false);
         }
     }
 }

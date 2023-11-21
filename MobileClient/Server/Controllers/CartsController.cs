@@ -16,19 +16,19 @@ public class CartsController : ControllerBase
         this.cartRepository = cartRepository;
     }
 
-    [HttpPost("{userId}")]
+    [HttpPost("{userId}/Items")]
     public Task AddItemToCartAsync(string userId, [FromBody] long itemId, CancellationToken cancellationToken)
         => cartRepository.AddItemToCartAsync(userId, itemId, cancellationToken);
 
-    [HttpGet("{userId}")]
+    [HttpGet("{userId}/Items")]
     public Task<IEnumerable<TM.CartItemLink>> GetCartItemLinksAsync(string userId, CancellationToken cancellationToken)
         => cartRepository.GetCartItemLinksAsync(userId, cancellationToken);
 
-    [HttpPut("{userId}")]
-    public Task UpdateItemAmountAsync(string userId, [FromBody] TM.CartItemLink cartItemLink, CancellationToken cancellationToken)
-        => cartRepository.UpdateItemAmountAsync(userId, cartItemLink.ItemId, cartItemLink.Amount, cancellationToken);
+    [HttpPut("{userId}/Items/{itemId}")]
+    public Task UpdateItemAmountAsync(string userId, long itemId, [FromBody] TM.CartItemLink cartItemLink, CancellationToken cancellationToken)
+        => cartRepository.UpdateItemAmountAsync(userId, itemId, cartItemLink.Amount, cancellationToken);
 
-    [HttpDelete("{userId}/{itemId}")]
+    [HttpDelete("{userId}/Items/{itemId}")]
     public Task DeleteItemFromCartAsync(string userId, long itemId, CancellationToken cancellationToken)
         => cartRepository.DeleteItemFromCartAsync(userId, itemId, cancellationToken);
 }

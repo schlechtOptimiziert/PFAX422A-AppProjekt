@@ -1,14 +1,15 @@
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Blazored.Toast;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MobileClient.Client;
-using MudBlazor.Services;
-using ServerDataProvider.Interfaces;
-using ServerDataProvider;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
-using System;
+using MudBlazor.Services;
+using ServerDataProvider;
+using ServerDataProvider.Interfaces;
 
 namespace MobileClient.Client;
 
@@ -21,6 +22,10 @@ public class Program
         builder.RootComponents.Add<HeadOutlet>("head::after");
 
         builder.Services.AddMudServices();
+        builder.Services.AddBlazoredToast();
+
+        builder.Services.AddScoped<ToastService>();
+
 
         builder.Services.AddHttpClient<IService, Service>(
             "MobileClient",

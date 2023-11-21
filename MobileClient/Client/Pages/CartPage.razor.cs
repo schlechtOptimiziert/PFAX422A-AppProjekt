@@ -2,59 +2,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using TransferModel;
 
-namespace MobileClient.Client.Pages
+namespace MobileClient.Client.Pages;
+
+public partial class CartPage : BasePage
 {
-    public partial class CartPage : BasePage
+    private ICollection<CartItemLink> cartItems = new List<CartItemLink>();
+
+    protected override async Task OnInitializedAsync()
     {
-        private ICollection<CartItemLink> cartItems = new List<CartItemLink>();
+        await base.OnInitializedAsync().ConfigureAwait(false);
+        if (!string.IsNullOrEmpty(UserId))
+            cartItems = await GetCartItemLinksAsync(UserId, CancellationToken).ConfigureAwait(false);
+    }
 
-        [Inject]
-        public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync().ConfigureAwait(false);
 
-        protected override async Task OnInitializedAsync()
+        foreach (var item in cartItems.Select(c => c.Item))
         {
-            await base.OnInitializedAsync().ConfigureAwait(false);
-            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            if (authenticationState != null)
-            {
-                var user = authenticationState.User;
-                var userId = user.Claims.SingleOrDefault(c => c.Type == "sub")?.Value;
-                cartItems = (await GetCartItemLinksAsync(userId, CancellationToken).ConfigureAwait(false)).ToList();
-            }
+            var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
+            item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
         }
+    }
 
-        protected override async Task OnParametersSetAsync()
-        {
-            await base.OnParametersSetAsync().ConfigureAwait(false);
+    private async Task<ICollection<CartItemLink>> GetCartItemLinksAsync(string userId, CancellationToken cancellationToken)
+        => (await Service.GetCartItemLinksAsync(userId, cancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<CartItemLink>()).ToList();
 
-            foreach (var item in cartItems.Select(c => c.Item))
-            {
-                var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
-                item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
-            }
-        }
+    private decimal GetTotal()
+        => cartItems.Sum(x => x.Amount * x.Item.Price);
 
-        private async Task<IEnumerable<CartItemLink>> GetCartItemLinksAsync(string userId, CancellationToken cancellationToken)
-            => await Service.GetCartItemLinksAsync(userId, cancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<CartItemLink>();
+    private async Task DeleteCartItemAsync(CartItemLink cartItem, CancellationToken cancellationToken)
+    {
+        await Service.DeleteItemFromCartAsync(cartItem.UserId, cartItem.ItemId, cancellationToken).ConfigureAwait(false);
+        cartItems.Remove(cartItem);
+        StateHasChanged();
+    }
 
-        private decimal GetTotal()
-            => cartItems.Sum(x => x.Amount * x.Item.Price);
-
-        private async Task DeleteCartItemAsync(CartItemLink cartItem, CancellationToken cancellationToken)
-        {
-            await Service.DeleteItemFromCartAsync(cartItem.UserId, cartItem.ItemId, cancellationToken).ConfigureAwait(false);
-            cartItems.Remove(cartItem);
-            StateHasChanged();
-        }
-
-        private async Task UpdateCartItemAmountAsync(int newAmount, CartItemLink cartItem, CancellationToken cancellationToken)
-        {
-            cartItem.Amount = newAmount;
-            await Service.UpdateItemCartAmountAsync(cartItem, cancellationToken).ConfigureAwait(false);
-        }
+    private async Task UpdateCartItemAmountAsync(int newAmount, CartItemLink cartItem, CancellationToken cancellationToken)
+    {
+        cartItem.Amount = newAmount;
+        await Service.UpdateItemCartAmountAsync(cartItem, cancellationToken).ConfigureAwait(false);
     }
 }

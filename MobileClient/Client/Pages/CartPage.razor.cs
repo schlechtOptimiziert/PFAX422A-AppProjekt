@@ -27,7 +27,6 @@ namespace MobileClient.Client.Pages
             }
         }
 
-
         protected override async Task OnParametersSetAsync()
         {
             await base.OnParametersSetAsync().ConfigureAwait(false);

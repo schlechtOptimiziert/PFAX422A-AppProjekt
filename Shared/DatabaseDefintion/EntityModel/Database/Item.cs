@@ -17,7 +17,6 @@ public class Item
 
     [ForeignKey("ItemId")]
     public IEnumerable<CartItemLink> CartItemLinks { get; set; }
-
     [ForeignKey("ItemId")]
     public IEnumerable<ItemPicture> ItemPictures { get; set; }
 }

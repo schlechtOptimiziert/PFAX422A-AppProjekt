@@ -26,7 +26,6 @@ public class Program
 
         builder.Services.AddScoped<ToastService>();
 
-
         builder.Services.AddHttpClient<IService, Service>(
             "MobileClient",
             client =>

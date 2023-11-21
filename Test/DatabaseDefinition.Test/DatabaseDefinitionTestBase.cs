@@ -96,7 +96,7 @@ public class DatabaseDefinitionTestBase
     {
         DbContext.Users.Add(new ApplicationUser());
         await DbContext.SaveChangesAsync(CancellationToken).ConfigureAwait(false);
-        return DbContext.Users.FirstOrDefault() ??
+        return DbContext.Users.LastOrDefault() ??
             throw new Exception("Couldn't find created User");
     }
 

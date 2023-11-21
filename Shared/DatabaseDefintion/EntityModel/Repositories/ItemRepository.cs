@@ -73,7 +73,16 @@ public static class ItemHelper
     }
 
     public static readonly Expression<Func<Item, TM.Item>> MapItem = (item)
-        => new TM.Item
+        => new()
+        {
+            Id = item.Id,
+            Name = item.Name,
+            Description = item.Description,
+            Price = item.Price,
+        };
+
+    public static TM.Item MapItemToTM(Item item)
+        => new()
         {
             Id = item.Id,
             Name = item.Name,
@@ -82,7 +91,7 @@ public static class ItemHelper
         };
 
     public static async Task ThrowIfItemDoesNotExistAsync(AppProjectDbContext dbContext, long itemId, CancellationToken cancellationToken)
-        => _ = await dbContext.Items.Select(ItemHelper.MapItem)
+        => _ = await dbContext.Items.Select(MapItem)
                         .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
                         .ConfigureAwait(false) ??
                             throw new ArgumentException($"Item with id '{itemId}' does not exist.");

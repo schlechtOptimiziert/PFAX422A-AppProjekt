@@ -40,14 +40,12 @@ public class CartRepository : ICartRepository
         _ = await dbContext.Users.SingleOrDefaultAsync(x => x.Id == userId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"User with id '{userId}' does not exist.");
-        var cartItemLinks = await dbContext.CartItemLinks.Select(CartItemLinkHelper.MapCartItemLink)
+
+        var cartItemLinks = await dbContext.CartItemLinks.Include(x => x.Item)
+            .Select(CartItemLinkHelper.MapCartItemLink)
             .Where(x => x.UserId == userId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
-        foreach (var cartItemLink in cartItemLinks)
-            cartItemLink.Item = await dbContext.Items.Select(ItemHelper.MapItem)
-                                                        .SingleOrDefaultAsync(x => x.Id == cartItemLink.ItemId, cancellationToken)
-                                                        .ConfigureAwait(false);
         return cartItemLinks;
     }
 
@@ -99,6 +97,7 @@ public static class CartItemLinkHelper
         {
             UserId = cartItemLink.UserId,
             ItemId = cartItemLink.ItemId,
-            Amount = cartItemLink.Amount
+            Amount = cartItemLink.Amount,
+            Item = ItemHelper.MapItemToTM(cartItemLink.Item)
         };
 }

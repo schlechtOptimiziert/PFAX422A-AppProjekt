@@ -21,4 +21,7 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+.title {
     text-align: center;
+}

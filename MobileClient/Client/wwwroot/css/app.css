@@ -114,3 +114,15 @@ a, .btn-link {
     --grayDefault: #D0D7E1;
     --background: #FFFFFF;
 }
+
+.mud-tab.mud-tab-active {
+    color: var(--primary) !important;
+}
+
+.mud-tooltip-root.mud-tooltip-inline {
+   color: var(--primary);
+}
+
+.mud-tab-slider {
+    background: var(--primary) !important;
+}

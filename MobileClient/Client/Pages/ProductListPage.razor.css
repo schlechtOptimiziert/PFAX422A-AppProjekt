@@ -24,3 +24,12 @@
     padding-left: 10px;
     padding-bottom: 20px;
 }
+
+.itemPrice {
+    text-align: right;
+}
+
+.itemText {
+    width: 70%;
+    height: 100%;
+}

@@ -6,10 +6,10 @@
     <button class="item d-flex p-2 mt-3" @onclick="() => NavigateToList(item.Id)" >
         <div class="itemPicture" style="background-image: url(@item.CoverPictureUri);" />
        
-        <div style="width:70%; height:100%;">
+        <div class="itemText">
             <div class="itemName">@item.Name</div>
 
-            <div style="text-align: right;">@item.Price €</div>
+            <div class="itemPrice">@item.Price €</div>
         </div>
     </button>
 }

@@ -3,7 +3,13 @@
 
 @foreach (var item in filteredItems)
 {
-    <button class="item d-flex p-2 mt-3" @onclick="() => NavigateToList(item.Id)">
-        @item.Name
+    <button class="item d-flex p-2 mt-3" @onclick="() => NavigateToList(item.Id)" style="border-color: var(--secondary); border-style:solid; border-width: 2px;">
+        <div class="itemPicture" style="background-image: url(@item.CoverPictureUri);" />
+       
+        <div style="width:70%; height:100%;">
+            <div class="itemName">@item.Name</div>
+
+            <div style="text-align: right;">@item.Price €</div>
+        </div>
     </button>
 }

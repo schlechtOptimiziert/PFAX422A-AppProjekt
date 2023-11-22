@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Routing;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using MobileClient.Client.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,17 @@ public partial class ProductListPage : BasePage
         filteredItems = items;
         GetFiltersFromQuery();
         NavigationManager.LocationChanged += HandleLocationChanged;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync().ConfigureAwait(false);
+    
+        foreach (var item in filteredItems)
+        {
+           var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
+           item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+        }
     }
 
     private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)

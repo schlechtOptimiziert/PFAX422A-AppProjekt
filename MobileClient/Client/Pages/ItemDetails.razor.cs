@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
 using TransferModel;
 
 namespace MobileClient.Client.Pages;
@@ -9,7 +11,6 @@ namespace MobileClient.Client.Pages;
 partial class ItemDetails : BasePage
 {
     private Item item;
-
     private IEnumerable<string> pictures = Enumerable.Empty<string>();
 
     [Parameter]
@@ -36,5 +37,13 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
         return Enumerable.Empty<ItemPicture>();
+    }
+
+    private async Task AddItemToCartAsync(string userId, long itemId, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrEmpty(userId))
+            ToastService.ShowError("Could not get logged in user");
+        else
+            await Service.AddItemToCartAsync(userId, itemId, cancellationToken);
     }
 }

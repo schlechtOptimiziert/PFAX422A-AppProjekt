@@ -1,10 +1,9 @@
-﻿using System.Net.Http;
-
-namespace ServerDataProvider.Interfaces;
+﻿namespace ServerDataProvider.Interfaces;
 
 public interface IService :
     IItemService,
-    IItemPictureService
+    IItemPictureService,
+    ICartService
 {
     HttpClient HttpClient { get; }
 }

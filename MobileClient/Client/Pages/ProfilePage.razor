@@ -6,8 +6,32 @@
         <RedirectToLogin/>
     </NotAuthorized>
     <Authorized>
-        <MudButton Class="w-100" Href="/profile/user">Personal Data ></MudButton>
-        <MudButton Class="w-100">My orders ></MudButton>
-        <MudButton Class="w-100">About us ></MudButton>
+        <div style="margin-top:45%">
+            <MudButton Class="w-100" Href="/profile/user">
+                <MudIcon Icon="@Icons.Material.Filled.PersonPin" />
+                <div class="d-flex justify-content-between w-100 mt-1">
+                    <div class="ml-1">Personal Data</div>
+                    <div>></div>
+                </div>
+            </MudButton>
+            <MudDivider />
+            <MudButton Class="w-100">
+                <MudIcon Icon="@Icons.Material.Filled.ListAlt" />
+                <div class="d-flex justify-content-between w-100 mt-1">
+                    <div class="ml-1">My orders</div>
+                    <div>></div>
+                </div>
+            </MudButton>
+            <MudDivider Class="mt-0"/>
+            <MudButton Class="w-100" Href="/profile/about_us">
+                <MudIcon Icon="@Icons.Material.Filled.Info" />
+                <div class="d-flex justify-content-between w-100 mt-1">
+                    <div class="ml-1">About us</div>
+                    <div>></div>
+                </div>
+            </MudButton>
+            <MudDivider />
+            <MudButton Href="/Identity/Account/Logout" Variant="Variant.Filled" Class="w-90" Style="bottom: 4rem; position: fixed; left: 50%; transform: translate(-50%);">Logout</MudButton>
+        </div>
     </Authorized>
 </AuthorizeView>

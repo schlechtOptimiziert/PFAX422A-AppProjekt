@@ -4,6 +4,7 @@ using DatabaseDefinition.EntityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseDefintion.Migrations
 {
     [DbContext(typeof(AppProjectDbContext))]
-    partial class AppProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231119154849_AddCart")]
+    partial class AddCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -434,7 +437,7 @@ namespace DatabaseDefintion.Migrations
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.ItemPicture", b =>
                 {
                     b.HasOne("DatabaseDefinition.EntityModel.Database.Item", "Item")
-                        .WithMany("ItemPictures")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -515,8 +518,6 @@ namespace DatabaseDefintion.Migrations
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Item", b =>
                 {
                     b.Navigation("CartItemLinks");
-
-                    b.Navigation("ItemPictures");
                 });
 
             modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ApplicationUser", b =>

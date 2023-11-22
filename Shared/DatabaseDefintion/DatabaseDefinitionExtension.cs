@@ -28,6 +28,7 @@ public static class DatabaseDefinitionExtension
 
         serviceCollection.AddScoped<IItemRepository, ItemRepository>();
         serviceCollection.AddScoped<IItemPictureRepository, ItemPictureRepository>();
+        serviceCollection.AddScoped<ICartRepository, CartRepository>();
 
         return serviceCollection;
     }

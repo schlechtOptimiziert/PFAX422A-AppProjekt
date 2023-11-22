@@ -6,7 +6,13 @@
         <RedirectToLogin />
     </NotAuthorized>
     <Authorized>
-        <h3>E-Mail: @context.User.Identity?.Name</h3>
-        <MudButton Href="/Identity/Account/Manage/ChangePassword">Change Password</MudButton>
+        <MudText Class="w-100 mt-2" Align="Align.Center"><MudIcon Icon="@Icons.Material.Filled.PersonPin" /><u>Personal Data</u></MudText>
+        <MudCard Outlined="true" Style="margin-top: 25%; background-color: #E3F2FD; border-radius: 2rem">
+            <MudCardContent>
+                <MudText Typo="Typo.h6" Class="w-100" Align="Align.Center">E-Mail: @context.User.Identity?.Name</MudText>
+                <MudDivider DividerType="DividerType.Middle" Style="background-color:black; border-color: black" />
+                <MudButton Href="/Identity/Account/Manage/ChangePassword" Class="d-flex ml-auto mr-auto">Change Password</MudButton>
+            </MudCardContent>
+        </MudCard>
     </Authorized>
 </AuthorizeView>

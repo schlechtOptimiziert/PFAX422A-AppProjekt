@@ -11,6 +11,7 @@ public class AppProjectDbContext : ApiAuthorizationDbContext<ApplicationUser>
 {
     public virtual DbSet<Item> Items { get; set; }
     public virtual DbSet<ItemPicture> ItemPictures { get; set; }
+    public virtual DbSet<CartItemLink> CartItemLinks { get; set; }
 
     public AppProjectDbContext(
             DbContextOptions options,

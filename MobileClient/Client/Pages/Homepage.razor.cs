@@ -15,6 +15,7 @@ public partial class Homepage : BasePage
         await base.OnInitializedAsync().ConfigureAwait(false);
         items = await GetItemsAsync().ConfigureAwait(false);
     }
+
     private async Task<IEnumerable<Item>> GetItemsAsync()
         => await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
 

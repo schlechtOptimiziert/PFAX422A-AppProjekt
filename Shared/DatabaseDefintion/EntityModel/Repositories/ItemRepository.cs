@@ -95,4 +95,14 @@ public static class ItemHelper
                         .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
                         .ConfigureAwait(false) ??
                             throw new ArgumentException($"Item with id '{itemId}' does not exist.");
+
+    public static TM.Item MapOrderPositionToItem(AppProjectDbContext dbContext, OrderPosition orderPosition)
+    {
+        var item = dbContext.Items.Select(MapItem)
+                        .SingleOrDefault(x => x.Id == orderPosition.ItemId) ??
+                            throw new ArgumentException($"Item with id '{orderPosition.ItemId}' does not exist.");
+        item.Price = orderPosition.Price;
+        item.Name = orderPosition.Name;
+        return item;
+    }
 }

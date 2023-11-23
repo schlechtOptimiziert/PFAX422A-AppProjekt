@@ -2,6 +2,7 @@
 using DatabaseDefinition.EntityModel.Repositories;
 using DatabaseDefinition.EntityModel.Repositories.Interfaces;
 using DatabaseDefintion.EntityModel.Database;
+using DatabaseDefintion.EntityModel.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,7 @@ public static class DatabaseDefinitionExtension
         serviceCollection.AddScoped<IItemRepository, ItemRepository>();
         serviceCollection.AddScoped<IItemPictureRepository, ItemPictureRepository>();
         serviceCollection.AddScoped<ICartRepository, CartRepository>();
+        serviceCollection.AddScoped<IOrderRepository, OrderRepository>();
 
         return serviceCollection;
     }

@@ -110,7 +110,7 @@ a, .btn-link {
 
 :root {
     --dark: #072D44;
-    --tertiary: #064469;
+    --tertiary: #457388;
     --primary: #5790AB;
     --secondary: #9CCDDB;
     --backgroundGrey: #FFFFFF;
@@ -118,4 +118,16 @@ a, .btn-link {
     --grayDefault: #D0D7E1;
     --background: #FFFFFF;
     --lightGreen: #ceffc4;
+}
+
+.mud-tab.mud-tab-active {
+    color: var(--tertiary) !important;
+}
+
+.mud-tooltip-root.mud-tooltip-inline {
+    color: var(--tertiary);
+}
+
+.mud-tab-slider {
+    background: var(--tertiary) !important;
 }

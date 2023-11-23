@@ -2,7 +2,34 @@
     margin-left: auto;
     margin-right: auto;
     height: 5rem;
-    width: 90%;
-    background-color: lightgray;
+    width:90%;
     border-radius: 1rem;
+    background: radial-gradient(circle, rgba(156,205,219,1) 0%, rgba(156,205,219,0.5046393557422969) 100%, rgba(156,205,219,0) 100%);
+}
+
+.itemPicture {
+    background-size: cover;
+    margin-left: 0px;
+    margin-right: auto;
+    height: 100%;
+    width: 30%;
+    border-radius: 1rem;
+    border-width: 2px;
+    border-style: solid;
+    border-color: white;
+}
+
+.itemName{
+    text-align:left;
+    padding-left: 10px;
+    padding-bottom: 20px;
+}
+
+.itemPrice {
+    text-align: right;
+}
+
+.itemText {
+    width: 70%;
+    height: 100%;
 }

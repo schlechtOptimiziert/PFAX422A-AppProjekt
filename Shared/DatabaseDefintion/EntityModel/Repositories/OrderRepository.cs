@@ -29,7 +29,7 @@ public class OrderRepository : IOrderRepository
         //Add OrderPositions
         foreach (var item in order.Items)
         {
-            var orderPosition = new OrderPosition(ItemHelper.MapToDbModel(item), dbOrder.Id);
+            var orderPosition = new OrderPosition(item, dbOrder.Id);
             await dbContext.OrderPositions.AddAsync(orderPosition, cancellationToken).ConfigureAwait(false);
         }
 
@@ -38,11 +38,13 @@ public class OrderRepository : IOrderRepository
     }
 
     public async Task<TM.Order> GetOrderAsync(long orderId, CancellationToken cancellationToken)
-        => await dbContext.Orders.Include(o => o.Positions)
-                                .Select(o => OrderHelper.MapOrder(o, dbContext))
+    {
+        var dbOrder = await dbContext.Orders.Include(o => o.Positions)
                                 .SingleOrDefaultAsync(x => x.Id == orderId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"Order with id '{orderId}' does not exist.");
+        return OrderHelper.MapOrder(dbOrder, dbContext);
+    }
 
     public async Task<IEnumerable<TM.Order>> GetOrdersAsync(string userId, bool includePositions, CancellationToken cancellationToken)
     {
@@ -74,11 +76,19 @@ public static class OrderHelper
     }
 
     public static TM.Order MapOrder(Order order, AppProjectDbContext dbContext)
-        => new TM.Order
+    {
+        var tmOrder = new TM.Order
         {
             Id = order.Id,
             UserId = order.UserId,
             Date = order.Date,
-            Items = order.Positions.Select(x => ItemHelper.MapOrderPositionToItem(dbContext, x))
+            Items = new List<TM.Item>()
         };
+        foreach (var position in order.Positions)
+        {
+            var item = ItemHelper.MapOrderPositionToItem(dbContext, position);
+            tmOrder.Items = tmOrder.Items.Append(item);
+        }
+        return tmOrder;
+    }
 }

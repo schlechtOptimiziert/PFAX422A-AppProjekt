@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using TM = TransferModel;
 
 namespace DatabaseDefinition.EntityModel.Database;
 
@@ -22,7 +23,7 @@ public class OrderPosition
     //Empty constructor for EFCore
     public OrderPosition() { }
 
-    public OrderPosition(Item item, long orderId)
+    public OrderPosition(TM.Item item, long orderId)
     {
         ItemId = item.Id;
         Name = item.Name;

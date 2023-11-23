@@ -37,6 +37,9 @@ public class OrderRepositoryTests : DatabaseDefinitionTestBase
         Assert.Equal(orderId, order.Id);
         Assert.Equal(testOrder.UserId, order.UserId);
         Assert.Equal(testOrder.Date, order.Date);
-        Assert.True(testOrder.Items.Equals(order.Items));
+        var testOrderItems = testOrder.Items.ToList();
+        var orderItems = order.Items.ToList();
+        for (int i = 0; i < testOrderItems.Count; i++)
+            Assert.True(ItemEqualsItem(testOrderItems[i], orderItems[i]));
     }
 }

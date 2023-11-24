@@ -55,7 +55,7 @@ public class ItemRepository : IItemRepository
 
     public async Task<IEnumerable<TM.Item>> GetPlatformFilteredItemsAsync(long platformId, CancellationToken cancellationToken)
     {
-        _ = await dbContext.Platforms.Select(PlatformMappings.MapPlatform)
+        _ = await dbContext.Platforms.Select(PlatformHelper.MapPlatform)
                         .SingleOrDefaultAsync(x => x.Id == platformId, cancellationToken)
                         .ConfigureAwait(false) ??
                             throw new ArgumentException($"Platform with id '{platformId}' does not exist.");
@@ -63,7 +63,7 @@ public class ItemRepository : IItemRepository
                     .Include(x => x.Item)
                     .Where(x => x.PlatformId == platformId)
                     .Select(x => x.Item)
-                    .Select(ItemMappings.MapItem)
+                    .Select(ItemHelper.MapItem)
                     .ToArrayAsync(cancellationToken)
                     .ConfigureAwait(false);
     }

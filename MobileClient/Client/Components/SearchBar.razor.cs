@@ -1,6 +1,7 @@
 ﻿using ClientComponents.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using TransferModel;
 
 namespace MobileClient.Client.Components;
 
@@ -25,7 +26,7 @@ public partial class SearchBar : BaseComponent
 
     private void NavigateToList(string searchText)
     {
-        platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
+        //platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
         if (string.IsNullOrEmpty(searchText))
         {
             NavigationManager.NavigateTo($"/items");

@@ -3,7 +3,7 @@
 @inherits BasePage
 
 <div class="platformSelectorContainer">
-   <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.PC)" Style="background-color: var(--secondary);">
+@*    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.PC)" Style="background-color: var(--secondary);">
         <img class="platformImage" src="../icons/computer-monitor.svg" />
     </MudButton>
    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(Platform.Playstation)" Style="background-color: var(--secondary);">
@@ -17,7 +17,7 @@
     </MudButton>
    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList()" Style="background-color: var(--secondary);">
         <div class="platformText">All</div>
-    </MudButton>
+    </MudButton> *@
 </div>
 
 <HorizontalProductScroller Class="mt-5" Title="Popular Games" Items="items"></HorizontalProductScroller>

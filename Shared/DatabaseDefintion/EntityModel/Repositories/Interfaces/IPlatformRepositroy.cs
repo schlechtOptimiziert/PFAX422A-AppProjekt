@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using TM = TransferModel;
 
-namespace DatabaseDefintion.EntityModel.Repositories.Interfaces;
+namespace DatabaseDefinition.EntityModel.Repositories.Interfaces;
 
 public interface IPlatformRepositroy
 {

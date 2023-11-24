@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
-using MobileClient.Client.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using TransferModel;
 
 namespace MobileClient.Client.Pages;
@@ -27,11 +26,11 @@ public partial class ProductListPage : BasePage
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync().ConfigureAwait(false);
-    
+
         foreach (var item in filteredItems)
         {
-           var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
-           item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+            var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
+            item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
         }
     }
 
@@ -43,7 +42,11 @@ public partial class ProductListPage : BasePage
 
     private void GetFiltersFromQuery()
     {
-        platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
+        //if (NavigationManager.TryGetQueryString("platform", out string platformString))
+        //    return (Platform?)Enum.Parse(typeof(Platform), platformString);
+        //else
+        //    return null;
+        //platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
         NavigationManager.TryGetQueryString("searchText", out searchText);
         ApplyFilters();
     }

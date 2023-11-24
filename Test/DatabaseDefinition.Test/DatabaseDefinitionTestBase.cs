@@ -2,6 +2,7 @@
 using DatabaseDefinition.EntityModel.Repositories;
 using DatabaseDefintion.EntityModel;
 using DatabaseDefintion.EntityModel.Database;
+using DatabaseDefintion.EntityModel.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -24,6 +25,7 @@ public class DatabaseDefinitionTestBase
     protected ItemRepository ItemRepository { get; }
     protected ItemPictureRepository ItemPictureRepository { get; }
     protected CartRepository CartRepository { get; }
+    protected PlatformRepository PlatformRepository { get; }
     protected CancellationToken CancellationToken { get; } = CancellationToken.None;
     protected Random Random { get; }
     protected AppProjectDbContext DbContext { get; }
@@ -34,6 +36,7 @@ public class DatabaseDefinitionTestBase
         ItemRepository = new(DbContext);
         ItemPictureRepository = new(DbContext);
         CartRepository = new(DbContext);
+        PlatformRepository = new(DbContext);
         Random = new Random();
     }
 

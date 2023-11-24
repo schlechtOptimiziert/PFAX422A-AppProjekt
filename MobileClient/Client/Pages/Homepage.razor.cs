@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MobileClient.Client.Components;
 using TransferModel;
 
 namespace MobileClient.Client.Pages;
@@ -23,5 +22,5 @@ public partial class Homepage : BasePage
         => NavigationManager.NavigateTo($"/items");
 
     private void NavigateToList(Platform platform)
-        => NavigationManager.NavigateTo($"/items?platform={platform}");
+        => NavigationManager.NavigateTo($"/items?platform={platform.Id}");
 }

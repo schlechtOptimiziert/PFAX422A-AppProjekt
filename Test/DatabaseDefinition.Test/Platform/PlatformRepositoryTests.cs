@@ -28,18 +28,18 @@ public class PlatformRepositoryTests : DatabaseDefinitionTestBase
     }
 
     [Fact]
-    public async Task AddsPlatformTest()
+    public async Task AddPlatformsTest()
     {
         var testPlatform = new TM.Platform()
         {
             Name = "Test1",
         };
-        _ = await platformRepositroy.AddPlatformAsync(testPlatform, CancellationToken).ConfigureAwait(false);
+        await platformRepositroy.AddPlatformAsync(testPlatform, CancellationToken).ConfigureAwait(false);
         testPlatform = new TM.Platform()
         {
             Name = "Test2",
         };
-        _ = await platformRepositroy.AddPlatformAsync(testPlatform, CancellationToken).ConfigureAwait(false);
+        await platformRepositroy.AddPlatformAsync(testPlatform, CancellationToken).ConfigureAwait(false);
 
         var platfroms = await platformRepositroy.GetPlatformsAsync(CancellationToken).ConfigureAwait(false);
         Assert.NotEmpty(platfroms);

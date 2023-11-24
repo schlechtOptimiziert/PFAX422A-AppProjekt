@@ -7,12 +7,12 @@ using TM = TransferModel;
 
 namespace MobileClient.Server.Controllers;
 
-public class PlatformController : ControllerBase
+public class PlatformsController : ControllerBase
 {
     private readonly IPlatformRepositroy platformRepositroy;
     private readonly IItemRepository itemRepository;
 
-    public PlatformController(IPlatformRepositroy platformRepositroy, IItemRepository itemRepository)
+    public PlatformsController(IPlatformRepositroy platformRepositroy, IItemRepository itemRepository)
     {
         this.platformRepositroy = platformRepositroy;
         this.itemRepository = itemRepository;

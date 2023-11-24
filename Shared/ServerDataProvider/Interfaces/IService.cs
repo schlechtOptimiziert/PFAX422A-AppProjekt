@@ -3,7 +3,8 @@
 public interface IService :
     IItemService,
     IItemPictureService,
-    ICartService
+    ICartService,
+    IPlatformService
 {
     HttpClient HttpClient { get; }
 }

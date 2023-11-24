@@ -9,8 +9,8 @@
 
 <MudLayout>
     <div class="headerContainer">
-        <MudImage Src="..\Assets\LogoTemp.png" Class="d-flex mx-auto mb-1" Style="Height:4rem;"></MudImage>
-        <SearchBar Style="border-radius:0.5rem; padding-left:0.2rem; padding-right:0.2rem; background-color:white;"></SearchBar>
+        <MudImage Src="..\Assets\LogoTemp.png" Class="d-flex mx-auto mb-1" Style="Height:4rem;" onclick="@(() => NavigationManager.NavigateTo("/"))" />
+        <SearchBar Style="border-radius:0.5rem; padding-left:0.2rem; padding-right:0.2rem; background-color:white;" />
     </div>
     <div style="margin-bottom:4rem;">
         @Body

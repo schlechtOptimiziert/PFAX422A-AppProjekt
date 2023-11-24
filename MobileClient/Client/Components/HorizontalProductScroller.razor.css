@@ -6,7 +6,7 @@
 .item {
     display: flex;
     height: 8rem;
-    min-width: 8rem;
+    width: 8rem;
     background-color: lightgray;
     border-radius: 1rem;
 }
@@ -20,4 +20,9 @@
 .hideScrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+}
+
+.title {
+    text-align: center;
+    width:8rem;
 }

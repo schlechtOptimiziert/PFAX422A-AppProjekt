@@ -22,7 +22,7 @@ public class ItemPictureRepository : IItemPictureRepository
 
     public async Task<long> AddItemPictureAsync(TM.ItemPicture picture, CancellationToken cancellationToken)
     {
-        var dbItemPicture = ItemPictureMappings.MapToDbModel(picture);
+        var dbItemPicture = ItemPictureHelper.MapToDbModel(picture);
         await dbContext.ItemPictures.AddAsync(dbItemPicture, cancellationToken).ConfigureAwait(false);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         return dbItemPicture.Id;
@@ -30,11 +30,8 @@ public class ItemPictureRepository : IItemPictureRepository
 
     public async Task<IEnumerable<TM.ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken)
     {
-        _ = await dbContext.Items.Select(ItemMappings.MapItem)
-                                .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
-                                .ConfigureAwait(false) ??
-                                    throw new ArgumentException($"Item with id '{itemId}' does not exist.");
-        return await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
+        await ItemHelper.ThrowIfItemDoesNotExistAsync(dbContext, itemId, cancellationToken).ConfigureAwait(false);
+        return await dbContext.ItemPictures.Select(ItemPictureHelper.MapItemPicture)
             .Where(x => x.ItemId == itemId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
@@ -42,11 +39,7 @@ public class ItemPictureRepository : IItemPictureRepository
 
     public async Task<TM.ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken)
     {
-        _ = await dbContext.Items.Select(ItemMappings.MapItem)
-                        .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
-                        .ConfigureAwait(false) ??
-                            throw new ArgumentException($"Item with id '{itemId}' does not exist.");
-        return await dbContext.ItemPictures.Select(ItemPictureMappings.MapItemPicture)
+        return await dbContext.ItemPictures.Select(ItemPictureHelper.MapItemPicture)
                 .FirstOrDefaultAsync(x => x.ItemId == itemId, cancellationToken)
                 .ConfigureAwait(false);
     }
@@ -60,7 +53,7 @@ public class ItemPictureRepository : IItemPictureRepository
     }
 }
 
-public static class ItemPictureMappings
+public static class ItemPictureHelper
 {
     public static ItemPicture MapToDbModel(TM.ItemPicture from)
         => MapToDbModel(from, null);

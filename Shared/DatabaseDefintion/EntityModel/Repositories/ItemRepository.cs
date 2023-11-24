@@ -24,7 +24,7 @@ public class ItemRepository : IItemRepository
 
     public async Task<long> AddItemAsync(TM.Item item, CancellationToken cancellationToken)
     {
-        var dbItem = ItemMappings.MapToDbModel(item);
+        var dbItem = ItemHelper.MapToDbModel(item);
         await dbContext.Items.AddAsync(dbItem, cancellationToken).ConfigureAwait(false);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         return dbItem.Id;
@@ -42,12 +42,12 @@ public class ItemRepository : IItemRepository
     }
 
     public async Task<IEnumerable<TM.Item>> GetItemsAsync(CancellationToken cancellationToken)
-        => await dbContext.Items.Select(ItemMappings.MapItem)
+        => await dbContext.Items.Select(ItemHelper.MapItem)
                                 .ToArrayAsync(cancellationToken)
                                 .ConfigureAwait(false);
 
     public async Task<TM.Item> GetItemAsync(long itemId, CancellationToken cancellationToken)
-        => await dbContext.Items.Select(ItemMappings.MapItem)
+        => await dbContext.Items.Select(ItemHelper.MapItem)
                                 .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"Item with id '{itemId}' does not exist.");
@@ -72,7 +72,7 @@ public class ItemRepository : IItemRepository
     {
         var dbItem = await dbContext.Items.FirstOrDefaultAsync(x => x.Id == item.Id, cancellationToken).ConfigureAwait(false) ??
             throw new ArgumentException($"Item with id '{item.Id}' does not exist.");
-        ItemMappings.MapToDbModel(item, dbItem);
+        ItemHelper.MapToDbModel(item, dbItem);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
@@ -85,7 +85,7 @@ public class ItemRepository : IItemRepository
     }
 }
 
-public static class ItemMappings
+public static class ItemHelper
 {
     public static Item MapToDbModel(TM.Item from)
         => MapToDbModel(from, null);
@@ -102,11 +102,26 @@ public static class ItemMappings
     }
 
     public static readonly Expression<Func<Item, TM.Item>> MapItem = (item)
-        => new TM.Item
+        => new()
         {
             Id = item.Id,
             Name = item.Name,
             Description = item.Description,
             Price = item.Price,
         };
+
+    public static TM.Item MapItemToTM(Item item)
+        => new()
+        {
+            Id = item.Id,
+            Name = item.Name,
+            Description = item.Description,
+            Price = item.Price,
+        };
+
+    public static async Task ThrowIfItemDoesNotExistAsync(AppProjectDbContext dbContext, long itemId, CancellationToken cancellationToken)
+        => _ = await dbContext.Items.Select(MapItem)
+                        .SingleOrDefaultAsync(x => x.Id == itemId, cancellationToken)
+                        .ConfigureAwait(false) ??
+                            throw new ArgumentException($"Item with id '{itemId}' does not exist.");
 }

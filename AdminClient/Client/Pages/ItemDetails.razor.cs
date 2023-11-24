@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using MudBlazor;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using MudBlazor;
 using TransferModel;
 
 namespace AdminClient.Client.Pages;
@@ -102,5 +102,11 @@ partial class ItemDetails : BasePage
     {
         await Service.DeleteItemPictureAsync(itemPicture.ItemId, itemPicture.Id, CancellationToken).ConfigureAwait(false);
         pictures = await GetItemPicturesAsync().ConfigureAwait(false);
+    }
+
+    private async Task DeleteItemAsync()
+    {
+        await Service.DeleteItemAsync(item.Id, CancellationToken);
+        NavigationManager.NavigateTo("/Items");
     }
 }

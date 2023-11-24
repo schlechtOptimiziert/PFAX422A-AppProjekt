@@ -15,6 +15,10 @@ public class Item
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Price { get; set; }
 
+    [ForeignKey("ItemId")]
+    public IEnumerable<CartItemLink> CartItemLinks { get; set; }
+    [ForeignKey("ItemId")]
+    public IEnumerable<ItemPicture> ItemPictures { get; set; }
     [ForeignKey("PlatformId")]
     public IEnumerable<ItemPlatformLink> ItemPlatformLinks { get; set; }
 }

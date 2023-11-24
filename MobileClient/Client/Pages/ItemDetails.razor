@@ -20,14 +20,14 @@
                 <div class="mainContent">
                     <div class="d-flex justify-content-between">
                         <MudText Typo="Typo.h5">@item.Name</MudText>
-                        <MudText Typo="Typo.h5">@item.Price €</MudText>
+                        <MudText Typo="Typo.h5" Class="text-nowrap">@item.Price €</MudText>
                     </div>
                     <MudText Typo="Typo.h5" Style="margin-top: 4rem;">Description</MudText>
                     <MudText Typo="Typo.body2" Style="margin-top: 0.5rem;">@item.Description</MudText>
                 </div>
                 <AuthorizeView>
                     <Authorized>
-                        <button class="addButton">Add to cart</button>
+                        <button class="addButton" @onclick="async () => await AddItemToCartAsync(UserId, item.Id, CancellationToken)">Add to cart</button>
                     </Authorized>
                     <NotAuthorized>
                         <div class="addButton">Login to be able to add to cart</div>

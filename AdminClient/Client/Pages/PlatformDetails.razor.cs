@@ -56,6 +56,7 @@ partial class PlatformDetails : BasePage
         badgeIcon = Icons.Material.Outlined.Lock;
         IsLoading = false;
     }
+    
     private async Task UpdatePlatform()
         => await Service.UpdatePlatformAsync(platform, CancellationToken).ConfigureAwait(false);
 

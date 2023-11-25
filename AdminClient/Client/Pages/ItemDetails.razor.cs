@@ -31,7 +31,6 @@ partial class ItemDetails : BasePage
         if (Id == null)
             IsCreate = true;
 
-
         if (!IsCreate)
         {
             item = await GetItemAsync().ConfigureAwait(false);

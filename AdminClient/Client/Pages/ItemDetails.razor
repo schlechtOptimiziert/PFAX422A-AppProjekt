@@ -16,14 +16,14 @@
                     <Match>
                         <MudExpansionPanels>
                             <MudExpansionPanel Text="Platforms" MaxHeight="150">
-                                @foreach (var platformlink in platformLinks)
+                                @foreach (var platform in platforms)
                                 {
-                                    <ConditionComponent Condition="@platformlink.linked">
+                                    <ConditionComponent Condition="@(item.Platforms.Any(x => x.Id == platform.Id))">
                                         <NotMatch>
-                                            <MudButton OnClick="() => AddPlatformToItem(platformlink.platform.Id)">+ @platformlink.platform.Name</MudButton>
+                                            <MudButton OnClick="() => AddPlatformToItem(platform.Id)">+ @platform.Name</MudButton>
                                         </NotMatch>
                                         <Match>
-                                            <MudButton OnClick="() => RemovePlatformFromItem(platformlink.platform.Id)">- @platformlink.platform.Name</MudButton>
+                                            <MudButton OnClick="() => RemovePlatformFromItem(platform.Id)">- @platform.Name</MudButton>
                                         </Match>
                                     </ConditionComponent>
                                 }

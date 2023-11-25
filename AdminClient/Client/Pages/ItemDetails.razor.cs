@@ -17,7 +17,7 @@ partial class ItemDetails : BasePage
 
     private Item item = new();
     private IEnumerable<ItemPicture> pictures = Enumerable.Empty<ItemPicture>();
-    private List<(bool linked, Platform platform)> platformLinks = new();
+    private IEnumerable<Platform> platforms = Enumerable.Empty<Platform>();
 
 
     [Parameter]
@@ -34,7 +34,7 @@ partial class ItemDetails : BasePage
         if (!IsCreate)
         {
             item = await GetItemAsync().ConfigureAwait(false);
-            await SetPlatformLinksAsync().ConfigureAwait(false);
+            platforms = await GetPlatformsAsync().ConfigureAwait(false);
             pictures = await GetItemPicturesAsync().ConfigureAwait(false);
         }
 
@@ -84,25 +84,15 @@ partial class ItemDetails : BasePage
         return Enumerable.Empty<ItemPicture>();
     }
 
-    private async Task SetPlatformLinksAsync()
-    {
-        platformLinks.Clear();
-        var platforms = await Service.GetPlatformsAsync(CancellationToken).ConfigureAwait(false);
-        foreach (var platform in platforms)
-        {
-            if (item.Platforms.Any(x => x.Id == platform.Id))
-                platformLinks.Add(new(true, platform));
-            else
-                platformLinks.Add(new(false, platform));
-        }
-    }
+    private async Task<IEnumerable<Platform>> GetPlatformsAsync()
+        => await Service.GetPlatformsAsync(CancellationToken).ConfigureAwait(false);
 
     private async Task AddPlatformToItem(long platformId)
     {
         if (Id.HasValue)
             await Service.AddPlatformToItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
-        await SetPlatformLinksAsync().ConfigureAwait(false);
+        await GetPlatformsAsync().ConfigureAwait(false);
     }
 
     private void FieldChanged()
@@ -126,7 +116,7 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             await Service.RemovePlatformFromItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
-        await SetPlatformLinksAsync().ConfigureAwait(false);
+        await GetPlatformsAsync().ConfigureAwait(false);
     }
 
     private async Task DeleteItemPicture(ItemPicture itemPicture)

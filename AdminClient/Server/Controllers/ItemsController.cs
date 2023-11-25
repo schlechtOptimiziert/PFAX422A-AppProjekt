@@ -20,6 +20,10 @@ public class ItemsController : ControllerBase
     public Task<long> AddItemAsync([FromBody] TM.Item item, CancellationToken cancellationToken)
         => itemRepository.AddItemAsync(item, cancellationToken);
 
+    [HttpPost("{itemId}/Platforms/{platformId}")]
+    public Task AddPlatformToItemAsync(long itemId, long platformId, CancellationToken cancellationToken)
+        => itemRepository.AddPlatformToItemAsync(itemId, platformId, cancellationToken);
+
     [HttpGet]
     public Task<IEnumerable<TM.Item>> GetItemsAsync(CancellationToken cancellationToken)
         => itemRepository.GetItemsAsync(cancellationToken);
@@ -32,9 +36,9 @@ public class ItemsController : ControllerBase
     public Task UpdateItemAsync([FromBody] TM.Item item, CancellationToken cancellationToken)
         => itemRepository.UpdateItemAsync(item, cancellationToken);
 
-    [HttpPut("{itemId}/Platforms/{platformId}")]
-    public Task AddPlatformToItemAsync(long itemId, long platformId, CancellationToken cancellationToken)
-        => itemRepository.AddPlatformToItemAsync(itemId, platformId, cancellationToken);
+    [HttpDelete("{itemId}/Platforms/{platformId}")]
+    public Task RemovePlatformFromItemAsync(long itemId, long platformId, CancellationToken cancellationToken)
+        => itemRepository.RemovePlatformFromItemAsync(itemId, platformId, cancellationToken);
 
     [HttpDelete("{itemId}")]
     public Task DeleteItemAsync(long itemId, CancellationToken cancellationToken)

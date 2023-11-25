@@ -13,5 +13,6 @@ public interface IItemRepository
     Task<TM.Item> GetItemAsync(long itemId, CancellationToken cancellationToken);
     Task<IEnumerable<TM.Item>> GetPlatformFilteredItemsAsync(long platformId, CancellationToken cancellationToken);
     Task UpdateItemAsync(TM.Item item, CancellationToken cancellationToken);
+    Task RemovePlatformFromItemAsync(long itemId, long platformId, CancellationToken cancellationToken);
     Task DeleteItemAsync(long id, CancellationToken cancellationToken);
 }

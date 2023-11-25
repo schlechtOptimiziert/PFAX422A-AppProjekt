@@ -14,7 +14,6 @@ partial class PlatformDetails : BasePage
 
     private Platform platform = new();
 
-
     [Parameter]
     public long? Id { get; set; }
 

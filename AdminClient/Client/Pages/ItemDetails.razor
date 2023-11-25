@@ -12,19 +12,31 @@
                 <MudTextField @bind-Value="@item.Name" Label="Name" Required="true" />
                 <MudTextField @bind-Value="@item.Description" Label="Description" Required="true" />
                 <MudNumericField @bind-Value="@item.Price" Label="Price" Required="true" T="decimal" />
+                <ConditionComponent Condition="Id.HasValue">
+                    <Match>
+                        <MudExpansionPanels>
+                            <MudExpansionPanel Text="Platforms" MaxHeight="150">
+                                @foreach (var platform in platforms)
+                                {
+                                    <MudButton OnClick="@(() => AddPlatformToItem(platform.Id))">@platform.Name</MudButton>
+                                }
+                            </MudExpansionPanel>
+                        </MudExpansionPanels>
+                    </Match>
+                </ConditionComponent>
                 <MudCardActions>
+                    <MudButton HtmlTag="label"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               OnClick="DeleteItemAsync">
+                        Delete Item
+                    </MudButton>
                     <MudBadge Class="ml-auto" Origin="Origin.TopRight" Color="@badgeColor" Overlap="true" Bordered="true" Icon="@badgeIcon" Visible="!IsCreate">
                         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveItem">Save</MudButton>
                     </MudBadge>
                 </MudCardActions>
             </MudForm>
         </MudPaper>
-        <MudButton  HtmlTag="label"
-                    Variant="Variant.Filled"
-                    Color="Color.Primary" 
-                    OnClick="DeleteItemAsync">
-            Delete Item
-        </MudButton>
     </Match>
 </ConditionComponent>
 <ConditionComponent Condition="Id != null">

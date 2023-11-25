@@ -1,8 +1,8 @@
-﻿using DatabaseDefinition.EntityModel.Repositories.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using TM = TransferModel;
 
 namespace AdminClient.Server.Controllers;
@@ -31,6 +31,10 @@ public class ItemsController : ControllerBase
     [HttpPut]
     public Task UpdateItemAsync([FromBody] TM.Item item, CancellationToken cancellationToken)
         => itemRepository.UpdateItemAsync(item, cancellationToken);
+
+    [HttpPut("{itemId}/Platforms/{platformId}")]
+    public Task AddPlatformToItemAsync(long itemId, long platformId, CancellationToken cancellationToken)
+        => itemRepository.AddPlatformToItemAsync(itemId, platformId, cancellationToken);
 
     [HttpDelete("{itemId}")]
     public Task DeleteItemAsync(long itemId, CancellationToken cancellationToken)

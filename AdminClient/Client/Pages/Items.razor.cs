@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using TransferModel;
 
 namespace AdminClient.Client.Pages;
@@ -10,16 +10,13 @@ partial class Items : BasePage
 {
     private IEnumerable<Item> items = Enumerable.Empty<Item>();
 
-    [Parameter]
-    public long? Id { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
-        await LoadItemsAsync().ConfigureAwait(false);
+        items = await LoadItemsAsync().ConfigureAwait(false);
     }
 
-    private async Task LoadItemsAsync()
-        => items = await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
+    private async Task<IEnumerable<Item>> LoadItemsAsync()
+        => await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
 
     private void GoToDetails(long id)
         => NavigationManager.NavigateTo($"/items/{id}");

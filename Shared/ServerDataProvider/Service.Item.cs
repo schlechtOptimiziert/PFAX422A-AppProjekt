@@ -35,6 +35,12 @@ public partial class Service : IItemService
         response.EnsureSuccessStatusCode();
     }
 
+    public async Task AddPlatformToItemAsync(long itemId, long platfromId, CancellationToken cancellationToken)
+    {
+        var response = await httpClient.PutAsJsonAsync($"{itemRequestUri}/{itemId}/Platforms/{platfromId}", cancellationToken).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+    }
+
     public async Task DeleteItemAsync(long id, CancellationToken cancellationToken)
     {
         var response = await httpClient.DeleteAsync($"{itemRequestUri}/{id}", cancellationToken).ConfigureAwait(false);

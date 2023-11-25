@@ -8,5 +8,6 @@ public interface IItemService
     Task<IEnumerable<Item>> GetItemsAsync(CancellationToken cancellationToken);
     Task<Item> GetItemAsync(long itemId, CancellationToken cancellationToken);
     Task UpdateItemAsync(Item item, CancellationToken cancellationToken);
+    Task AddPlatformToItemAsync(long itemId, long platfromId, CancellationToken cancellationToken);
     Task DeleteItemAsync(long id, CancellationToken cancellationToken);
 }

@@ -17,6 +17,7 @@ partial class ItemDetails : BasePage
 
     private Item item = new();
     private IEnumerable<ItemPicture> pictures = Enumerable.Empty<ItemPicture>();
+    private IEnumerable<Platform> platforms = Enumerable.Empty<Platform>();
 
 
     [Parameter]
@@ -29,6 +30,8 @@ partial class ItemDetails : BasePage
 
         if (Id == null)
             IsCreate = true;
+
+        platforms = await GetPlatformsAsync().ConfigureAwait(false);
 
         if (!IsCreate)
         {
@@ -80,6 +83,15 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
         return Enumerable.Empty<ItemPicture>();
+    }
+
+    private async Task<IEnumerable<Platform>> GetPlatformsAsync()
+        => await Service.GetPlatformsAsync(CancellationToken).ConfigureAwait(false);
+
+    private async Task AddPlatformToItem(long platformId)
+    {
+        if (Id.HasValue)
+            await Service.AddPlatformToItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
     }
 
     private void FieldChanged()

@@ -1,41 +1,48 @@
 ﻿@page "/cart/payment"
 @inherits BasePage
 
-<div class="mainContent">
-    <MudText Typo="Typo.h4">Payment</MudText>
-    <MudText Typo="Typo.h6" Class="mt-3">Billing address</MudText>
-    <MudTextField @bind-Value="name" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="First and last name" />
-    <div class="d-flex">
-        <MudTextField @bind-Value="street" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Street" Class="mr-3" />
-        <MudTextField @bind-Value="streetNumber" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Nr" />
-    </div>
-    <div class="d-flex">
-        <MudTextField @bind-Value="postcode" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="Postcode" Class="mr-3" />
-        <MudTextField @bind-Value="city" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="City" />
-    </div>
-    <MudTextField @bind-Value="country" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="Country" />
-
-    <MudText Typo="Typo.h6" Class="mt-5">Summary</MudText>
-    <div class="summaryContainer">
-        @foreach (var cartItem in cartItems)
-        {
-            <div class="summaryItem">
-                <div class="mw-80">@cartItem.Amount x @cartItem.Item.Name</div>
-                <div>@(cartItem.Item.Price * cartItem.Amount) €</div>
+<AuthorizeView>
+    <NotAuthorized>
+        <RedirectToLogin/>
+    </NotAuthorized>
+    <Authorized>
+        <div class="mainContent">
+            <MudText Typo="Typo.h4">Payment</MudText>
+            <MudText Typo="Typo.h6" Class="mt-3">Billing address</MudText>
+            <MudTextField @bind-Value="name" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="First and last name" />
+            <div class="d-flex">
+                <MudTextField @bind-Value="street" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Street" Class="mr-3" />
+                <MudTextField @bind-Value="streetNumber" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Nr" />
             </div>
-            <ConditionComponent Condition="cartItem != cartItems.Last()">
-                <Match>
-                    <MudDivider Class="mb-3 mt-2" Style="border-color:#808080; border-width:0.2rem;" />
-                </Match>
-            </ConditionComponent>
-        }
-    </div>
+            <div class="d-flex">
+                <MudTextField @bind-Value="postcode" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="Postcode" Class="mr-3" />
+                <MudTextField @bind-Value="city" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="City" />
+            </div>
+            <MudTextField @bind-Value="country" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" Label="Country" />
 
-    <div class="payContainer">
-        <div class="payTotal">
-            Total
-            @GetTotal() €
-        </div>
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Text" Style="background-color:var(--lightGreen); width:90%;" OnClick="async () => await CreateOrderAsync(CancellationToken)">Pay</MudButton>
-    </div>
-</div>
+            <MudText Typo="Typo.h6" Class="mt-5">Summary</MudText>
+            <div class="summaryContainer">
+                @foreach (var cartItem in cartItems)
+                {
+                    <div class="summaryItem">
+                        <div class="mw-80">@cartItem.Amount x @cartItem.Item.Name</div>
+                        <div>@(cartItem.Item.Price * cartItem.Amount) €</div>
+                    </div>
+                    <ConditionComponent Condition="cartItem != cartItems.Last()">
+                        <Match>
+                            <MudDivider Class="mb-3 mt-2" Style="border-color:#808080; border-width:0.2rem;" />
+                        </Match>
+                    </ConditionComponent>
+                }
+            </div>
+
+            <div class="payContainer">
+                <div class="payTotal">
+                    Total
+                    @GetTotal() €
+                </div>
+                <MudButton ButtonType="ButtonType.Button" Variant="Variant.Text" Style="background-color:var(--lightGreen); width:90%;" OnClick="async () => await CreateOrderAsync(CancellationToken)">Pay</MudButton>
+            </div>
+                </div>
+    </Authorized>
+</AuthorizeView>

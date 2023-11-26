@@ -1,0 +1,21 @@
+﻿@page "/orders"
+
+@inherits BasePage
+
+<AuthorizeView>
+    <NotAuthorized>
+        <RedirectToLogin/>
+    </NotAuthorized>
+    <Authorized>
+        <div class="mainContent">
+            <MudText Typo="Typo.h4">Orders</MudText>
+            @foreach (var order in orders)
+            {
+                <button class="order d-flex p-2 mt-3" @onclick="() => NavigateToOrder(order.Id)">
+                    Order #@order.Id
+                    Date: @order.Date
+                </button>
+            }
+                </div>
+    </Authorized>
+</AuthorizeView>

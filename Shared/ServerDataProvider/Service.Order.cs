@@ -22,9 +22,9 @@ public partial class Service : IOrderService
         return await response.ReadAsAsync<Order>(cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<IEnumerable<Order>> GetOrdersAsync(string userId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Order>> GetOrdersAsync(string userId, bool includeItems, CancellationToken cancellationToken)
     {
-        var response = await httpClient.GetAsync($"{string.Format(orderRequestUri, userId)}", cancellationToken).ConfigureAwait(false);
+        var response = await httpClient.GetAsync($"{string.Format(orderRequestUri, userId)}?includePositions={includeItems}", cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
         return await response.ReadAsAsync<IEnumerable<Order>>(cancellationToken).ConfigureAwait(false);
     }

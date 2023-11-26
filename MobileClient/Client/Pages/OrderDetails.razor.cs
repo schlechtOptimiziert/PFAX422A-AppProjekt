@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using TransferModel;
@@ -25,4 +26,7 @@ public partial class OrderDetails : BasePage
             return await Service.GetOrderAsync(UserId, Id.Value, CancellationToken).ConfigureAwait(false) ?? null;
         return null;
     }
+
+    private decimal GetTotal()
+        => order.Items.Sum(x => x.Price);
 }

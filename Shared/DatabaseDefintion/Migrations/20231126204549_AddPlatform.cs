@@ -39,12 +39,6 @@ namespace DatabaseDefintion.Migrations
                         principalTable: "Items",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ItemPlatformLinks_Items_PlatformId",
-                        column: x => x.PlatformId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_ItemPlatformLinks_Platforms_PlatformId",
                         column: x => x.PlatformId,
                         principalTable: "Platforms",

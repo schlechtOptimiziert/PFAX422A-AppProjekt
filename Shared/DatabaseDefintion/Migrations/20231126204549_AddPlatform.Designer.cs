@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseDefintion.Migrations
 {
     [DbContext(typeof(AppProjectDbContext))]
-    [Migration("20231124115505_AddPlatform")]
+    [Migration("20231126204549_AddPlatform")]
     partial class AddPlatform
     {
         /// <inheritdoc />
@@ -498,15 +498,9 @@ namespace DatabaseDefintion.Migrations
             modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ItemPlatformLink", b =>
                 {
                     b.HasOne("DatabaseDefinition.EntityModel.Database.Item", "Item")
-                        .WithMany()
+                        .WithMany("ItemPlatformLinks")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("DatabaseDefinition.EntityModel.Database.Item", null)
-                        .WithMany("ItemPlatformLinks")
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DatabaseDefintion.EntityModel.Database.Platform", "Platform")

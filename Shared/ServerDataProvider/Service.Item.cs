@@ -15,6 +15,12 @@ public partial class Service : IItemService
         return await response.ReadAsAsync<long>(cancellationToken).ConfigureAwait(false);
     }
 
+    public async Task AddPlatformToItemAsync(long itemId, long platfromId, CancellationToken cancellationToken)
+    {
+        var response = await httpClient.PostAsJsonAsync($"{itemRequestUri}/{itemId}/Platforms/{platfromId}", cancellationToken).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+    }
+
     public async Task<Item> GetItemAsync(long itemId, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetAsync($"{itemRequestUri}/{itemId}", cancellationToken).ConfigureAwait(false);
@@ -32,6 +38,12 @@ public partial class Service : IItemService
     public async Task UpdateItemAsync(Item item, CancellationToken cancellationToken)
     {
         var response = await httpClient.PutAsJsonAsync($"{itemRequestUri}", item, cancellationToken).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+    }
+
+    public async Task RemovePlatformFromItemAsync(long itemId, long platfromId, CancellationToken cancellationToken)
+    {
+        var response = await httpClient.DeleteAsync($"{itemRequestUri}/{itemId}/Platforms/{platfromId}", cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
     }
 

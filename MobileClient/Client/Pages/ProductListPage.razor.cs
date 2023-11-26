@@ -1,59 +1,65 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
-using MobileClient.Client.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using TransferModel;
 
 namespace MobileClient.Client.Pages;
 
 public partial class ProductListPage : BasePage
 {
-    private Platform? platform;
+    private long? platformId;
     private IEnumerable<Item> items = Enumerable.Empty<Item>();
     private IEnumerable<Item> filteredItems = Enumerable.Empty<Item>();
-    private string? searchText;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(false);
+        platformId = GetPlatformIdFromQuery();
         items = await GetItemsAsync().ConfigureAwait(false);
-        filteredItems = items;
-        GetFiltersFromQuery();
         NavigationManager.LocationChanged += HandleLocationChanged;
+        ApplyFilters();
     }
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync().ConfigureAwait(false);
-    
+
         foreach (var item in filteredItems)
         {
-           var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
-           item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+            var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
+
+            if (coverPicture != null)
+                item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
         }
     }
 
-    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
     {
-        GetFiltersFromQuery();
+        ApplyFilters();
         StateHasChanged();
     }
 
-    private void GetFiltersFromQuery()
+    private long? GetPlatformIdFromQuery()
     {
-        platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
-        NavigationManager.TryGetQueryString("searchText", out searchText);
-        ApplyFilters();
+        if (NavigationManager.TryGetQueryString("platform", out string platformString))
+            return long.Parse(platformString);
+        else
+            return null;
     }
 
     private async Task<IEnumerable<Item>> GetItemsAsync()
-        => await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
+    {
+        if (platformId == null)
+            return await Service.GetItemsAsync(CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
+        else
+            return await Service.GetPlatformFilteredItemsAsync(platformId.Value, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Item>();
+    }
 
     private void ApplyFilters()
     {
-        if (searchText != null)
+        if (NavigationManager.TryGetQueryString("searchText", out string searchText))
             filteredItems = items.Where(i => i.Name.ToLower().Contains(searchText.ToLower()));
         else
             filteredItems = items;

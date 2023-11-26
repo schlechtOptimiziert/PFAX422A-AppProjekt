@@ -25,6 +25,7 @@ public class DatabaseDefinitionTestBase
     protected ItemRepository ItemRepository { get; }
     protected ItemPictureRepository ItemPictureRepository { get; }
     protected CartRepository CartRepository { get; }
+    protected PlatformRepository PlatformRepository { get; }
     protected OrderRepository OrderRepository { get; }
     protected CancellationToken CancellationToken { get; } = CancellationToken.None;
     protected Random Random { get; }
@@ -36,6 +37,7 @@ public class DatabaseDefinitionTestBase
         ItemRepository = new(DbContext);
         ItemPictureRepository = new(DbContext);
         CartRepository = new(DbContext);
+        PlatformRepository = new(DbContext);
         OrderRepository = new(DbContext);
         Random = new Random();
     }

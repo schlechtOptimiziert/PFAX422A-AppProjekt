@@ -19,4 +19,6 @@ public class Item
     public IEnumerable<CartItemLink> CartItemLinks { get; set; }
     [ForeignKey("ItemId")]
     public IEnumerable<ItemPicture> ItemPictures { get; set; }
+    [ForeignKey("ItemId")]
+    public IEnumerable<ItemPlatformLink> ItemPlatformLinks { get; set; }
 }

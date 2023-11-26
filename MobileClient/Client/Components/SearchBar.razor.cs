@@ -1,13 +1,14 @@
 ﻿using ClientComponents.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System;
+using TransferModel;
 
 namespace MobileClient.Client.Components;
 
 public partial class SearchBar : BaseComponent
 {
     private string searchText;
-    private Platform? platform;
 
     [Parameter]
     public string Class { get; set; } = default!;
@@ -18,24 +19,28 @@ public partial class SearchBar : BaseComponent
     public void KeyPressed(KeyboardEventArgs e)
     {
         if (e.Code == "Enter" || e.Code == "NumpadEnter")
-        {
             NavigateToList(searchText);
-        }
     }
 
     private void NavigateToList(string searchText)
     {
-        platform = PlatformExtensions.GetPlatformFromUri(NavigationManager);
+        int? platformId = null;
+        if (NavigationManager.TryGetQueryString<int>("platform", out var platformIfFromQuery))
+            platformId = platformIfFromQuery;
+
         if (string.IsNullOrEmpty(searchText))
         {
-            NavigationManager.NavigateTo($"/items");
+            if (platformId == null)
+                NavigationManager.NavigateTo($"/items");
+            else
+                NavigationManager.NavigateTo($"/items?platform={platformId}");
         }
         else
         {
-            if (platform == null)
+            if (platformId == null)
                 NavigationManager.NavigateTo($"/items?searchText={searchText}");
             else
-                NavigationManager.NavigateTo($"/items?platform={platform}&searchText={searchText}");
+                NavigationManager.NavigateTo($"/items?platform={platformId}&searchText={searchText}");
         }
     }
 }

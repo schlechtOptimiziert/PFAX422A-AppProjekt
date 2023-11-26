@@ -1,0 +1,27 @@
+﻿@page "/platforms/{Id:long}"
+@page "/platforms/create"
+
+@inject IDialogService DialogService
+@inherits BasePage
+
+<ConditionComponent Condition="platform != null">
+    <Match>
+        <MudPaper Class="pa-4">
+            <MudForm @ref="form" FieldChanged="FieldChanged">
+                <MudNumericField Label="Id" Value="@platform.Id" Disabled="true" />
+                <MudTextField @bind-Value="@platform.Name" Label="Name" Required="true" />
+                <MudCardActions>
+                    <MudButton HtmlTag="label"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               OnClick="DeletePlatformAsync">
+                        Delete Platform
+                    </MudButton>
+                    <MudBadge Class="ml-auto" Origin="Origin.TopRight" Color="@badgeColor" Overlap="true" Bordered="true" Icon="@badgeIcon" Visible="!IsCreate">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SavePlatform">Save</MudButton>
+                    </MudBadge>
+                </MudCardActions>
+            </MudForm>
+        </MudPaper>
+    </Match>
+</ConditionComponent>

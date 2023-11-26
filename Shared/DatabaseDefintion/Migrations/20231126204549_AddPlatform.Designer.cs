@@ -4,6 +4,7 @@ using DatabaseDefinition.EntityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseDefintion.Migrations
 {
     [DbContext(typeof(AppProjectDbContext))]
-    partial class AppProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231126204549_AddPlatform")]
+    partial class AddPlatform
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +24,6 @@ namespace DatabaseDefintion.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.BillingAddress", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Postcode")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HouseNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BillingAddresses");
-                });
 
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Item", b =>
                 {
@@ -103,64 +75,6 @@ namespace DatabaseDefintion.Migrations
                     b.HasIndex("ItemId");
 
                     b.ToTable("ItemPictures");
-                });
-
-            modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Order", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("BillingAddressId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BillingAddressId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.OrderPosition", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<long>("ItemId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderPositions");
                 });
 
             modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ApplicationUser", b =>
@@ -562,42 +476,6 @@ namespace DatabaseDefintion.Migrations
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Order", b =>
-                {
-                    b.HasOne("DatabaseDefinition.EntityModel.Database.BillingAddress", "BillingAddress")
-                        .WithMany()
-                        .HasForeignKey("BillingAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DatabaseDefintion.EntityModel.Database.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("BillingAddress");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.OrderPosition", b =>
-                {
-                    b.HasOne("DatabaseDefinition.EntityModel.Database.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DatabaseDefinition.EntityModel.Database.Order", "Order")
-                        .WithMany("Positions")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.CartItemLink", b =>
                 {
                     b.HasOne("DatabaseDefinition.EntityModel.Database.Item", "Item")
@@ -694,11 +572,6 @@ namespace DatabaseDefintion.Migrations
                     b.Navigation("ItemPictures");
 
                     b.Navigation("ItemPlatformLinks");
-                });
-
-            modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Order", b =>
-                {
-                    b.Navigation("Positions");
                 });
 
             modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ApplicationUser", b =>

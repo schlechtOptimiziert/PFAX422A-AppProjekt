@@ -46,4 +46,7 @@ public partial class CartPage : BasePage
         cartItem.Amount = newAmount;
         await Service.UpdateItemCartAmountAsync(cartItem, cancellationToken).ConfigureAwait(false);
     }
+
+    private void NavigateToPayment()
+        => NavigationManager.NavigateTo("/cart/payment");
 }

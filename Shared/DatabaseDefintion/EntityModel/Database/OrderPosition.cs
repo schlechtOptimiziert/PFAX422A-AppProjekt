@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using TM = TransferModel;
 
 namespace DatabaseDefinition.EntityModel.Database;
 
@@ -16,6 +15,7 @@ public class OrderPosition
     public string Name { get; set; }
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Price { get; set; }
+    public int Amount { get; set; }
 
     public Item Item { get; set; }
     public Order Order { get; set; }
@@ -23,11 +23,12 @@ public class OrderPosition
     //Empty constructor for EFCore
     public OrderPosition() { }
 
-    public OrderPosition(TM.Item item, long orderId)
+    public OrderPosition(Item item, long orderId, int amount)
     {
         ItemId = item.Id;
         Name = item.Name;
         Price = item.Price;
         OrderId = orderId;
+        Amount = amount;
     }
 }

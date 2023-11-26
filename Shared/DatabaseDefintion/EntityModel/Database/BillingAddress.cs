@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace TransferModel;
+namespace DatabaseDefinition.EntityModel.Database;
 
-public class Order
+[PrimaryKey("Id")]
+public class BillingAddress
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
-    public string UserId { get; set; }
-    public DateTime Date { get; set; }
     public string Name { get; set; }
     public string Street { get; set; }
     public string StreetNumber { get; set; }
     public int Postcode { get; set; }
     public string City { get; set; }
     public string Country { get; set; }
-
-    public IEnumerable<Item> Items { get; set; }
 }

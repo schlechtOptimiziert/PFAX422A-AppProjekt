@@ -8,12 +8,12 @@ namespace DatabaseDefinition.Test.Cart;
 public class OrderRepositoryTests : DatabaseDefinitionTestBase
 {
     private readonly IOrderRepository orderRepository;
-    private readonly IItemRepository itemRepository;
+    private readonly ICartRepository cartRepository;
 
     public OrderRepositoryTests()
     {
         orderRepository = OrderRepository;
-        itemRepository = ItemRepository;
+        cartRepository = CartRepository;
     }
 
     [Fact]
@@ -23,19 +23,18 @@ public class OrderRepositoryTests : DatabaseDefinitionTestBase
         List<TM.Item> testItems = new();
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
-        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
-        var items = (await itemRepository.GetItemsAsync(CancellationToken).ConfigureAwait(false)).ToList();
-        var testOrder = CreateRandomOrder(user.Id, items.ToArray());
+        var itemIds = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
+        await AddItemsToCartAsync(user.Id, itemIds.ToArray());
+        var testOrder = CreateRandomOrder(user.Id);
         var orderId = await orderRepository.AddOrderAsync(testOrder, CancellationToken).ConfigureAwait(false);
         var order = await orderRepository.GetOrderAsync(orderId, CancellationToken).ConfigureAwait(false);
+        testOrder.Items = testItems;
         Assert.NotNull(order);
         Assert.Equal(orderId, order.Id);
-        Assert.Equal(testOrder.UserId, order.UserId);
-        Assert.Equal(testOrder.Date, order.Date);
-        var testOrderItems = testOrder.Items.ToList();
-        var orderItems = order.Items.ToList();
-        for (int i = 0; i < testOrderItems.Count; i++)
-            Assert.True(ItemEqualsItem(testOrderItems[i], orderItems[i]));
+        Assert.True(OrderEqualsOrder(order, testOrder));
+
+        var cartItems = await cartRepository.GetCartItemLinksAsync(user.Id, CancellationToken).ConfigureAwait(false);
+        Assert.Empty(cartItems);
     }
 
     [Fact]
@@ -45,21 +44,20 @@ public class OrderRepositoryTests : DatabaseDefinitionTestBase
         List<TM.Item> testItems = new();
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
-        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
-        var items = (await itemRepository.GetItemsAsync(CancellationToken).ConfigureAwait(false)).ToList();
+        var itemIds = (await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false)).ToList();
         List<TM.Order> testOrders = new();
         for (int i = 0; i < 3; i++)
-            testOrders.Add(CreateRandomOrder(user.Id, items[i]));
-        _ = await AddOrdersAsync(testOrders.ToArray()).ConfigureAwait(false);
+        {
+            await AddItemsToCartAsync(user.Id, itemIds[i]);
+            testOrders.Add(CreateRandomOrder(user.Id));
+            _ = await AddOrdersAsync(testOrders[i]).ConfigureAwait(false);
+        }
         var orders = (await orderRepository.GetOrdersAsync(user.Id, true, CancellationToken).ConfigureAwait(false)).ToList();
         for (int i = 0; i < 3; i++)
         {
+            testOrders[i].Items = new List<TM.Item>() { testItems[i] };
             Assert.NotNull(orders[i]);
-            Assert.Equal(testOrders[i].UserId, orders[i].UserId);
-            Assert.Equal(testOrders[i].Date, orders[i].Date);
-            var testOrderItems = testOrders[i].Items.ToList();
-            var orderItems = orders[i].Items.ToList();
-            Assert.True(ItemEqualsItem(testOrderItems[0], orderItems[0]));
+            Assert.True(OrderEqualsOrder(orders[i], testOrders[i]));
         }
     }
 
@@ -70,18 +68,17 @@ public class OrderRepositoryTests : DatabaseDefinitionTestBase
         List<TM.Item> testItems = new();
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
-        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
-        var items = (await itemRepository.GetItemsAsync(CancellationToken).ConfigureAwait(false)).ToList();
+        var itemIds = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
+        await AddItemsToCartAsync(user.Id, itemIds.ToArray());
         List<TM.Order> testOrders = new();
         for (int i = 0; i < 3; i++)
-            testOrders.Add(CreateRandomOrder(user.Id, items[i]));
+            testOrders.Add(CreateRandomOrder(user.Id));
         _ = await AddOrdersAsync(testOrders.ToArray()).ConfigureAwait(false);
         var orders = (await orderRepository.GetOrdersAsync(user.Id, false, CancellationToken).ConfigureAwait(false)).ToList();
         for (int i = 0; i < 3; i++)
         {
             Assert.NotNull(orders[i]);
-            Assert.Equal(testOrders[i].UserId, orders[i].UserId);
-            Assert.Equal(testOrders[i].Date, orders[i].Date);
+            Assert.True(OrderEqualsOrder(orders[i], testOrders[i]));
             Assert.Null(orders[i].Items);
         }
     }
@@ -93,18 +90,14 @@ public class OrderRepositoryTests : DatabaseDefinitionTestBase
         List<TM.Item> testItems = new();
         for (int i = 0; i < 3; i++)
             testItems.Add(CreateRandomItem());
-        _ = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
-        var items = (await itemRepository.GetItemsAsync(CancellationToken).ConfigureAwait(false)).ToList();
-        var testOrder = CreateRandomOrder(user.Id, items.ToArray());
+        var itemIds = await AddItemsAsync(testItems.ToArray()).ConfigureAwait(false);
+        await AddItemsToCartAsync(user.Id, itemIds.ToArray());
+        var testOrder = CreateRandomOrder(user.Id);
         var orderIds = await AddOrdersAsync(testOrder).ConfigureAwait(false);
         var order = await orderRepository.GetOrderAsync(orderIds.First(), CancellationToken).ConfigureAwait(false);
+        testOrder.Items = testItems;
         Assert.NotNull(order);
         Assert.Equal(orderIds.First(), order.Id);
-        Assert.Equal(testOrder.UserId, order.UserId);
-        Assert.Equal(testOrder.Date, order.Date);
-        var testOrderItems = testOrder.Items.ToList();
-        var orderItems = order.Items.ToList();
-        for (int i = 0; i < testOrderItems.Count; i++)
-            Assert.True(ItemEqualsItem(testOrderItems[i], orderItems[i]));
+        Assert.True(OrderEqualsOrder(order, testOrder));
     }
 }

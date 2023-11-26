@@ -111,14 +111,41 @@ public class DatabaseDefinitionTestBase
         return ids;
     }
 
-    public static TM.Order CreateRandomOrder(string userId, params TM.Item[] items)
+    public TM.Order CreateRandomOrder(string userId)
     {
         return new()
         {
             Date = DateTime.Now,
             UserId = userId,
-            Items = items
+            Name = $"TestName-{Guid.NewGuid()}",
+            Street = $"TestSteet-{Guid.NewGuid()}",
+            StreetNumber = $"TestStreetNumber-{Guid.NewGuid()}",
+            Postcode = Random.Next(),
+            City = $"TestCity-{Guid.NewGuid()}",
+            Country = $"TestCountry-{Guid.NewGuid()}",
         };
+    }
+
+    public static bool OrderEqualsOrder(TM.Order order1, TM.Order order2)
+    {
+        var itemsEqualsitems = true;
+        if (order1.Items != null && order2.Items != null)
+        {
+            var order1Items = order1.Items.ToList();
+            var order2Items = order2.Items.ToList();
+            for (int i = 0; i < order1Items.Count; i++)
+                if (!ItemEqualsItem(order1Items[i], order2Items[i]))
+                    itemsEqualsitems = false;
+        }
+        return itemsEqualsitems
+            && order1.Date == order2.Date
+            && order1.UserId == order2.UserId
+            && order1.Name == order2.Name
+            && order1.Street == order2.Street
+            && order1.StreetNumber == order2.StreetNumber
+            && order1.Postcode == order2.Postcode
+            && order1.City == order2.City
+            && order1.Country == order2.Country;
     }
 
     /// <summary>

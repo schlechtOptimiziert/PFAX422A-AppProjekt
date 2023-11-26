@@ -13,9 +13,13 @@ public class Order
     public long Id { get; set; }
     [ForeignKey("User")]
     public string UserId { get; set; }
+    [ForeignKey("BillingAddress")]
+    public long BillingAddressId { get; set; }
+
     public DateTime Date { get; set; }
 
     public ApplicationUser User { get; set; }
+    public BillingAddress BillingAddress { get; set; }
     [ForeignKey("OrderId")]
     public IEnumerable<OrderPosition> Positions { get; set; }
 }

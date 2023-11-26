@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseDefintion.Migrations
 {
     [DbContext(typeof(AppProjectDbContext))]
-    [Migration("20231123135444_AddOrders")]
+    [Migration("20231126151004_AddOrders")]
     partial class AddOrders
     {
         /// <inheritdoc />
@@ -24,6 +24,37 @@ namespace DatabaseDefintion.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.BillingAddress", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Postcode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillingAddresses");
+                });
 
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Item", b =>
                 {
@@ -85,6 +116,9 @@ namespace DatabaseDefintion.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("BillingAddressId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -92,6 +126,8 @@ namespace DatabaseDefintion.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BillingAddressId");
 
                     b.HasIndex("UserId");
 
@@ -105,6 +141,9 @@ namespace DatabaseDefintion.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<long>("ItemId")
                         .HasColumnType("bigint");
@@ -497,9 +536,17 @@ namespace DatabaseDefintion.Migrations
 
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Order", b =>
                 {
+                    b.HasOne("DatabaseDefinition.EntityModel.Database.BillingAddress", "BillingAddress")
+                        .WithMany()
+                        .HasForeignKey("BillingAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DatabaseDefintion.EntityModel.Database.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("BillingAddress");
 
                     b.Navigation("User");
                 });

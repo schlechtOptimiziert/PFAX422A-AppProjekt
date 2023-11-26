@@ -18,7 +18,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
-    public Task AddOrderAsync([FromBody] TM.Order order, CancellationToken cancellationToken)
+    public Task<long> AddOrderAsync([FromBody] TM.Order order, CancellationToken cancellationToken)
         => orderRepository.AddOrderAsync(order, cancellationToken);
 
     [HttpGet]

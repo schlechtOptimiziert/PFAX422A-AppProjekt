@@ -24,7 +24,9 @@ public partial class CartPage : BasePage
         foreach (var item in cartItems.Select(c => c.Item))
         {
             var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
-            item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+
+            if (coverPicture != null)
+                item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
         }
     }
 

@@ -21,7 +21,7 @@
                                 @foreach (var item in order.Items)
                                 {
                                     <div class="keysItem">
-                                        <div class="mw-50">@item.Name</div>
+                                        <div style="min-width: 30%" class="mw-50">@item.Name</div>
                                         <div style="text-align:right; margin-left:0.5rem;">@(Guid.NewGuid())</div>
                                     </div>
                                     <ConditionComponent Condition="item != order.Items.Last()">

@@ -43,7 +43,7 @@ public class OrderRepository : IOrderRepository
                                 .SingleOrDefaultAsync(x => x.Id == orderId, cancellationToken)
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"Order with id '{orderId}' does not exist.");
-        return OrderHelper.MapOrder(dbOrder, dbContext);
+        return OrderHelper.MapOrder(dbOrder, true, dbContext);
     }
 
     public async Task<IEnumerable<TM.Order>> GetOrdersAsync(string userId, bool includePositions, CancellationToken cancellationToken)
@@ -52,10 +52,13 @@ public class OrderRepository : IOrderRepository
                                 .ConfigureAwait(false) ??
                                     throw new ArgumentException($"User with id '{userId}' does not exist.");
         var orders = includePositions ? dbContext.Orders.Include(o => o.Positions).AsQueryable() : dbContext.Orders;
-        return await orders.Select(o => OrderHelper.MapOrder(o, dbContext))
-            .Where(x => x.UserId == userId)
+        var userOrders = await orders.Where(x => x.UserId == userId)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
+        List<TM.Order> mappedOrders = new();
+        foreach (var order in userOrders)
+            mappedOrders.Add(OrderHelper.MapOrder(order, includePositions, dbContext));
+        return mappedOrders;
     }
 }
 
@@ -75,15 +78,17 @@ public static class OrderHelper
         return to;
     }
 
-    public static TM.Order MapOrder(Order order, AppProjectDbContext dbContext)
+    public static TM.Order MapOrder(Order order, bool includePositions, AppProjectDbContext dbContext)
     {
         var tmOrder = new TM.Order
         {
             Id = order.Id,
             UserId = order.UserId,
-            Date = order.Date,
-            Items = new List<TM.Item>()
+            Date = order.Date
         };
+        if (!includePositions)
+            return tmOrder;
+        tmOrder.Items = new List<TM.Item>();
         foreach (var position in order.Positions)
         {
             var item = ItemHelper.MapOrderPositionToItem(dbContext, position);

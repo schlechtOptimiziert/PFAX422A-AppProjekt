@@ -103,6 +103,24 @@ public class DatabaseDefinitionTestBase
             throw new Exception("Couldn't find created User");
     }
 
+    public async Task<IEnumerable<long>> AddOrdersAsync(params TM.Order[] orders)
+    {
+        var ids = new List<long>();
+        foreach (var order in orders)
+            ids.Add(await OrderRepository.AddOrderAsync(order, CancellationToken).ConfigureAwait(false));
+        return ids;
+    }
+
+    public static TM.Order CreateRandomOrder(string userId, params TM.Item[] items)
+    {
+        return new()
+        {
+            Date = DateTime.Now,
+            UserId = userId,
+            Items = items
+        };
+    }
+
     /// <summary>
     /// Creates <see cref="DbContextOptions"/> for the usage of an in-memory db.
     /// No manual cleanup required.

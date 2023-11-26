@@ -36,7 +36,7 @@ public class OrderRepository : IOrderRepository
             Country = order.Country
         };
         await dbContext.BillingAddresses.AddAsync(billingAddress, cancellationToken).ConfigureAwait(false);
-        await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false); //we need to save multiple times, because else we dont know the ids of billingAddress and order
+        await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false); //we need to save here in order to get the billing address id
         dbOrder.BillingAddressId = billingAddress.Id;
         await dbContext.Orders.AddAsync(dbOrder, cancellationToken).ConfigureAwait(false);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

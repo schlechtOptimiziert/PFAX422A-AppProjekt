@@ -12,7 +12,6 @@ public partial class ProductListPage : BasePage
     private long? platformId;
     private IEnumerable<Item> items = Enumerable.Empty<Item>();
     private IEnumerable<Item> filteredItems = Enumerable.Empty<Item>();
-    private string searchText;
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,7 +59,7 @@ public partial class ProductListPage : BasePage
 
     private void ApplyFilters()
     {
-        if (searchText != null)
+        if (NavigationManager.TryGetQueryString("searchText", out string searchText))
             filteredItems = items.Where(i => i.Name.ToLower().Contains(searchText.ToLower()));
         else
             filteredItems = items;

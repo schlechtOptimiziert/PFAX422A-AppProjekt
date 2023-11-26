@@ -92,7 +92,6 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             await Service.AddPlatformToItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
-        await GetPlatformsAsync().ConfigureAwait(false);
     }
 
     private void FieldChanged()
@@ -116,7 +115,6 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             await Service.RemovePlatformFromItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
-        await GetPlatformsAsync().ConfigureAwait(false);
     }
 
     private async Task DeleteItemPicture(ItemPicture itemPicture)

@@ -4,6 +4,7 @@ using DatabaseDefinition.EntityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseDefintion.Migrations
 {
     [DbContext(typeof(AppProjectDbContext))]
-    partial class AppProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231126151004_AddOrders")]
+    partial class AddOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,37 +247,6 @@ namespace DatabaseDefintion.Migrations
                     b.HasIndex("ItemId");
 
                     b.ToTable("CartItemLinks");
-                });
-
-            modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ItemPlatformLink", b =>
-                {
-                    b.Property<long>("ItemId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PlatformId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ItemId", "PlatformId");
-
-                    b.HasIndex("PlatformId");
-
-                    b.ToTable("ItemPlatformLinks");
-                });
-
-            modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.Platform", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Platforms");
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -617,25 +589,6 @@ namespace DatabaseDefintion.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ItemPlatformLink", b =>
-                {
-                    b.HasOne("DatabaseDefinition.EntityModel.Database.Item", "Item")
-                        .WithMany("ItemPlatformLinks")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("DatabaseDefintion.EntityModel.Database.Platform", "Platform")
-                        .WithMany("ItemPlatformLinks")
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Platform");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -692,8 +645,6 @@ namespace DatabaseDefintion.Migrations
                     b.Navigation("CartItemLinks");
 
                     b.Navigation("ItemPictures");
-
-                    b.Navigation("ItemPlatformLinks");
                 });
 
             modelBuilder.Entity("DatabaseDefinition.EntityModel.Database.Order", b =>
@@ -704,11 +655,6 @@ namespace DatabaseDefintion.Migrations
             modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.ApplicationUser", b =>
                 {
                     b.Navigation("CartItemLinks");
-                });
-
-            modelBuilder.Entity("DatabaseDefintion.EntityModel.Database.Platform", b =>
-                {
-                    b.Navigation("ItemPlatformLinks");
                 });
 #pragma warning restore 612, 618
         }

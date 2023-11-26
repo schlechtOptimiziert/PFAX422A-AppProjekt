@@ -108,6 +108,10 @@ a, .btn-link {
     max-width: 50%;
 }
 
+.mw-80 {
+    max-width: 80%;
+}
+
 :root {
     --dark: #072D44;
     --tertiary: #457388;
@@ -118,6 +122,7 @@ a, .btn-link {
     --grayDefault: #D0D7E1;
     --background: #FFFFFF;
     --lightGreen: #ceffc4;
+    --lightBlue: #91bae3;
 }
 
 .mud-tab.mud-tab-active {

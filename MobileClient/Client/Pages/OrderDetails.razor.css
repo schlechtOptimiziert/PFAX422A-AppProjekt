@@ -1,0 +1,17 @@
+﻿.mainContent {
+    margin: 1rem;
+    margin-bottom: 5rem;
+}
+
+.keysContainer {
+    padding: 0.5rem;
+    border-color: #808080;
+    border-width: 0.1rem;
+    border-radius: 1rem;
+}
+
+.keysItem {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.3rem;
+}

@@ -1,0 +1,13 @@
+﻿.mainContent {
+    margin: 1rem;
+    margin-bottom: 5rem;
+}
+
+.order {
+    margin-left: auto;
+    margin-right: auto;
+    height: 5rem;
+    width: 90%;
+    border-radius: 1rem;
+    background: radial-gradient(circle, rgba(156,205,219,1) 0%, rgba(156,205,219,0.5046393557422969) 100%, rgba(156,205,219,0) 100%);
+}

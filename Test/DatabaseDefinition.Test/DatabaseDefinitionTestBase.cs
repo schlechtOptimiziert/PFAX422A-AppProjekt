@@ -119,7 +119,7 @@ public class DatabaseDefinitionTestBase
             UserId = userId,
             Name = $"TestName-{Guid.NewGuid()}",
             Street = $"TestSteet-{Guid.NewGuid()}",
-            StreetNumber = $"TestStreetNumber-{Guid.NewGuid()}",
+            HouseNumber = $"TestStreetNumber-{Guid.NewGuid()}",
             Postcode = Random.Next(),
             City = $"TestCity-{Guid.NewGuid()}",
             Country = $"TestCountry-{Guid.NewGuid()}",
@@ -142,7 +142,7 @@ public class DatabaseDefinitionTestBase
             && order1.UserId == order2.UserId
             && order1.Name == order2.Name
             && order1.Street == order2.Street
-            && order1.StreetNumber == order2.StreetNumber
+            && order1.HouseNumber == order2.HouseNumber
             && order1.Postcode == order2.Postcode
             && order1.City == order2.City
             && order1.Country == order2.Country;

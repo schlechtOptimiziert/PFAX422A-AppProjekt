@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MudBlazor;
 using TransferModel;
 
 namespace MobileClient.Client.Pages;
 
 public partial class PaymentPage : BasePage
 {
+    private MudForm form;
     private ICollection<CartItemLink> cartItems = new List<CartItemLink>();
     private Order order = new Order();
 
@@ -25,17 +27,10 @@ public partial class PaymentPage : BasePage
     private decimal GetTotal()
         => cartItems.Sum(x => x.Amount * x.Item.Price);
 
-    private bool PayDisabled()
-        => string.IsNullOrEmpty(order.Name)
-        || string.IsNullOrEmpty(order.Street)
-        || string.IsNullOrEmpty(order.StreetNumber)
-        || order.Postcode == null
-        || string.IsNullOrEmpty(order.City)
-        || string.IsNullOrEmpty(order.Country);
-
     private async Task CreateOrderAsync(CancellationToken cancellationToken)
     {
-        if (PayDisabled())
+        await form.Validate();
+        if (!form.IsValid)
             return;
         order.UserId = UserId;
         order.Date = DateTime.Now;

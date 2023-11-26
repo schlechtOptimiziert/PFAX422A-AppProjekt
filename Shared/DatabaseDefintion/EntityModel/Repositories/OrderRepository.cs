@@ -30,7 +30,7 @@ public class OrderRepository : IOrderRepository
         {
             Name = order.Name,
             Street = order.Street,
-            StreetNumber = order.StreetNumber,
+            HouseNumber = order.HouseNumber,
             Postcode = order.Postcode.Value,
             City = order.City,
             Country = order.Country
@@ -105,7 +105,7 @@ public static class OrderHelper
             Date = order.Date,
             Name = order.BillingAddress.Name,
             Street = order.BillingAddress.Street,
-            StreetNumber = order.BillingAddress.StreetNumber,
+            HouseNumber = order.BillingAddress.HouseNumber,
             Postcode = order.BillingAddress.Postcode,
             City = order.BillingAddress.City,
             Country = order.BillingAddress.Country,

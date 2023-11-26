@@ -14,7 +14,7 @@
                         <div class="mainContent">
                             <MudText Align="Align.Center">Order from @order.Date</MudText>
                             <MudDivider Class="mb-3 mt-2" Style="border-color:#808080; border-width:0.2rem;" />
-                            <MudText Align="Align.Center" Typo="Typo.h5">Thank you for your order, your games are activated</MudText>
+                            <MudText Align="Align.Center" Typo="Typo.h5">Thank you for your purchase!</MudText>
                             <MudDivider Class="mb-3 mt-2" Style="border-color:#808080; border-width:0.2rem;" />
                             <MudText Typo="Typo.h6" Class="mt-5">Keys</MudText>
                             <div class="keysContainer">
@@ -22,7 +22,7 @@
                                 {
                                     <div class="keysItem">
                                         <div class="mw-50">@item.Name</div>
-                                        <div style="text-align:right; width:40%">@(Guid.NewGuid())</div>
+                                        <div style="text-align:right; margin-left:0.5rem;">@(Guid.NewGuid())</div>
                                     </div>
                                     <ConditionComponent Condition="item != order.Items.Last()">
                                         <Match>

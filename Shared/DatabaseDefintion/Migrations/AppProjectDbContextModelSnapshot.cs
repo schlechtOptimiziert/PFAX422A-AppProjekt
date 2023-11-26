@@ -45,7 +45,7 @@ namespace DatabaseDefintion.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StreetNumber")
+                    b.Property<string>("HouseNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

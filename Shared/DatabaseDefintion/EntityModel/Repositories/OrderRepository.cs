@@ -84,7 +84,7 @@ public class OrderRepository : IOrderRepository
 public static class OrderHelper
 {
     public static Order MapToDbModel(TM.Order from)
-    => MapToDbModel(from, null);
+        => MapToDbModel(from, null);
 
     public static Order MapToDbModel(TM.Order from, Order to)
     {

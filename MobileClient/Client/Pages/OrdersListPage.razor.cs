@@ -19,7 +19,5 @@ public partial class OrdersListPage : BasePage
         => await Service.GetOrdersAsync(UserId, false, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Order>();
 
     private void NavigateToOrder(long id)
-    {
-        NavigationManager.NavigateTo($"/Orders/{id}");
-    }
+        => NavigationManager.NavigateTo($"/Orders/{id}");
 }

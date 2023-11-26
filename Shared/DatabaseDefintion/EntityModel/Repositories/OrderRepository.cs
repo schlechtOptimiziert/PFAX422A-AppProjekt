@@ -31,12 +31,12 @@ public class OrderRepository : IOrderRepository
             Name = order.Name,
             Street = order.Street,
             StreetNumber = order.StreetNumber,
-            Postcode = order.Postcode,
+            Postcode = order.Postcode.Value,
             City = order.City,
             Country = order.Country
         };
         await dbContext.BillingAddresses.AddAsync(billingAddress, cancellationToken).ConfigureAwait(false);
-        await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false); //we need to save multiple times, because else there we dont know the ids of billingAddress and order
+        await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false); //we need to save multiple times, because else we dont know the ids of billingAddress and order
         dbOrder.BillingAddressId = billingAddress.Id;
         await dbContext.Orders.AddAsync(dbOrder, cancellationToken).ConfigureAwait(false);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

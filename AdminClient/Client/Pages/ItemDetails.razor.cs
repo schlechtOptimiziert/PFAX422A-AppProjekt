@@ -17,6 +17,7 @@ partial class ItemDetails : BasePage
 
     private Item item = new();
     private IEnumerable<ItemPicture> pictures = Enumerable.Empty<ItemPicture>();
+    private IEnumerable<Platform> platforms = Enumerable.Empty<Platform>();
 
 
     [Parameter]
@@ -33,6 +34,7 @@ partial class ItemDetails : BasePage
         if (!IsCreate)
         {
             item = await GetItemAsync().ConfigureAwait(false);
+            platforms = await GetPlatformsAsync().ConfigureAwait(false);
             pictures = await GetItemPicturesAsync().ConfigureAwait(false);
         }
 
@@ -82,6 +84,16 @@ partial class ItemDetails : BasePage
         return Enumerable.Empty<ItemPicture>();
     }
 
+    private async Task<IEnumerable<Platform>> GetPlatformsAsync()
+        => await Service.GetPlatformsAsync(CancellationToken).ConfigureAwait(false);
+
+    private async Task AddPlatformToItem(long platformId)
+    {
+        if (Id.HasValue)
+            await Service.AddPlatformToItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
+        item = await GetItemAsync().ConfigureAwait(false);
+    }
+
     private void FieldChanged()
     {
         badgeColor = Color.Error;
@@ -96,6 +108,13 @@ partial class ItemDetails : BasePage
             await Service.AddItemPictureAsync(itemPicture, Id.Value, CancellationToken).ConfigureAwait(false);
         }
         pictures = await GetItemPicturesAsync().ConfigureAwait(false);
+    }
+
+    private async Task RemovePlatformFromItem(long platformId)
+    {
+        if (Id.HasValue)
+            await Service.RemovePlatformFromItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
+        item = await GetItemAsync().ConfigureAwait(false);
     }
 
     private async Task DeleteItemPicture(ItemPicture itemPicture)

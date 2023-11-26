@@ -10,7 +10,7 @@ namespace MobileClient.Client.Pages;
 public partial class PaymentPage : BasePage
 {
     private ICollection<CartItemLink> cartItems = new List<CartItemLink>();
-    private Order order = new Order();
+    private Order order = new();
 
     protected override async Task OnInitializedAsync()
     {

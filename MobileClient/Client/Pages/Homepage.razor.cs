@@ -28,7 +28,7 @@ public partial class Homepage : BasePage
         var orders = await Service.GetOrdersAsync(UserId, true, cancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Order>();
         List<Item> orderItems = new();
         foreach (var order in orders)
-            if (orderItems.Count < 10)
+            if (orderItems.Count <= 7)
                 orderItems = orderItems.Concat(order.Items.DistinctBy(o => o.Id)).ToList();
         return orderItems.DistinctBy(o => o.Id);
     }

@@ -14,10 +14,10 @@
     </MudButton>
 </div>
 
-<HorizontalProductScroller Class="mt-5" Title="Cheapest games" Items="items.OrderBy( i => i.Price).Take(10)" />
-<HorizontalProductScroller Class="mt-5" Title="Most expensive games" Items="items.OrderByDescending( i => i.Price).Take(10)" />
+<HorizontalProductScroller Class="mt-5" Title="Cheapest games" Items="items.OrderBy( i => i.Price).Take(7)" />
+<HorizontalProductScroller Class="mt-5" Title="Most expensive games" Items="items.OrderByDescending( i => i.Price).Take(7)" />
 <ConditionComponent Condition="buyAgainItems.Count() > 0">
     <Match>
-        <HorizontalProductScroller Class="mt-5" Title="Buy again" Items="buyAgainItems.Take(10)" />
+        <HorizontalProductScroller Class="mt-5" Title="Buy again" Items="buyAgainItems.Take(7)" />
     </Match>
 </ConditionComponent>

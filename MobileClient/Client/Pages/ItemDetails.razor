@@ -30,7 +30,7 @@
                         <button class="addButton" @onclick="async () => await AddItemToCartAsync(UserId, item.Id, CancellationToken)">Add to cart</button>
                     </Authorized>
                     <NotAuthorized>
-                        <div class="addButton">Login to be able to add to cart</div>
+                        <div class="addButton" href="authentication/login">Login to add items to your cart</div>
                     </NotAuthorized>
                 </AuthorizeView>
             </Match>

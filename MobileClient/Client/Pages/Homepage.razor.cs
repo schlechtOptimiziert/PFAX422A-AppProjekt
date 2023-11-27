@@ -29,7 +29,7 @@ public partial class Homepage : BasePage
         List<Item> orderItems = new();
         foreach (var order in orders)
             if (orderItems.Count < 10)
-                orderItems = orderItems.Concat(order.Items).ToList();
+                orderItems = orderItems.Concat(order.Items.DistinctBy(o => o.Id)).ToList();
         return orderItems;
     }
 

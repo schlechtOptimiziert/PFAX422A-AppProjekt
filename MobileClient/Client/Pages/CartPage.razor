@@ -10,7 +10,7 @@
             <MudText Typo="Typo.h4">My cart</MudText>
             <ConditionComponent Condition="cartItems.Any()">
                 <NotMatch>
-                    The cart is empty
+                    Your cart is empty
                 </NotMatch>
                 <Match>
                     @foreach (var cartItem in cartItems)

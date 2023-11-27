@@ -24,5 +24,9 @@
 
 .title {
     text-align: center;
-    width:8rem;
+    width: 8rem;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
 }

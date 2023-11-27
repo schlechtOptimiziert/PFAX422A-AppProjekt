@@ -3,16 +3,21 @@
 @inherits BasePage
 
 <div class="platformSelectorContainer">
-    @foreach(var platform in platforms)
+    @foreach (var platform in platforms)
     {
         <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(platform)" Style="background-color: var(--secondary);">
             <img class="platformImage" src="@($"../icons/{platform.Name}.svg")" />
         </MudButton>
     }
-   <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList()" Style="background-color: var(--secondary);">
+    <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList()" Style="background-color: var(--secondary);">
         <div class="platformText">All</div>
     </MudButton>
 </div>
 
-<HorizontalProductScroller Class="mt-5" Title="Popular Games" Items="items"></HorizontalProductScroller>
-<HorizontalProductScroller Class="mt-5" Title="Recommended Games" Items="items"></HorizontalProductScroller>
+<HorizontalProductScroller Class="mt-5" Title="Cheapest games" Items="items.OrderBy( i => i.Price).Take(10)" />
+<HorizontalProductScroller Class="mt-5" Title="Most expensive games" Items="items.OrderByDescending( i => i.Price).Take(10)" />
+<ConditionComponent Condition="buyAgainItems.Count() > 0">
+    <Match>
+        <HorizontalProductScroller Class="mt-5" Title="Buy again" Items="buyAgainItems.Take(10)" />
+    </Match>
+</ConditionComponent>

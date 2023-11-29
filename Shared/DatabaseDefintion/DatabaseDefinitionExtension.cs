@@ -13,7 +13,6 @@ public static class DatabaseDefinitionExtension
 
     public static IServiceCollection AddDatabase(this IServiceCollection serviceCollection, string connectionString)
     {
-
         serviceCollection.AddDbContext<AppProjectDbContext>(options =>
             options.UseSqlServer(connectionString));
         serviceCollection.AddDatabaseDeveloperPageExceptionFilter();

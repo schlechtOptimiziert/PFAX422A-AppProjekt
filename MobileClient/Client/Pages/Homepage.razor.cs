@@ -25,6 +25,8 @@ public partial class Homepage : BasePage
 
     private async Task<IEnumerable<Item>> GetBuyAgainItemsAsync(CancellationToken cancellationToken)
     {
+        if (string.IsNullOrEmpty(UserId))
+            return Enumerable.Empty<Item>();
         var orders = await Service.GetOrdersAsync(UserId, true, cancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<Order>();
         List<Item> orderItems = new();
         foreach (var order in orders)

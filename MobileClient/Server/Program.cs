@@ -1,12 +1,9 @@
-using Microsoft.AspNetCore.Authentication;
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.IO;
 using TM = TransferModel;
 
 namespace MobileClient;

@@ -23,13 +23,19 @@
     text-align:left;
     padding-left: 10px;
     padding-bottom: 20px;
+    max-width: 75%;
 }
 
 .itemPrice {
+    display:flex;
+    align-items: flex-end;
     text-align: right;
+    height:100%;
 }
 
 .itemText {
+    display: flex;
+    justify-content: space-between;
     width: 70%;
     height: 100%;
 }

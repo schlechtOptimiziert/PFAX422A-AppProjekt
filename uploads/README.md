@@ -1,0 +1,1 @@
+Das ist ein Ordner fuer Hochgeladene Bilder. Muss existieren. 

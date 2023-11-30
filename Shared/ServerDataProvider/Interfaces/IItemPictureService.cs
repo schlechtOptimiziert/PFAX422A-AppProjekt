@@ -14,4 +14,5 @@ public interface IItemPictureService
     Task<IEnumerable<ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken);
     Task<ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken);
     Task DeleteItemPictureAsync(long itemId, long id, CancellationToken cancellationToken);
+    Task<IEnumerable<string>> UploadFiles(MultipartFormDataContent content, CancellationToken cancellationToken);
 }

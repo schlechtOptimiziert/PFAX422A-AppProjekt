@@ -1,5 +1,6 @@
 ﻿using ServerDataProvider.Helpers;
 using ServerDataProvider.Interfaces;
+using System.Threading;
 using TransferModel;
 
 namespace ServerDataProvider;
@@ -31,5 +32,12 @@ public partial class Service : IItemPictureService
     {
         var response = await httpClient.DeleteAsync($"{itemRequestUri}/{itemId}/Pictures/{id}", cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
+    }
+
+    public async Task<IEnumerable<string>> UploadFiles(MultipartFormDataContent content, CancellationToken cancellationToken)
+    {
+        var response = await httpClient.PostAsync($"/api/File", content, cancellationToken).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+        return await response.ReadAsAsync<IEnumerable<string>>(cancellationToken).ConfigureAwait(false);
     }
 }

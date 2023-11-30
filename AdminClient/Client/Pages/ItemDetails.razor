@@ -32,12 +32,16 @@
                     </Match>
                 </ConditionComponent>
                 <MudCardActions>
-                    <MudButton HtmlTag="label"
-                               Variant="Variant.Filled"
-                               Color="Color.Primary"
-                               OnClick="DeleteItemAsync">
-                        Delete Item
-                    </MudButton>
+                    <ConditionComponent Condition="Id != null">
+                        <Match>
+                            <MudButton HtmlTag="label"
+                                       Variant="Variant.Filled"
+                                       Color="Color.Primary"
+                                       OnClick="DeleteItemAsync">
+                                Delete Item
+                            </MudButton>
+                        </Match>
+                    </ConditionComponent>
                     <MudBadge Class="ml-auto" Origin="Origin.TopRight" Color="@badgeColor" Overlap="true" Bordered="true" Icon="@badgeIcon" Visible="!IsCreate">
                         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveItem">Save</MudButton>
                     </MudBadge>

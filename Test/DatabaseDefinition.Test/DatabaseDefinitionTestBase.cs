@@ -71,7 +71,7 @@ public class DatabaseDefinitionTestBase
 
     public TM.ItemPicture CreateRandomItemPictureForExistingItem(long itemId)
     {
-        return new() { ItemId = itemId, Bytes = new byte[500], Description = $"TestDescription-{Guid.NewGuid()}", FileExtension = "png", Size = (decimal)(Random.Next(0, 1000000) + Random.NextDouble()) };
+        return new() { ItemId = itemId, FileName = $"{Guid.NewGuid()}.png" };
     }
 
     public async Task<IEnumerable<long>> AddItemPicturesAsync(params TM.ItemPicture[] itemsPictures)
@@ -85,10 +85,7 @@ public class DatabaseDefinitionTestBase
     public static bool ItemPictureEqualsItemPicture(TM.ItemPicture itemPicture1, TM.ItemPicture itemPicture2)
     {
         return itemPicture1.ItemId == itemPicture2.ItemId
-            && itemPicture1.Bytes.SequenceEqual(itemPicture2.Bytes)
-            && itemPicture1.Description == itemPicture2.Description
-            && itemPicture1.FileExtension == itemPicture2.FileExtension
-            && itemPicture1.Size == itemPicture2.Size;
+            && itemPicture1.FileName == itemPicture2.FileName;
     }
 
     public async Task AddItemsToCartAsync(string userId, params long[] itemsIds)

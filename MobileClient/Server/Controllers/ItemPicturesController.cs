@@ -1,6 +1,9 @@
 ﻿using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using TM = TransferModel;
@@ -12,14 +15,10 @@ public class ItemPicturesController : ControllerBase
 {
     private readonly IItemPictureRepository itemPictureRepository;
 
-    public ItemPicturesController(IItemPictureRepository itemPictureRepository)
+    public ItemPicturesController(IItemPictureRepository itemPictureRepository, IWebHostEnvironment env)
     {
         this.itemPictureRepository = itemPictureRepository;
     }
-
-    [HttpPost("{itemId}/Pictures")]
-    public Task<long> AddItemPictureAsync([FromBody] TM.ItemPicture picture, CancellationToken cancellationToken)
-        => itemPictureRepository.AddItemPictureAsync(picture, cancellationToken);
 
     [HttpGet("{itemId}/Pictures")]
     public Task<IEnumerable<TM.ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken)
@@ -28,8 +27,4 @@ public class ItemPicturesController : ControllerBase
     [HttpGet("{itemId}/Pictures/CoverPicture")]
     public Task<TM.ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken)
         => itemPictureRepository.GetItemCoverPictureAsync(itemId, cancellationToken);
-
-    [HttpDelete("{itemId}/Pictures/{id}")]
-    public Task DeleteItemAsync(long id, CancellationToken cancellationToken)
-        => itemPictureRepository.DeleteItemPictureAsync(id, cancellationToken);
 }

@@ -52,18 +52,11 @@
 </ConditionComponent>
 <ConditionComponent Condition="Id != null">
     <Match>
-        <InputFile OnChange="@OnInputFileChange">File upload</InputFile>
-        <ConditionComponent Condition="fileNames.Count > 0">
-            <Match>
-                <ul>
-                    @foreach (var fileName in fileNames)
-                    {
-                        <li>
-                            <img src="/Images/@fileName" />
-                        </li>
-                    }
-                </ul>
-            </Match>
-        </ConditionComponent>
+        <InputFile OnChange="@OnInputFileChange" />
+        @foreach (var itemPicture in itemPictures)
+        {
+            <MudImage Src="@($"/Images/{itemPicture.FileName}")" Width="200" Height="150" Elevation="25" Class="rounded-lg ma-4" />
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteItemPicture(itemPicture)" />
+        }
     </Match>
 </ConditionComponent>

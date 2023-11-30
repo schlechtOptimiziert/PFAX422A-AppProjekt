@@ -17,7 +17,7 @@
                     {
                         <div class="cartItem">
                             <div style="display:flex">
-                                <div style="background-image: url(@cartItem.Item.CoverPictureUri);" class="coverPicture" />
+                                <div style="background-image: @cartItem.Item.CoverPicturePath;" class="coverPicture" />
                                 <p class="m-2 h6 mw-50">@cartItem.Item.Name</p>
                             </div>
                             <div style="display:flex; flex-direction:column; padding:0.5rem;">

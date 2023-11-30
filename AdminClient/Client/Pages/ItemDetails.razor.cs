@@ -17,7 +17,7 @@ partial class ItemDetails : BasePage
     string badgeIcon = Icons.Material.Outlined.Lock;
 
     private Item item = new();
-    private IEnumerable<string> fileNames = Enumerable.Empty<string>();
+    private IEnumerable<ItemPicture> itemPictures = Enumerable.Empty<ItemPicture>();
     private IEnumerable<Platform> platforms = Enumerable.Empty<Platform>();
 
 
@@ -36,6 +36,7 @@ partial class ItemDetails : BasePage
         {
             item = await GetItemAsync().ConfigureAwait(false);
             platforms = await GetPlatformsAsync().ConfigureAwait(false);
+            itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
         }
 
         IsLoading = false;
@@ -64,8 +65,6 @@ partial class ItemDetails : BasePage
         badgeIcon = Icons.Material.Outlined.Lock;
         IsLoading = false;
     }
-    private async Task UpdateItem()
-        => await Service.UpdateItemAsync(item, CancellationToken).ConfigureAwait(false);
 
     private async Task<long> AddItemAsync()
         => await Service.AddItemAsync(item, CancellationToken).ConfigureAwait(false);
@@ -75,6 +74,13 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             return await Service.GetItemAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? throw new ArgumentException($"Could not find item with id '{Id}'");
         return null;
+    }
+
+    private async Task<IEnumerable<ItemPicture>> GetItemPicturesAsync()
+    {
+        if (Id.HasValue)
+            return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false);
+        return Enumerable.Empty<ItemPicture>();
     }
 
     private async Task<IEnumerable<Platform>> GetPlatformsAsync()
@@ -87,6 +93,9 @@ partial class ItemDetails : BasePage
         item = await GetItemAsync().ConfigureAwait(false);
     }
 
+    private async Task UpdateItem()
+        => await Service.UpdateItemAsync(item, CancellationToken).ConfigureAwait(false);
+
     private void FieldChanged()
     {
         badgeColor = Color.Error;
@@ -98,6 +107,12 @@ partial class ItemDetails : BasePage
         if (Id.HasValue)
             await Service.RemovePlatformFromItemAsync(Id.Value, platformId, CancellationToken).ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
+    }
+
+    private async Task DeleteItemPicture(ItemPicture itemPicture)
+    {
+        await Service.DeleteItemPictureAsync(itemPicture.ItemId, itemPicture.Id, CancellationToken).ConfigureAwait(false);
+        itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }
 
     private async Task DeleteItemAsync()
@@ -124,8 +139,8 @@ partial class ItemDetails : BasePage
                 fileName: file.Name);
         }
 
-        var uploadFileNames = await Service.UploadFiles(content, CancellationToken).ConfigureAwait(false);
-        if(uploadFileNames != null)
-            fileNames = fileNames.Concat(uploadFileNames);
+        await Service.AddItemPictureAsync(content, Id.Value, CancellationToken).ConfigureAwait(false);
+
+        itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }
 }

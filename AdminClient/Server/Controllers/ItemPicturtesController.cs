@@ -1,11 +1,11 @@
-﻿using DatabaseDefinition.EntityModel.Repositories.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using DatabaseDefinition.EntityModel.Repositories.Interfaces;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using TM = TransferModel;
 
 namespace AdminClient.Server.Controllers;
@@ -29,12 +29,13 @@ public class ItemPicturesController : ControllerBase
 
         foreach (var file in files)
         {
-            var path = Path.Combine(env.ContentRootPath, "..", "..", "uploads", file.FileName);
+            var fileName = file.FileName.Replace(" ", "_");
+            var path = Path.Combine(env.ContentRootPath, "..", "..", "uploads", fileName);
 
             await using var fs = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(fs, cancellationToken);
 
-            uploadPictureIds.Add(await itemPictureRepository.AddItemPictureAsync(new TM.ItemPicture {ItemId = itemId, FileName = file.FileName}, cancellationToken));
+            uploadPictureIds.Add(await itemPictureRepository.AddItemPictureAsync(new TM.ItemPicture { ItemId = itemId, FileName = fileName }, cancellationToken));
         }
 
         return uploadPictureIds;

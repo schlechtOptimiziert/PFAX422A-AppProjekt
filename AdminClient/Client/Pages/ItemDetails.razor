@@ -52,21 +52,11 @@
 </ConditionComponent>
 <ConditionComponent Condition="Id != null">
     <Match>
-        <MudFileUpload T="IBrowserFile" FilesChanged="UploadPicture">
-            <ButtonTemplate>
-                <MudButton HtmlTag="label"
-                           Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           StartIcon="@Icons.Material.Filled.CloudUpload"
-                           for="@context">
-                    Upload Files
-                </MudButton>
-            </ButtonTemplate>
-        </MudFileUpload>
-        @foreach (var picture in pictures)
+        <InputFile OnChange="@OnInputFileChange" />
+        @foreach (var itemPicture in itemPictures)
         {
-            <MudImage Src="@ItemPicture.ItemPictureToUri(picture)" Width="200" Height="150" Elevation="25" Class="rounded-lg ma-4" />
-            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteItemPicture(picture)" />
+            <MudImage Src="@($"/Images/{itemPicture.FileName}")" Width="200" Height="150" Elevation="25" Class="rounded-lg ma-4" />
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteItemPicture(itemPicture)" />
         }
     </Match>
 </ConditionComponent>

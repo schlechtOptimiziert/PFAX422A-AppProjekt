@@ -63,10 +63,7 @@ public static class ItemPictureHelper
         to ??= new();
 
         to.ItemId = from.ItemId;
-        to.Bytes = from.Bytes;
-        to.Description = from.Description;
-        to.FileExtension = from.FileExtension;
-        to.Size = from.Size;
+        to.FileName = from.FileName;
 
         return to;
     }
@@ -76,9 +73,6 @@ public static class ItemPictureHelper
         {
             Id = picture.Id,
             ItemId = picture.ItemId,
-            Bytes = picture.Bytes,
-            Description = picture.Description,
-            FileExtension = picture.FileExtension,
-            Size = picture.Size,
+            FileName = picture.FileName,
         };
 }

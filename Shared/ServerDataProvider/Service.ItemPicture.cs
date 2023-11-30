@@ -1,16 +1,17 @@
 ﻿using ServerDataProvider.Helpers;
 using ServerDataProvider.Interfaces;
+using System.Threading;
 using TransferModel;
 
 namespace ServerDataProvider;
 
 public partial class Service : IItemPictureService
 {
-    public async Task<long> AddItemPictureAsync(ItemPicture picture, long itemId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<long>> AddItemPicturesAsync(MultipartFormDataContent pictures, long itemId, CancellationToken cancellationToken)
     {
-        var response = await httpClient.PostAsJsonAsync($"{itemRequestUri}/{itemId}/Pictures", picture, cancellationToken).ConfigureAwait(false);
+        var response = await httpClient.PostAsync($"{itemRequestUri}/{itemId}/Pictures", pictures, cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
-        return await response.ReadAsAsync<long>(cancellationToken).ConfigureAwait(false);
+        return await response.ReadAsAsync<IEnumerable<long>>(cancellationToken).ConfigureAwait(false);
     }
 
     public async Task<IEnumerable<ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken)

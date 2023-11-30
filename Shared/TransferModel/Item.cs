@@ -10,5 +10,5 @@ public class Item
     public decimal Price { get; set; }
     public IEnumerable<Platform> Platforms { get; set; }
 
-    public string CoverPictureUri { get; set; }
+    public string CoverPicturePath { get; set; }
 }

@@ -27,7 +27,7 @@ public partial class HorizontalProductScroller : BaseComponent
             var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
 
             if (coverPicture != null)
-                item.CoverPictureUri = ItemPicture.ItemPictureToUri(coverPicture);
+                item.CoverPicturePath = $"/Images/{coverPicture.FileName}";
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -16,7 +17,7 @@ partial class ItemDetails : BasePage
     string badgeIcon = Icons.Material.Outlined.Lock;
 
     private Item item = new();
-    private IEnumerable<ItemPicture> pictures = Enumerable.Empty<ItemPicture>();
+    private IEnumerable<ItemPicture> itemPictures = Enumerable.Empty<ItemPicture>();
     private IEnumerable<Platform> platforms = Enumerable.Empty<Platform>();
 
 
@@ -35,7 +36,7 @@ partial class ItemDetails : BasePage
         {
             item = await GetItemAsync().ConfigureAwait(false);
             platforms = await GetPlatformsAsync().ConfigureAwait(false);
-            pictures = await GetItemPicturesAsync().ConfigureAwait(false);
+            itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
         }
 
         IsLoading = false;
@@ -64,8 +65,6 @@ partial class ItemDetails : BasePage
         badgeIcon = Icons.Material.Outlined.Lock;
         IsLoading = false;
     }
-    private async Task UpdateItem()
-        => await Service.UpdateItemAsync(item, CancellationToken).ConfigureAwait(false);
 
     private async Task<long> AddItemAsync()
         => await Service.AddItemAsync(item, CancellationToken).ConfigureAwait(false);
@@ -80,7 +79,7 @@ partial class ItemDetails : BasePage
     private async Task<IEnumerable<ItemPicture>> GetItemPicturesAsync()
     {
         if (Id.HasValue)
-            return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false) ?? Enumerable.Empty<ItemPicture>();
+            return await Service.GetItemPicturesAsync(Id.Value, CancellationToken).ConfigureAwait(false);
         return Enumerable.Empty<ItemPicture>();
     }
 
@@ -94,20 +93,13 @@ partial class ItemDetails : BasePage
         item = await GetItemAsync().ConfigureAwait(false);
     }
 
+    private async Task UpdateItem()
+        => await Service.UpdateItemAsync(item, CancellationToken).ConfigureAwait(false);
+
     private void FieldChanged()
     {
         badgeColor = Color.Error;
         badgeIcon = Icons.Material.Filled.LockOpen;
-    }
-
-    private async Task UploadPicture(IBrowserFile file)
-    {
-        if (Id.HasValue)
-        {
-            var itemPicture = await ItemPicture.BrowserFileToItemPictureAsync(file, Id.Value, CancellationToken).ConfigureAwait(false);
-            await Service.AddItemPictureAsync(itemPicture, Id.Value, CancellationToken).ConfigureAwait(false);
-        }
-        pictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }
 
     private async Task RemovePlatformFromItem(long platformId)
@@ -120,12 +112,35 @@ partial class ItemDetails : BasePage
     private async Task DeleteItemPicture(ItemPicture itemPicture)
     {
         await Service.DeleteItemPictureAsync(itemPicture.ItemId, itemPicture.Id, CancellationToken).ConfigureAwait(false);
-        pictures = await GetItemPicturesAsync().ConfigureAwait(false);
+        itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }
 
     private async Task DeleteItemAsync()
     {
         await Service.DeleteItemAsync(item.Id, CancellationToken);
         NavigationManager.NavigateTo("/Items");
+    }
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        int maxAllowedFiles = int.MaxValue;
+        long maxFileSize = long.MaxValue;
+
+        using var content = new MultipartFormDataContent();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            var fileContent = new StreamContent(file.OpenReadStream(maxFileSize));
+            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+
+            content.Add(
+                content: fileContent,
+                name: "\"files\"",
+                fileName: file.Name);
+        }
+
+        await Service.AddItemPicturesAsync(content, Id.Value, CancellationToken).ConfigureAwait(false);
+
+        itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }
 }

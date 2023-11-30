@@ -7,7 +7,7 @@ namespace ServerDataProvider;
 
 public partial class Service : IItemPictureService
 {
-    public async Task<IEnumerable<long>> AddItemPictureAsync(MultipartFormDataContent pictures, long itemId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<long>> AddItemPicturesAsync(MultipartFormDataContent pictures, long itemId, CancellationToken cancellationToken)
     {
         var response = await httpClient.PostAsync($"{itemRequestUri}/{itemId}/Pictures", pictures, cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();

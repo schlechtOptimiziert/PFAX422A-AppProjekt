@@ -139,7 +139,7 @@ partial class ItemDetails : BasePage
                 fileName: file.Name);
         }
 
-        await Service.AddItemPictureAsync(content, Id.Value, CancellationToken).ConfigureAwait(false);
+        await Service.AddItemPicturesAsync(content, Id.Value, CancellationToken).ConfigureAwait(false);
 
         itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
     }

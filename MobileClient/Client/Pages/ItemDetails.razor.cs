@@ -42,8 +42,13 @@ partial class ItemDetails : BasePage
     private async Task AddItemToCartAsync(string userId, long itemId, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(userId))
+        {
             ToastService.ShowError("Could not get logged in user");
+        }
         else
+        {
             await Service.AddItemToCartAsync(userId, itemId, cancellationToken);
+            NavigationManager.NavigateTo("/cart");
+        }
     }
 }

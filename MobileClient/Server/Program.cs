@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -17,10 +18,24 @@ public class Program
 
         // Add services to the container.
         var baseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "AppProject");
-        builder.Configuration.AddJsonFile(Path.Combine(baseFolder, "appsettings.json"));
+        builder.Configuration.AddJsonFile(Path.Combine(baseFolder, "appsettings.json"), true);
         builder.Configuration.AddEnvironmentVariables();
 
-        var serviceConfig = builder.Configuration.Get<TM.ServiceConfiguration>() ?? throw new NullReferenceException("appsettings.json does not exist.");
+        var serviceConfig = builder.Configuration.Get<TM.ServiceConfiguration>();
+        if (serviceConfig?.ConnectionStrings is null)
+        {
+            var DbConString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
+                ?? throw new ConfigurationErrorsException("DB Connectionstring can not be set. Appsettings.json was not found and no Environment Variable was set.");
+
+            serviceConfig = new TM.ServiceConfiguration()
+            {
+                ConnectionStrings = new()
+                {
+                    Db = DbConString,
+                },
+            };
+        }
+
         builder.Services.AddSingleton(serviceConfig);
 
         builder.Services.AddDatabase(serviceConfig.ConnectionStrings.Db);

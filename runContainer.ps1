@@ -1,0 +1,1 @@
+docker run --network host -e DB_CONNECTION_STRING='data source=Localhost;initial catalog=AppProject;App=EntityFramework;Integrated Security=True;TrustServerCertificate=True' pfax422a-approjekt

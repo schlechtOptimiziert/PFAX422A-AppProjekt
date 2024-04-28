@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Blazored.Toast;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
@@ -33,17 +32,17 @@ public class Program
                 client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
             });
 
-        builder.Services.AddHttpClient(
-            "AdminClient.ServerAPI",
-            client =>
-            {
-                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
-            }).AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+        //builder.Services.AddHttpClient(
+        //    "AdminClient.ServerAPI",
+        //    client =>
+        //    {
+        //        client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+        //    }).AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
         // Supply HttpClient instances that include access tokens when making requests to the server project
         builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AdminClient.ServerAPI"));
 
-        builder.Services.AddApiAuthorization();
+        //builder.Services.AddApiAuthorization();
 
         await builder.Build().RunAsync();
     }

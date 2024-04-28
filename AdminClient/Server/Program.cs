@@ -1,13 +1,10 @@
-using Microsoft.AspNetCore.Authentication;
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.IO;
 using TM = TransferModel;
 
 namespace AdminClient;
@@ -20,13 +17,28 @@ public class Program
 
         // Add services to the container.
         var baseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "AppProject");
-        builder.Configuration.AddJsonFile(Path.Combine(baseFolder, "appsettings.json"));
+        builder.Configuration.AddJsonFile(Path.Combine(baseFolder, "appsettings.json"), true);
         builder.Configuration.AddEnvironmentVariables();
 
-        var serviceConfig = builder.Configuration.Get<TM.ServiceConfiguration>() ?? throw new NullReferenceException("appsettings.json does not exist.");
+        var serviceConfig = builder.Configuration.Get<TM.ServiceConfiguration>();
+        if (serviceConfig?.ConnectionStrings is null)
+        {
+            var DbConString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
+                ?? throw new Exception("DB Connectionstring can not be set. Appsettings.json was not found and no Environment Variable was set.");
+
+            serviceConfig = new TM.ServiceConfiguration()
+            {
+                ConnectionStrings = new()
+                {
+                    Db = DbConString,
+                },
+            };
+        }
+
+
         builder.Services.AddSingleton(serviceConfig);
 
-        builder.Services.AddDatabase(serviceConfig.ConnectionStrings.Db);
+        builder.Services.AddDatabaseNoAuth(serviceConfig.ConnectionStrings.Db);
 
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
@@ -58,8 +70,7 @@ public class Program
 
         app.UseRouting();
 
-        app.UseIdentityServer();
-        app.UseAuthorization();
+        //app.UseAuthorization();
 
         app.MapRazorPages();
         app.MapControllers();

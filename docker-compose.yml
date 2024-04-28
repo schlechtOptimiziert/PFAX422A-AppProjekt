@@ -1,0 +1,15 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+version: '3.4'
+
+services:
+  blazorhosted:
+    image: blazorhosted
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DB_CONNECTION_STRING='data source=Localhost;initial catalog=AppProject;App=EntityFramework;Integrated Security=True;TrustServerCertificate=True'
+#    network_mode: "host"
+    ports:
+      - 6080:80
+      - 6443:443

@@ -83,6 +83,9 @@ namespace DatabaseDefintion.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("AltText")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FileName")
                         .HasColumnType("nvarchar(max)");
 

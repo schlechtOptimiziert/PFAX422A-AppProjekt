@@ -51,6 +51,17 @@ public class ItemPictureRepository : IItemPictureRepository
         dbContext.ItemPictures.Remove(dbItemPicture);
         await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
+
+    public async Task UpdateAltTextsItemPictureAsync(IEnumerable<TM.ItemPicture> pictures, CancellationToken cancellationToken)
+    {
+        foreach (var picture in pictures)
+        {
+            var dbPicture = dbContext.ItemPictures.FirstOrDefault(p => p.Id == picture.Id);
+            if (dbPicture != null)
+                dbPicture.AltText = picture.AltText;
+        }
+        await dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
 
 public static class ItemPictureHelper
@@ -64,6 +75,7 @@ public static class ItemPictureHelper
 
         to.ItemId = from.ItemId;
         to.FileName = from.FileName;
+        to.AltText = from.AltText;
 
         return to;
     }
@@ -74,5 +86,6 @@ public static class ItemPictureHelper
             Id = picture.Id,
             ItemId = picture.ItemId,
             FileName = picture.FileName,
+            AltText = picture.AltText,
         };
 }

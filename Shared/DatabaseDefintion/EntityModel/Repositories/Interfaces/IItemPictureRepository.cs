@@ -11,4 +11,5 @@ public interface IItemPictureRepository
     Task<IEnumerable<TM.ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken);
     Task<TM.ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken);
     Task DeleteItemPictureAsync(long id, CancellationToken cancellationToken);
+    Task UpdateAltTextsItemPictureAsync(IEnumerable<TM.ItemPicture> pictures, CancellationToken cancellationToken);
 }

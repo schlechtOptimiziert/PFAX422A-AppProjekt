@@ -66,6 +66,13 @@ partial class ItemDetails : BasePage
         IsLoading = false;
     }
 
+    private async Task SaveAltText()
+    {
+        IsLoading = true;
+        await Service.UpdateAltTextsAsync(item.Id, itemPictures, CancellationToken).ConfigureAwait(false);
+        IsLoading = false;
+    }
+
     private async Task<long> AddItemAsync()
         => await Service.AddItemAsync(item, CancellationToken).ConfigureAwait(false);
 

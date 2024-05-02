@@ -6,6 +6,7 @@ using DatabaseDefinition.EntityModel.Repositories.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TransferModel;
 using TM = TransferModel;
 
 namespace AdminClient.Server.Controllers;
@@ -48,4 +49,10 @@ public class ItemPicturesController : ControllerBase
     [HttpDelete("{itemId}/Pictures/{id}")]
     public Task DeleteItemAsync(long id, CancellationToken cancellationToken)
         => itemPictureRepository.DeleteItemPictureAsync(id, cancellationToken);
+
+    [HttpPost("{itemId}/PicturesAltText")]
+    public async Task UpdateItemPicturesAltTextAsync(IEnumerable<ItemPicture> pictures, CancellationToken cancellationToken)
+    {
+        await itemPictureRepository.UpdateAltTextsItemPictureAsync(pictures, cancellationToken).ConfigureAwait(false);
+    }
 }

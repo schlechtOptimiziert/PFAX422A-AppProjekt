@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using TransferModel;
+﻿using TransferModel;
 
 namespace ServerDataProvider.Interfaces;
 
@@ -14,4 +8,5 @@ public interface IItemPictureService
     Task<IEnumerable<ItemPicture>> GetItemPicturesAsync(long itemId, CancellationToken cancellationToken);
     Task<ItemPicture> GetItemCoverPictureAsync(long itemId, CancellationToken cancellationToken);
     Task DeleteItemPictureAsync(long itemId, long id, CancellationToken cancellationToken);
+    Task UpdateAltTextsAsync(long itemId, IEnumerable<ItemPicture> pictures, CancellationToken cancellationToken);
 }

@@ -11,6 +11,7 @@ public class ItemPicture
     [ForeignKey("Item")]
     public long ItemId { get; set; }
     public string FileName { get; set; }
+    public string AltText { get; set; }
 
     [DeleteBehavior(DeleteBehavior.NoAction)]
     public Item Item { get; set; }

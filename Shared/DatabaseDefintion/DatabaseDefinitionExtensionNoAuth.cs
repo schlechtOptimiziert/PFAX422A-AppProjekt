@@ -12,7 +12,6 @@ public static class DatabaseDefinitionExtensionNoAuth
     {
         serviceCollection.AddDbContext<AppProjectDbContext>(options =>
             options.UseSqlServer(connectionString));
-        serviceCollection.AddDatabaseDeveloperPageExceptionFilter();
 
         serviceCollection.AddScoped<IItemRepository, ItemRepository>();
         serviceCollection.AddScoped<IItemPictureRepository, ItemPictureRepository>();

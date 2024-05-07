@@ -42,9 +42,25 @@ public class ItemRepository : IItemRepository
     }
 
     public async Task<IEnumerable<TM.Item>> GetItemsAsync(CancellationToken cancellationToken)
-        => await dbContext.Items.Select(ItemHelper.MapItem)
-            .ToArrayAsync(cancellationToken)
-            .ConfigureAwait(false);
+    {
+        var a = await dbContext.Items.ToArrayAsync(cancellationToken).ConfigureAwait(false);
+
+        var list = new List<TM.Item>();
+        foreach (var item in a)
+        {
+            var i = new TM.Item()
+            {
+
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price,
+            };
+            list.Add(i);
+        }
+        return list;
+        //return await a.ToArrayAsync(cancellationToken).ConfigureAwait(false);
+    }
 
     public async Task<TM.Item> GetItemAsync(long itemId, CancellationToken cancellationToken)
     {

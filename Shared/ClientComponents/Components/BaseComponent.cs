@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using ServerDataProvider.Interfaces;
 
 namespace ClientComponents.Components;
@@ -17,8 +15,8 @@ public class BaseComponent : ComponentBase
     public IService Service { get; set; }
     [Inject]
     public NavigationManager NavigationManager { get; set; }
-    [Inject]
-    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+    //[Inject]
+    //public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
     [Inject]
     public ToastService ToastService { get; set; }
 
@@ -31,12 +29,12 @@ public class BaseComponent : ComponentBase
     protected async override Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(false);
-        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        if (authenticationState != null)
-        {
-            var user = authenticationState.User;
-            UserId = user.Claims.SingleOrDefault(c => c.Type == "sub")?.Value;
-        }
+        //var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        //if (authenticationState != null)
+        //{
+        //    var user = authenticationState.User;
+        //    UserId = user.Claims.SingleOrDefault(c => c.Type == "sub")?.Value;
+        //}
     }
 }
 

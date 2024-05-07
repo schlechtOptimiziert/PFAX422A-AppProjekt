@@ -1,9 +1,10 @@
 using System;
 using System.IO;
+using DatabaseDefinition.EntityModel;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using TM = TransferModel;
 
@@ -43,6 +44,9 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
 
+        var dbContext = builder.Services.BuildServiceProvider().GetRequiredService<AppProjectDbContext>();
+        dbContext.Database.Migrate();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -62,11 +66,11 @@ public class Program
 
         app.UseBlazorFrameworkFiles();
         app.UseStaticFiles();
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "uploads")),
-            RequestPath = "/Images"
-        });
+        //app.UseStaticFiles(new StaticFileOptions
+        //{
+        //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "uploads")),
+        //    RequestPath = "/Images"
+        //});
 
         app.UseRouting();
 

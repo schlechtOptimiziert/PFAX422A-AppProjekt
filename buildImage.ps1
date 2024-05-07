@@ -1,1 +1,0 @@
-docker build -t pfax422a-approjekt -f Dockerfile .

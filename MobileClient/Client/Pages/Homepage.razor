@@ -6,7 +6,7 @@
     @foreach (var platform in platforms)
     {
         <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList(platform)" Style="background-color: var(--secondary);">
-            <img class="platformImage" src="@($"../icons/{platform.Name}.svg")" />
+            <img class="platformImage" src="@($"../icons/{platform.Name}.svg")" alt="@platform.Name" />
         </MudButton>
     }
     <MudButton Variant="Variant.Filled" Class="rounded-circle" OnClick="() => NavigateToList()" Style="background-color: var(--secondary);">

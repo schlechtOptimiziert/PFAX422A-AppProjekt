@@ -11,4 +11,5 @@ public class Item
     public IEnumerable<Platform> Platforms { get; set; }
 
     public string CoverPicturePath { get; set; }
+    public string CoverPictureAltText { get; set; }
 }

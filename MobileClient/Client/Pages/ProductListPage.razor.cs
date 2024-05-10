@@ -31,7 +31,10 @@ public partial class ProductListPage : BasePage
             var coverPicture = await Service.GetItemCoverPictureAsync(item.Id, CancellationToken).ConfigureAwait(false);
 
             if (coverPicture != null)
+            {
                 item.CoverPicturePath = $"/Images/{coverPicture.FileName}";
+                item.CoverPictureAltText = coverPicture.AltText;
+            }
         }
     }
 

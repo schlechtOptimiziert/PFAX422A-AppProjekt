@@ -10,11 +10,15 @@
 <MudLayout>
     <div class="headerContainer">
         <MudImage Src="..\Assets\LogoTemp.png" Class="d-flex mx-auto mb-1" Style="Height:4rem;" onclick="@(() => NavigationManager.NavigateTo("/"))" />
-        <SearchBar Style="border-radius:0.5rem; padding-left:0.2rem; padding-right:0.2rem; background-color:white;" />
     </div>
     <div style="margin-bottom:4rem;">
         @Body
     </div>
+    <SearchBar Style="border-radius:0.5rem; padding-left:0.2rem; padding-right:0.2rem; background-color:white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    margin-bottom:3rem;" />
     <MudTabs Outlined="true" Centered="true" Style="position:fixed; bottom:0;" Position="Position.Bottom" MinimumTabWidth="calc(100vw/3 - 1px)">
         <MudTabPanel Icon="@Icons.Material.Filled.Home" OnClick="@(() => NavigationManager.NavigateTo("/"))" />
         <MudTabPanel Icon="@Icons.Material.Filled.ShoppingBag" OnClick="@(() => NavigationManager.NavigateTo("/cart"))" />

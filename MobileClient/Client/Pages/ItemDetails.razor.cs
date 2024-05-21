@@ -12,6 +12,7 @@ partial class ItemDetails : BasePage
 {
     private Item item;
     private IEnumerable<string> pictures = Enumerable.Empty<string>();
+    private IEnumerable<ItemPicture> itemPictures = Enumerable.Empty<ItemPicture>();
 
     [Parameter]
     public long? Id { get; set; }
@@ -21,7 +22,8 @@ partial class ItemDetails : BasePage
         IsLoading = true;
         await base.OnInitializedAsync().ConfigureAwait(false);
         item = await GetItemAsync().ConfigureAwait(false);
-        pictures = (await GetItemPicturesAsync().ConfigureAwait(false))?.Select(x => $"/Images/{x.FileName}");
+        itemPictures = await GetItemPicturesAsync().ConfigureAwait(false);
+        pictures = itemPictures?.Select(x => $"/Images/{x.FileName}");
         IsLoading = false;
     }
 
@@ -50,5 +52,10 @@ partial class ItemDetails : BasePage
             await Service.AddItemToCartAsync(userId, itemId, cancellationToken);
             NavigationManager.NavigateTo("/cart");
         }
+    }
+
+    private string GetAltTag(string context)
+    {
+        return itemPictures.FirstOrDefault(p => context.Contains(p.FileName))?.AltText;
     }
 }
